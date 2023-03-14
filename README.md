@@ -27,6 +27,7 @@ Login page
 5) Create/edit/delete playlist
 6) Search tracks by title and artist
 7) Autoreplay track
+8) Virtualization
 
 # Data models description
 User:
