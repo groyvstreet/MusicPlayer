@@ -2,6 +2,8 @@ body {
     background: #666666;
     font-family: sans-serif;
     font-size: 14px;
+    margin: 0;
+    text-align: center;
 }
 
 nav {
@@ -205,4 +207,21 @@ nav {
 
 .player-bar-time {
     float: right;
+}
+
+.search {
+    width: 80%;
+    height: 40px;
+    background: #AAAAAA;
+    font-size: 20px;
+    border: 1px solid #666666;
+    border-radius: 10px;
+    margin-top: 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+    outline: none;
+}
+
+.search:focus {
+    border: 1px solid #25ff37;
 }
