@@ -10,6 +10,7 @@ nav {
     width: 100%;
     height: 50px;
     background: black;
+    position: fixed;
     text-align: center;
 }
 
@@ -70,9 +71,9 @@ nav {
     width: 100%;
     height: 100px;
     background: #333333;
-    text-align: center;
     position: fixed;
     bottom: 0px;
+    text-align: center;
 }
 
 .player > img {
@@ -214,14 +215,112 @@ nav {
     height: 40px;
     background: #AAAAAA;
     font-size: 20px;
-    border: 1px solid #666666;
+    border: 2px solid #666666;
     border-radius: 10px;
-    margin-top: 25px;
+    margin-top: 75px;
     padding-left: 30px;
     padding-right: 30px;
     outline: none;
 }
 
 .search:focus {
-    border: 1px solid #25ff37;
+    background: #333333;
+    border: 2px solid #1ED760;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: 210px;
+    padding: 0;
+}
+
+.track {
+    width: 80%;
+    height: 60px;
+    background: #333333;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.track-album {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    padding: 0;
+    float: left;
+}
+
+.track-album > img {
+    width: 60px;
+    height: 60px;
+}
+
+.track-description {
+    float: left;
+}
+
+.track-title {
+    color: white;
+    line-height: 20px;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.track-artist {
+    color: #AAAAAA;
+    line-height: 20px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.track-favorite {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+    margin-top: 20px;
+    margin-right: 20px;
+    float: right;
+}
+
+.track-favorite > img {
+    width: 20px;
+    height: 20px;
+}
+
+.track-play {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+    margin-top: 20px;
+    margin-right: 20px;
+    float: right;
+}
+
+.track-play > img {
+    width: 20px;
+    height: 20px;
+}
+
+.playlist-add {
+    width: 40px;
+    height: 40px;
+    background: #666666;
+    display: block;
+    border: 0;
+    padding: 0;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.playlist-add > img {
+    width: 40px;
+    height: 40px;
 }
