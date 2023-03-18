@@ -459,3 +459,25 @@ input:focus {
 .profile-input {
     margin: 0;
 }
+
+.artist {
+    width: 80%;
+    height: 60px;
+    background: #333333;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.artist-img {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    padding: 0;
+    float: left;
+}
+
+.artist-img > img {
+    width: 60px;
+    height: 60px;
+}
