@@ -40,10 +40,27 @@ User:
     favorites_tracks_amount
     playlists
     playlists_amount
+
+Playlist:
+    id
+    title
+    description
+    image
+    tracks
+    tracks_amount
+    
+Album:
+    id
+    title
+    type
+    image
+    tracks
+    tracks_amount
     
 Track:
     id
     title
+    image
     artists
     src
     
