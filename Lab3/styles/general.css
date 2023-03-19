@@ -69,6 +69,11 @@ ul {
 .card-favorite > img {
     width: 20px;
     height: 20px;
+    filter: brightness(80%);
+}
+
+.card-favorite > img:hover {
+    filter: brightness(200%);
 }
 
 .card-play {
@@ -85,6 +90,11 @@ ul {
 .card-play > img {
     width: 20px;
     height: 20px;
+    filter: brightness(80%);
+}
+
+.card-play > img:hover {
+    filter: brightness(200%);
 }
 
 .preview {
@@ -119,6 +129,10 @@ h1 {
 
 h3 {
     color: #AAAAAA;
+}
+
+.preview-description > form {
+    display: inline;
 }
 
 .profile > img {

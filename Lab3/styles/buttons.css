@@ -9,6 +9,10 @@
     margin-top: 25px;
 }
 
+.button-main:hover {
+    cursor: pointer;
+}
+
 .button-info {
     width: 100px;
     height: 30px;
@@ -20,6 +24,10 @@
     margin-top: 25px;
 }
 
+.button-info:hover {
+    cursor: pointer;
+}
+
 .button-danger {
     width: 100px;
     height: 30px;
@@ -29,6 +37,10 @@
     font-weight: 600;
     margin: 2px;
     margin-top: 25px;
+}
+
+.button-danger:hover {
+    cursor: pointer;
 }
 
 .button-add {
@@ -45,4 +57,10 @@
 .button-add > img {
     width: 40px;
     height: 40px;
+}
+
+.button-add > img:hover {
+    width: 40px;
+    height: 40px;
+    filter: brightness(110%);
 }

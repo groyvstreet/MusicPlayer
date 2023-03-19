@@ -32,14 +32,16 @@
     </nav>
     <section class="sign">
         <h1>Регистрация</h1>
-        <form>
-            <input class="sign-input" type="email" placeholder="Email">
+        <form method="post">
+            <input class="sign-input" name="email" type="email" placeholder="Email">
             <br>
-            <input class="sign-input" type="text" placeholder="Никнейм">
+            <input class="sign-input" name="username" type="text" placeholder="Никнейм">
             <br>
-            <input class="sign-input" type="date">
+            <input class="sign-input" name="birthday" type="date">
             <br>
-            <input class="sign-input" type="password" placeholder="Пароль">
+            <input class="sign-input" name="password" type="password" placeholder="Пароль">
+            <br>
+            <input class="sign-input" name="confirmation" type="password" placeholder="Подтверждение">
             <br>
             <button class="button-main">
                 Создать
