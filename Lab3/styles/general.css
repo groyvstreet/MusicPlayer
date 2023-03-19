@@ -102,18 +102,24 @@ ul {
     margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .preview > img {
     width: 250px;
     height: 250px;
     object-fit: cover;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .preview-description {
     display: inline-block;
     text-align: left;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 .preview-description > h1, h2, h3 {
