@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/player.css">
+    <link rel="stylesheet" href="styles/inputs.css">
+    <link rel="stylesheet" href="styles/buttons.css">
     <title>Профиль</title>
 </head>
 <body>
@@ -26,22 +30,24 @@
             <img src="img/avatar.jpg">
         </button>
     </nav>
-    <img class="profile-img" src="img/avatar.jpg">
-    <br>
-    <button class="button-main">
-        Сохранить
-    </button>
-    <br>
-    <input type="email" value="kraken@gmail.com" placeholder="Email">
-    <br>
-    <input class="profile-input" type="text" value="kraken" placeholder="Никнейм">
-    <br>
-    <input class="profile-input" type="date">
-    <div class="profile-info">
-        <span class="profile-info">Любимые треки: 99</span>
+    <section class="profile">
+        <img src="img/avatar.jpg">
         <br>
-        <span class="profile-info">Плейлисты: 3</span>
-    </div>
+        <button class="button-main">
+            Сохранить
+        </button>
+        <br>
+        <input type="email" value="kraken@gmail.com" placeholder="Email">
+        <br>
+        <input class="profile-input" type="text" value="kraken" placeholder="Никнейм">
+        <br>
+        <input class="profile-input" type="date">
+        <div class="profile-info">
+            <span>Любимые треки: 99</span>
+            <br>
+            <span>Плейлисты: 3</span>
+        </div>
+    </section>
     <section class="player">
         <img src="img/track.png">
         <div class="player-track">

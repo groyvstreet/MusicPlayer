@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/player.css">
+    <link rel="stylesheet" href="styles/inputs.css">
+    <link rel="stylesheet" href="styles/buttons.css">
     <title>Регистрация</title>
 </head>
 <body>
@@ -26,24 +30,24 @@
             <img src="img/avatar.jpg">
         </button>
     </nav>
-    <section class="sign_in">
-        <h1 class="sign_in-title">Регистрация</h1>
-        <form class="" action="signin.html">
-            <input class="sign_in-input" type="email" placeholder="Email">
+    <section class="sign">
+        <h1>Регистрация</h1>
+        <form>
+            <input class="sign-input" type="email" placeholder="Email">
             <br>
-            <input class="sign_in-input" type="text" placeholder="Никнейм">
+            <input class="sign-input" type="text" placeholder="Никнейм">
             <br>
-            <input class="sign_in-input" type="date">
+            <input class="sign-input" type="date">
             <br>
-            <input class="sign_in-input" type="password" placeholder="Пароль">
+            <input class="sign-input" type="password" placeholder="Пароль">
             <br>
-            <button class="button-main sign_in-button">
+            <button class="button-main">
                 Создать
             </button>
-            <button class="button-info sign_in-button">
-                Войти
-            </button>
         </form>
+        <button class="button-info" onclick="document.location='signin.html'">
+            Войти
+        </button>
     </section>
     <section class="player">
         <img src="img/track.png">

@@ -1,0 +1,18 @@
+input {
+    width: 80%;
+    height: 40px;
+    background: #AAAAAA;
+    font-size: 20px;
+    border: 2px solid #666666;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 25px;
+    outline: none;
+}
+
+input:focus {
+    background: #333333;
+    border: 2px solid #1ED760;
+    color: white;
+}

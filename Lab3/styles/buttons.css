@@ -1,0 +1,48 @@
+.button-main {
+    width: 100px;
+    height: 30px;
+    background: #1ED760;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 2px;
+    margin-top: 25px;
+}
+
+.button-info {
+    width: 100px;
+    height: 30px;
+    background: #E1B661;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 2px;
+    margin-top: 25px;
+}
+
+.button-danger {
+    width: 100px;
+    height: 30px;
+    background: red;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 600;
+    margin: 2px;
+    margin-top: 25px;
+}
+
+.button-add {
+    width: 40px;
+    height: 40px;
+    background: #666666;
+    display: block;
+    border: 0;
+    padding: 0;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.button-add > img {
+    width: 40px;
+    height: 40px;
+}

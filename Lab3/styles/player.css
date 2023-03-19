@@ -1,0 +1,142 @@
+.player {
+    width: 100%;
+    height: 100px;
+    background: #333333;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+}
+
+.player > img {
+    width: 60px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+    float: left;
+}
+
+.player-track {
+    float: left;
+}
+
+.player-track-title {
+    width: 30px;
+    color: white;
+    line-height: 20px;
+    margin: 0;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.player-track-artist {
+    width: 30px;
+    color: #AAAAAA;
+    line-height: 20px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.player-controls {
+    display: inline-flex;
+}
+
+.player-controls-back {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    margin-top: 25px;
+    margin-right: 10px;
+    padding: 0;
+    border: 0;
+}
+
+.player-controls-back > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-controls-play {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    margin-top: 20px;
+    padding: 0;
+    border: 0;
+}
+
+.player-controls-play > img {
+    width: 30px;
+    height: 30px;
+}
+
+.player-controls-forward {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    margin-top: 25px;
+    margin-left: 10px;
+    padding: 0;
+    border: 0;
+}
+
+.player-controls-forward > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-repeat {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    margin-top: 35px;
+    margin-right: 15px;
+    padding: 0;
+    border: 0;
+    float: right;
+}
+
+.player-repeat > img {
+    width: 30px;
+    height: 30px;
+}
+
+.player-favorite {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    margin-top: 35px;
+    margin-left: 15px;
+    margin-right: 30px;
+    padding: 0;
+    border: 0;
+    float: right;
+}
+
+.player-favorite > img {
+    width: 30px;
+    height: 30px;
+}
+
+.player-bar {
+    background: #D9D9D9;
+    width: 50%;
+    height: 4px;
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player-bar-time-current, .player-bar-time {
+    margin-top: -14px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.player-bar-time-current {
+    float: left;
+}
+
+.player-bar-time {
+    float: right;
+}
