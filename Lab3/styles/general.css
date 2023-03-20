@@ -141,7 +141,7 @@ h3 {
     display: inline;
 }
 
-.profile > img {
+.profile-image {
     width: 300px;
     height: 300px;
     object-fit: cover;
