@@ -4,139 +4,148 @@
     background: #333333;
     position: fixed;
     bottom: 0px;
-    text-align: center;
+    display: flex;
+    align-items: center;
 }
 
 .player > img {
     width: 60px;
     height: 60px;
-    margin-top: 20px;
     margin-left: 20px;
-    float: left;
-}
-
-.player-track {
-    float: left;
-}
-
-.player-track-title {
-    width: 30px;
-    color: white;
-    line-height: 20px;
-    margin: 0;
-    margin-top: 30px;
-    margin-left: 10px;
-}
-
-.player-track-artist {
-    width: 30px;
-    color: #AAAAAA;
-    line-height: 20px;
-    margin: 0;
-    margin-left: 10px;
 }
 
 .player-controls {
-    display: inline-flex;
-}
-
-.player-controls-back {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    margin-top: 25px;
-    margin-right: 10px;
-    padding: 0;
-    border: 0;
-}
-
-.player-controls-back > img {
-    width: 20px;
-    height: 20px;
-}
-
-.player-controls-play {
-    width: 30px;
-    height: 30px;
-    background: #333333;
-    margin-top: 20px;
-    padding: 0;
-    border: 0;
-}
-
-.player-controls-play > img {
-    width: 30px;
-    height: 30px;
-}
-
-.player-controls-forward {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    margin-top: 25px;
-    margin-left: 10px;
-    padding: 0;
-    border: 0;
-}
-
-.player-controls-forward > img {
-    width: 20px;
-    height: 20px;
-}
-
-.player-repeat {
-    width: 30px;
-    height: 30px;
-    background: #333333;
-    margin-top: 35px;
-    margin-right: 15px;
-    padding: 0;
-    border: 0;
-    float: right;
-}
-
-.player-repeat > img {
-    width: 30px;
-    height: 30px;
-}
-
-.player-favorite {
-    width: 30px;
-    height: 30px;
-    background: #333333;
-    margin-top: 35px;
-    margin-left: 15px;
-    margin-right: 30px;
-    padding: 0;
-    border: 0;
-    float: right;
-}
-
-.player-favorite > img {
-    width: 30px;
-    height: 30px;
-}
-
-.player-bar {
-    background: #D9D9D9;
     width: 50%;
-    height: 4px;
-    margin-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
 }
 
-.player-bar-time-current, .player-bar-time {
-    margin-top: -14px;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
+.player-controls-buttons {
+    display: flex;
+    align-items: center;
+    grid-gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
 
-.player-bar-time-current {
+.player-controls-buttons-repeat {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+}
+
+.player-controls-buttons-repeat > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-controls-buttons-back {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+}
+
+.player-controls-buttons-back > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-controls-buttons-play {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+}
+
+.player-controls-buttons-play > img {
+    width: 30px;
+    height: 30px;
+}
+
+.player-controls-buttons-forward {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+}
+
+.player-controls-buttons-forward > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-controls-buttons-favorite {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+}
+
+.player-controls-buttons-favorite > img {
+    width: 20px;
+    height: 20px;
+}
+
+.player-controls-bar {
+    width: 100%;
+    height: 4px;
+    background: #AAAAAA;
+    border-radius: 4px;
+}
+
+.player-controls-bar-current {
+    width: 10%;
+    height: 4px;
+    background: white;
+    border-radius: 4px;
+}
+
+.player-controls-bar-time-current {
+    margin-top: -14px;
+    color: #AAAAAA;
+    font-size: 12px;
+    font-weight: 600;
     float: left;
 }
 
-.player-bar-time {
+.player-controls-bar-time {
+    margin-top: -18px;
+    color: #AAAAAA;
+    font-size: 12px;
+    font-weight: 600;
     float: right;
+}
+
+.player-track {
+    width: 60px;
+    margin-right: 20px;
+    text-align: left;
+}
+
+.player-track-title {
+    width: 60px;
+    color: white;
+    line-height: 20px;
+    margin: 0;
+}
+
+.player-track-artist {
+    width: 60px;
+    color: #AAAAAA;
+    line-height: 20px;
+    margin: 0;
 }

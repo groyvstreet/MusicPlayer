@@ -23,7 +23,7 @@ ul {
     margin-top: 25px;
 }
 
-.card-img {
+.card-button-img {
     width: 60px;
     height: 60px;
     border: 0;
@@ -31,13 +31,19 @@ ul {
     float: left;
 }
 
-.card-img > img {
+.card-button-img:hover {
+    cursor: pointer;
+}
+
+.card-img {
     width: 60px;
     height: 60px;
+    float: left;
 }
 
 .card-description {
     float: left;
+    text-align: left;
 }
 
 .card-title {
@@ -46,6 +52,28 @@ ul {
     margin-top: 10px;
     margin-left: 10px;
     line-height: 20px;
+}
+
+.card-button-info {
+    background: #333333;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.card-button-info:hover {
+    cursor: pointer;
+}
+
+.card-button-info > .card-info {
+    margin: 0;
+}
+
+.card-button-info > .card-info:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 .card-info {
