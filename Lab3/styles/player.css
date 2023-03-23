@@ -31,75 +31,6 @@
     margin-bottom: 20px;
 }
 
-.player-controls-buttons-repeat {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    border: 0;
-    padding: 0;
-}
-
-.player-controls-buttons-repeat > img {
-    width: 20px;
-    height: 20px;
-}
-
-.player-controls-buttons-back {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    border: 0;
-    padding: 0;
-    /* margin-left: 10px;
-    margin-right: 10px; */
-}
-
-.player-controls-buttons-back > img {
-    width: 20px;
-    height: 20px;
-}
-
-.player-controls-buttons-play {
-    width: 30px;
-    height: 30px;
-    background: #333333;
-    border: 0;
-    padding: 0;
-}
-
-.player-controls-buttons-play > img {
-    width: 30px;
-    height: 30px;
-}
-
-.player-controls-buttons-forward {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    border: 0;
-    padding: 0;
-    /* margin-left: 10px;
-    margin-right: 10px; */
-}
-
-.player-controls-buttons-forward > img {
-    width: 20px;
-    height: 20px;
-}
-
-.player-controls-buttons-favorite {
-    width: 20px;
-    height: 20px;
-    background: #333333;
-    border: 0;
-    padding: 0;
-}
-
-.player-controls-buttons-favorite > img {
-    width: 20px;
-    height: 20px;
-}
-
 .player-controls-bar {
     width: 100%;
     height: 4px;
@@ -108,7 +39,7 @@
 }
 
 .player-controls-bar-current {
-    width: 10%;
+    width: 40%;
     height: 4px;
     background: white;
     border-radius: 4px;
@@ -145,6 +76,9 @@
     color: white;
     line-height: 20px;
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .player-track-artist {
@@ -152,4 +86,7 @@
     color: #AAAAAA;
     line-height: 20px;
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

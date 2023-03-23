@@ -64,3 +64,39 @@
     height: 40px;
     filter: brightness(110%);
 }
+
+.button-image {
+    width: 20px;
+    height: 20px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+}
+
+.button-image > img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(80%);
+}
+
+.button-image > img:hover{
+    filter: brightness(200%);
+}
+
+.button-image-big {
+    width: 30px;
+    height: 30px;
+    background: #333333;
+    border: 0;
+    padding: 0;
+}
+
+.button-image-big > img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(80%);
+}
+
+.button-image-big > img:hover {
+    filter: brightness(200%);
+}
