@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="styles/cover-image-button/cover-image-button.css">
     <link rel="stylesheet" href="styles/cover-image/cover-image.css">
     <link rel="stylesheet" href="styles/input/input.css">
+    <link rel="stylesheet" href="styles/content/content.css">
     <title>Плейлист</title>
 </head>
 <body>
@@ -40,88 +41,90 @@
             <img class="nav__profile-image" src="img/avatar.jpg">
         </button>
     </nav>
-    <section class="preview">
-        <img class="preview__image" src="img/avatar.jpg">
-        <div class="preview__description">
-            <h1 class="preview__h1">Плейлист</h1>
-            <h2 class="preview__h2">Треки: 123</h2>
-            <h3 class="preview__h3">Плейлист, короче, крутой</h3>
-            <div class="preview__buttons">
-                <button class="button" onclick="document.location='playlist_edit.html'">
-                    Изменить
-                </button>
-                <button class="button button_type_danger">
-                    Удалить
-                </button>
+    <main class="content">
+        <section class="preview">
+            <img class="preview__image" src="img/avatar.jpg">
+            <div class="preview__description">
+                <h1 class="preview__h1">Плейлист</h1>
+                <h2 class="preview__h2">Треки: 123</h2>
+                <h3 class="preview__h3">Плейлист, короче, крутой</h3>
+                <div class="preview__buttons">
+                    <button class="button" onclick="document.location='playlist_edit.html'">
+                        Изменить
+                    </button>
+                    <button class="button button_type_danger">
+                        Удалить
+                    </button>
+                </div>
             </div>
-        </div>
-    </section>
-    <input class="input" type="search" placeholder="Поиск...">
-    <ul class="cards">
-        <li class="cards__card">
-            <section class="card">
-                <button class="cover-image-button" onclick="document.location='album.html'">
-                    <img class="cover-image" src="img/track.png">
-                </button>
-                <div class="card__description">
-                    <p class="title">Трек</p>
-                    <button class="info-button" onclick="document.location='artist.html'">
-                        <p class="info">Исполнитель</p>
+        </section>
+        <input class="input" type="search" placeholder="Поиск...">
+        <ul class="cards">
+            <li class="cards__card">
+                <section class="card">
+                    <button class="cover-image-button" onclick="document.location='album.html'">
+                        <img class="cover-image" src="img/track.png">
                     </button>
-                </div>
-                <div class="card__buttons">
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/heart.svg">
+                    <div class="card__description">
+                        <p class="title">Трек</p>
+                        <button class="info-button" onclick="document.location='artist.html'">
+                            <p class="info">Исполнитель</p>
+                        </button>
+                    </div>
+                    <div class="card__buttons">
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/heart.svg">
+                        </button>
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/forward.svg">
+                        </button>
+                    </div>
+                </section>
+            </li>
+            <li class="cards__card">
+                <section class="card">
+                    <button class="cover-image-button" onclick="document.location='album.html'">
+                        <img class="cover-image" src="img/track.png">
                     </button>
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/forward.svg">
+                    <div class="card__description">
+                        <p class="title">Трек</p>
+                        <button class="info-button" onclick="document.location='artist.html'">
+                            <p class="info">Исполнитель</p>
+                        </button>
+                    </div>
+                    <div class="card__buttons">
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/heart.svg">
+                        </button>
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/forward.svg">
+                        </button>
+                    </div>
+                </section>
+            </li>
+            <li class="cards__card">
+                <section class="card">
+                    <button class="cover-image-button" onclick="document.location='album.html'">
+                        <img class="cover-image" src="img/track.png">
                     </button>
-                </div>
-            </section>
-        </li>
-        <li class="cards__card">
-            <section class="card">
-                <button class="cover-image-button" onclick="document.location='album.html'">
-                    <img class="cover-image" src="img/track.png">
-                </button>
-                <div class="card__description">
-                    <p class="title">Трек</p>
-                    <button class="info-button" onclick="document.location='artist.html'">
-                        <p class="info">Исполнитель</p>
-                    </button>
-                </div>
-                <div class="card__buttons">
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/heart.svg">
-                    </button>
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/forward.svg">
-                    </button>
-                </div>
-            </section>
-        </li>
-        <li class="cards__card">
-            <section class="card">
-                <button class="cover-image-button" onclick="document.location='album.html'">
-                    <img class="cover-image" src="img/track.png">
-                </button>
-                <div class="card__description">
-                    <p class="title">Трек</p>
-                    <button class="info-button" onclick="document.location='artist.html'">
-                        <p class="info">Исполнитель</p>
-                    </button>
-                </div>
-                <div class="card__buttons">
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/heart.svg">
-                    </button>
-                    <button class="icon-button icon-button_size_small">
-                        <img class="icon-button__image" src="img/forward.svg">
-                    </button>
-                </div>
-            </section>
-        </li>
-    </ul>
+                    <div class="card__description">
+                        <p class="title">Трек</p>
+                        <button class="info-button" onclick="document.location='artist.html'">
+                            <p class="info">Исполнитель</p>
+                        </button>
+                    </div>
+                    <div class="card__buttons">
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/heart.svg">
+                        </button>
+                        <button class="icon-button icon-button_size_small">
+                            <img class="icon-button__image" src="img/forward.svg">
+                        </button>
+                    </div>
+                </section>
+            </li>
+        </ul>
+    </main>
     <section class="player">
         <div class="player__cover-image">
             <button class="cover-image-button">

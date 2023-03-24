@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="styles/cover-image/cover-image.css">
     <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
+    <link rel="stylesheet" href="styles/content/content.css">
     <title>Профиль</title>
 </head>
 <body>
@@ -39,27 +40,29 @@
             <img class="nav__profile-image" src="img/avatar.jpg">
         </button>
     </nav>
-    <section class="profile">
-        <form class="profile">
-            <div>
-                <img class="profile__image" src="img/avatar.jpg">
+    <main class="content">
+        <section class="profile">
+            <form class="profile">
+                <div>
+                    <img class="profile__image" src="img/avatar.jpg">
+                </div>
+                <div>
+                    <button class="button">
+                        Сохранить
+                    </button>
+                </div>
+                <div>
+                    <input class="input" type="email" value="kraken@gmail.com" placeholder="Email">
+                    <input class="input" type="text" value="kraken" placeholder="Никнейм">
+                    <input class="input" type="date">
+                </div>
+            </form>
+            <div class="profile__info">
+                <span>Любимые треки: 99</span>
+                <span>Плейлисты: 3</span>
             </div>
-            <div>
-                <button class="button">
-                    Сохранить
-                </button>
-            </div>
-            <div>
-                <input class="input" type="email" value="kraken@gmail.com" placeholder="Email">
-                <input class="input" type="text" value="kraken" placeholder="Никнейм">
-                <input class="input" type="date">
-            </div>
-        </form>
-        <div class="profile__info">
-            <span>Любимые треки: 99</span>
-            <span>Плейлисты: 3</span>
-        </div>
-    </section>
+        </section>
+    </main>
     <section class="player">
         <div class="player__cover-image">
             <button class="cover-image-button">

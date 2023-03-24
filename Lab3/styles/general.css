@@ -6,9 +6,9 @@ body {
     text-align: center;
     font-family: sans-serif;
     font-size: 14px;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     row-gap: 25px;
-    align-content: center;
+    align-content: center; */
 }

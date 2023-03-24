@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="styles/sign/sign.css">
     <link rel="stylesheet" href="styles/button/button.css">
     <link rel="stylesheet" href="styles/button/_type/button_type_secondary.css">
+    <link rel="stylesheet" href="styles/content/content.css">
     <title>Регистрация</title>
 </head>
 <body>
@@ -40,36 +41,38 @@
             <img class="nav__profile-image" src="img/avatar.jpg">
         </button>
     </nav>
-    <section class="sign">
-        <h1 class="sign__h1">Регистрация</h1>
-        <form method="post">
+    <main class="content">
+        <section class="sign">
+            <h1 class="sign__h1">Регистрация</h1>
+            <form method="post">
+                <div class="sign__elem">
+                    <input class="input" name="email" type="email" placeholder="Email">
+                </div>
+                <div class="sign__elem">
+                    <input class="input" name="username" type="text" placeholder="Никнейм">
+                </div>
+                <div class="sign__elem">
+                    <input class="input" name="birthday" type="date">
+                </div>
+                <div class="sign__elem">
+                    <input class="input" name="password" type="password" placeholder="Пароль">
+                </div>
+                <div class="sign__elem">
+                    <input class="input" name="confirmation" type="password" placeholder="Подтверждение">
+                </div>
+                <div class="sign__elem">
+                    <button class="button">
+                        Создать
+                    </button>
+                </div>
+            </form>
             <div class="sign__elem">
-                <input class="input" name="email" type="email" placeholder="Email">
-            </div>
-            <div class="sign__elem">
-                <input class="input" name="username" type="text" placeholder="Никнейм">
-            </div>
-            <div class="sign__elem">
-                <input class="input" name="birthday" type="date">
-            </div>
-            <div class="sign__elem">
-                <input class="input" name="password" type="password" placeholder="Пароль">
-            </div>
-            <div class="sign__elem">
-                <input class="input" name="confirmation" type="password" placeholder="Подтверждение">
-            </div>
-            <div class="sign__elem">
-                <button class="button">
-                    Создать
+                <button class="button button_type_secondary" onclick="document.location='signin.html'">
+                    Войти
                 </button>
             </div>
-        </form>
-        <div class="sign__elem">
-            <button class="button button_type_secondary" onclick="document.location='signin.html'">
-                Войти
-            </button>
-        </div>
-    </section>
+        </section>
+    </main>
     <section class="player">
         <div class="player__cover-image">
             <button class="cover-image-button">

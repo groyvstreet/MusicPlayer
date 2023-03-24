@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/cover-image/cover-image.css">
     <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
+    <link rel="stylesheet" href="styles/content/content.css">
     <title>Плейлист</title>
 </head>
 <body>
@@ -37,22 +38,24 @@
             <img class="nav__profile-image" src="img/avatar.jpg">
         </button>
     </nav>
-    <form class="preview" method="post">
-        <img class="preview__image" src="img/avatar.jpg">
-        <div class="preview__edit-block">
-            <div>
-                <input class="input" type="text" placeholder="Название">
+    <main class="content">
+        <form class="preview" method="post">
+            <img class="preview__image" src="img/avatar.jpg">
+            <div class="preview__edit-block">
+                <div>
+                    <input class="input" type="text" placeholder="Название">
+                </div>
+                <div>
+                    <input class="input" type="text" placeholder="Описание">
+                </div>
+                <div>
+                    <button class="button">
+                        Сохранить
+                    </button>
+                </div>
             </div>
-            <div>
-                <input class="input" type="text" placeholder="Описание">
-            </div>
-            <div>
-                <button class="button">
-                    Сохранить
-                </button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </main>
     <section class="player">
         <div class="player__cover-image">
             <button class="cover-image-button">
