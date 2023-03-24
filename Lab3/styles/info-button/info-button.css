@@ -1,0 +1,19 @@
+.info-button {
+    background: #333333;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    /* min-width: 0; */
+    max-width: 100%;
+}
+
+.info-button:hover {
+    cursor: pointer;
+}
+
+.info-button:hover > .info {
+    color: white;
+    text-decoration: underline;
+}

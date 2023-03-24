@@ -1,0 +1,5 @@
+.preview__buttons {
+    display: flex;
+    justify-content: center;
+    grid-gap: 10px;
+}

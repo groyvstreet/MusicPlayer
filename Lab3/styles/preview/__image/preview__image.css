@@ -1,0 +1,7 @@
+.preview__image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    margin-left: 20px;
+    margin-right: 20px;
+}

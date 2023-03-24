@@ -1,0 +1,10 @@
+@import url(./__h1/sign__h1.css);
+@import url(./__elem/sign__elem.css);
+
+.sign {
+    width: 70%;
+    background: #333333;
+    border-radius: 20px;
+    padding: 50px;
+    color: white;
+}

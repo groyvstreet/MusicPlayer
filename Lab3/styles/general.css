@@ -1,20 +1,25 @@
 body {
     background: #666666;
-    padding-top: 50px;
+    padding-top: 75px;
     padding-bottom: 125px;
     margin: 0;
     text-align: center;
     font-family: sans-serif;
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 25px;
+    align-content: center;
 }
 
-ul {
+/* ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
+} */
 
-.card {
+/* .card {
     width: 80%;
     height: 60px;
     background: #333333;
@@ -23,9 +28,9 @@ ul {
     margin-top: 25px;
     display: flex;
     align-items: center;
-}
+} */
 
-.card-button-img {
+/* .card-button-img {
     width: 60px;
     height: 60px;
     border: 0;
@@ -34,23 +39,23 @@ ul {
 
 .card-button-img:hover {
     cursor: pointer;
-}
+} */
 
-.card-img {
+/* .card-img {
     width: 60px;
     height: 60px;
-}
+} */
 
-.card-description {
+/* .card-description {
     margin-left: 10px;
     margin-right: auto;
     text-align: left;
     display: flex;
     flex-wrap: wrap;
     min-width: 0;
-}
+} */
 
-.card-description-title {
+/* .card-description-title {
     width: 100%;
     color: white;
     margin: 0;
@@ -58,9 +63,9 @@ ul {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
-.card-description-button-info {
+/* .card-description-button-info {
     background: #333333;
     border: 0;
     padding: 0;
@@ -75,9 +80,9 @@ ul {
 .card-description-button-info > .card-description-info:hover {
     color: white;
     text-decoration: underline;
-}
+} */
 
-.card-description-info {
+/* .card-description-info {
     width: 100%;
     color: #AAAAAA;
     margin: 0;
@@ -85,16 +90,16 @@ ul {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
-.card-buttons {
+/* .card-buttons {
     display: flex;
     grid-gap: 20px;
     margin-left: 20px;
     margin-right: 20px;
-}
+} */
 
-.preview {
+/* .preview {
     width: 80%;
     margin-top: 25px;
     margin-left: auto;
@@ -102,76 +107,64 @@ ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-}
+} */
 
-.preview > img {
+/* .preview > img {
     width: 250px;
     height: 250px;
     object-fit: cover;
     margin-left: 20px;
     margin-right: 20px;
-}
+} */
 
-.preview-description {
+/* .preview-description {
     display: inline-block;
     text-align: left;
     margin-left: 20px;
     margin-right: 20px;
-}
+} */
 
-.preview-description > h1, h2, h3 {
+/* .preview__description > h1, h2, h3 {
     max-width: 250px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: white;
-}
+} */
 
-h1 {
+/* h1 {
     font-size: 36px;
-}
+} */
 
-h3 {
+/* h3 {
     color: #AAAAAA;
-}
+} */
 
-.preview-description > form {
-    display: inline;
-}
-
-.profile-image {
+/* .profile-image {
     width: 300px;
     height: 300px;
     object-fit: cover;
     margin-top: 25px;
     border-radius: 50%;
-}
+} */
 
-.profile-input {
-    margin: 0;
-}
-
-.profile-info {
+/* .profile-info {
     color: white;
     margin-top: 25px;
     font-size: 24px;
     line-height: 34px;
-}
+} */
 
-.sign {
+/* .sign {
     width: 70%;
     background: #333333;
     margin: auto;
-    margin-top: 25px;
     margin-bottom: 25px;
     border-radius: 20px;
     padding: 50px;
-}
+} */
 
-.sign > h1 {
+/* .sign > h1 {
     color: white;
     margin: 0;
-}
-
-.sign-input {
-    width: 70%;
-}
+} */

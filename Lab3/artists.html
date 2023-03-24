@@ -5,77 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/nav.css">
-    <link rel="stylesheet" href="styles/player.css">
-    <link rel="stylesheet" href="styles/inputs.css">
-    <link rel="stylesheet" href="styles/buttons.css">
+    <link rel="stylesheet" href="styles/nav/nav.css">
+    <link rel="stylesheet" href="styles/player/player.css">
+    <link rel="stylesheet" href="styles/cards/cards.css">
+    <link rel="stylesheet" href="styles/card/card.css">
+    <link rel="stylesheet" href="styles/icon-button/icon-button.css">
+    <link rel="stylesheet" href="styles/title/title.css">
+    <link rel="stylesheet" href="styles/info-button/info-button.css">
+    <link rel="stylesheet" href="styles/info/info.css">
+    <link rel="stylesheet" href="styles/cover-image-button/cover-image-button.css">
+    <link rel="stylesheet" href="styles/cover-image/cover-image.css">
+    <link rel="stylesheet" href="styles/input/input.css">
     <title>Исполнители</title>
 </head>
 <body>
-    <nav>
-        <img class="logo" src="img/logo.svg">
-        <button class="nav-elem" onclick="document.location='index.html'">
-            <img src="img/home.svg">
+    <nav class="nav">
+        <img class="nav__logo" src="img/logo.svg">
+        <button class="nav__elem" onclick="document.location='index.html'">
+            <img class="nav__elem-image" src="img/home.svg">
         </button>
-        <button class="nav-elem" onclick="document.location='favorites.html'">
-            <img src="img/heart.svg">
+        <button class="nav__elem" onclick="document.location='favorites.html'">
+            <img class="nav__elem-image" src="img/heart.svg">
         </button>
-        <button class="nav-elem" onclick="document.location='playlists.html'">
-            <img src="img/playlist.png">
+        <button class="nav__elem" onclick="document.location='playlists.html'">
+            <img class="nav__elem-image" src="img/playlist.png">
         </button>
-        <button class="nav-elem" onclick="document.location='artists.html'">
-            <img src="img/artists.png">
+        <button class="nav__elem" onclick="document.location='artists.html'">
+            <img class="nav__elem-image" src="img/artists.png">
         </button>
-        <button class="nav-profile" onclick="document.location='profile.html'">
-            <img src="img/avatar.jpg">
+        <button class="nav__profile" onclick="document.location='profile.html'">
+            <img class="nav__profile-image" src="img/avatar.jpg">
         </button>
     </nav>
-    <input type="search" placeholder="Поиск...">
-    <ul>
+    <input class="input" type="search" placeholder="Поиск...">
+    <ul class="cards">
         <li>
             <section class="card" onclick="document.location='artist.html'">
-                <img class="card-img" src="img/track.png">
-                <div class="card-description">
-                    <p class="card-description-title">Исполнитель</p>
-                    <p class="card-description-info">Треки: 12</p>
+                <img class="cover-image" src="img/track.png">
+                <div class="card__description">
+                    <p class="title">Исполнитель</p>
+                    <p class="info">Треки: 12</p>
                 </div>
-                <div class="card-buttons">
-                    <button class="button-image">
-                        <img src="img/forward.svg">
+                <div class="card__buttons">
+                    <button class="icon-button icon-button_size_small">
+                        <img class="icon-button__image" src="img/forward.svg">
                     </button>
                 </div>
             </section>
         </li>
     </ul>
     <section class="player">
-        <img src="img/track.png">
-        <div class="player-controls">
-            <div class="player-controls-buttons">
-                <button class="button-image">
-                    <img src="img/repeat.svg">
+        <div class="player__cover-image">
+            <button class="cover-image-button">
+                <img class="cover-image" src="img/track.png">
+            </button>
+        </div>
+        <div class="player__controls">
+            <div class="player__buttons">
+                <button class="icon-button icon-button_size_small">
+                    <img class="icon-button__image" src="img/repeat.svg">
                 </button>
-                <button class="button-image">
-                    <img src="img/back.svg">
+                <button class="icon-button icon-button_size_small">
+                    <img class="icon-button__image" src="img/back.svg">
                 </button>
-                <button class="button-image-big">
-                    <img src="img/play.svg">
+                <button class="icon-button icon-button_size_medium">
+                    <img class="icon-button__image" src="img/play.svg">
                 </button>
-                <button class="button-image">
-                    <img src="img/forward.svg">
+                <button class="icon-button icon-button_size_small">
+                    <img class="icon-button__image" src="img/forward.svg">
                 </button>
-                <button class="button-image">
-                    <img src="img/heart.svg">
+                <button class="icon-button icon-button_size_small">
+                    <img class="icon-button__image" src="img/heart.svg">
                 </button>
             </div>
-            <div class="player-controls-bar">
-                <span class="player-controls-bar-time-current">0:00</span>
-                <div class="player-controls-bar-current"></div>
-                <span class="player-controls-bar-time">2:43</span>
+            <div class="player__bar">
+                <span class="player__time-current">0:00</span>
+                <div class="player__bar-current"></div>
+                <span class="player__time">2:43</span>
             </div>
         </div>
-        <div class="player-track">
-            <p class="player-track-title">Song</p>
-            <p class="player-track-artist">Artist</p>
+        <div class="player__track">
+            <p class="title">Трек</p>
+            <button class="info-button">
+                <p class="info">Исполнитель</p>
+            </button>
         </div>
     </section>
 </body>

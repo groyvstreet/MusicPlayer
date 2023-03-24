@@ -1,0 +1,8 @@
+.nav__elem-image {
+    width: 30px;
+    height: 30px;
+}
+
+.nav__elem-image:hover {
+    border-radius: 50%;
+}
