@@ -1,8 +1,8 @@
 .card__description {
-    display: flex;
-    flex-wrap: wrap;
-    min-width: 0;
     margin-left: 10px;
     margin-right: auto;
     text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
 }

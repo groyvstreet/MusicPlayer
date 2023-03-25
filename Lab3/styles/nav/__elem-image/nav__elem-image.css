@@ -3,6 +3,7 @@
     height: 30px;
 }
 
-.nav__elem-image:hover {
+.nav__elem:hover .nav__elem-image {
     border-radius: 50%;
+    filter: invert(100%)
 }

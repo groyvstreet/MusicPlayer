@@ -1,4 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url(./header/header.css);
+@import url(./nav/nav.css);
+@import url(./content/content.css);
+@import url(./cover-image/cover-image.css);
+@import url(./icon-button/icon-button.css);
+@import url(./title/title.css);
+@import url(./info-button/info-button.css);
+@import url(./info/info.css);
+@import url(./player/player.css);
 
 body {
     background: #666666;

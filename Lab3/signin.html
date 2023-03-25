@@ -5,42 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/nav/nav.css">
-    <link rel="stylesheet" href="styles/player/player.css">
-    <link rel="stylesheet" href="styles/cards/cards.css">
-    <link rel="stylesheet" href="styles/card/card.css">
-    <link rel="stylesheet" href="styles/icon-button/icon-button.css">
-    <link rel="stylesheet" href="styles/title/title.css">
-    <link rel="stylesheet" href="styles/info-button/info-button.css">
-    <link rel="stylesheet" href="styles/info/info.css">
-    <link rel="stylesheet" href="styles/cover-image-button/cover-image-button.css">
-    <link rel="stylesheet" href="styles/cover-image/cover-image.css">
-    <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/sign/sign.css">
+    <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
-    <link rel="stylesheet" href="styles/button/_type/button_type_secondary.css">
-    <link rel="stylesheet" href="styles/content/content.css">
     <title>Авторизация</title>
 </head>
 <body>
-    <nav class="nav">
-        <img class="nav__logo" src="img/logo.svg">
-        <a class="nav__elem" href="index.html">
-            <img class="nav__elem-image" src="img/home.svg">
+    <header class="header">
+        <img class="header__logo" src="img/logo.svg">
+        <nav class="nav">
+            <ul class="nav__elems">
+                <li class="nav__elem">
+                    <a class="" href="index.html">
+                        <img class="nav__elem-image" src="img/home.svg">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a class="" href="favorites.html">
+                        <img class="nav__elem-image" src="img/heart.svg">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a class="" href="playlists.html">
+                        <img class="nav__elem-image" src="img/playlist.png">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a class="" href="artists.html">
+                        <img class="nav__elem-image" src="img/artists.png">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <a class="header__profile" href="profile.html">
+            <img class="header__profile-image" src="img/avatar.jpg">
         </a>
-        <a class="nav__elem" href="favorites.html">
-            <img class="nav__elem-image" src="img/heart.svg">
-        </a>
-        <a class="nav__elem" href="playlists.html">
-            <img class="nav__elem-image" src="img/playlist.png">
-        </a>
-        <a class="nav__elem" href="artists.html">
-            <img class="nav__elem-image" src="img/artists.png">
-        </a>
-        <a class="nav__profile" href="profile.html">
-            <img class="nav__profile-image" src="img/avatar.jpg">
-        </a>
-    </nav>
+    </header>
     <main class="content">
         <section class="sign">
             <h1 class="sign__h1">Авторизация</h1>
@@ -52,7 +52,7 @@
                     <input class="input" name="password" type="password" placeholder="Пароль">
                 </div>
                 <div class="sign__elem">
-                    <button class="button">
+                    <button class="button button_type_primary">
                         Войти
                     </button>
                 </div>
@@ -65,11 +65,9 @@
         </section>
     </main>
     <section class="player">
-        <div class="player__cover-image">
-            <a class="cover-image-button" href="album.html">
-                <img class="cover-image" src="img/track.png">
-            </a>
-        </div>
+        <a class="player__cover-image cover-image" href="album.html">
+            <img class="cover-image" src="img/track.png">
+        </a>
         <div class="player__controls">
             <div class="player__buttons">
                 <button class="icon-button icon-button_size_small">

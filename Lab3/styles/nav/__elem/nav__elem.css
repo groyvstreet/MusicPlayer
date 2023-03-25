@@ -1,16 +1,11 @@
 .nav__elem {
     width: 30px;
     height: 30px;
-    background: black;
-    border: 0;
-    padding: 0;
-    margin: 10px;
-    text-decoration: none;
     display: inline-block;
 }
 
 .nav__elem:hover {
-    background: #444444;
     border-radius: 50%;
+    background-color: #1ED760;
     cursor: pointer;
 }
