@@ -8,6 +8,7 @@
     padding-right: 30px;
     outline: none;
     font-size: 20px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .input:focus {
