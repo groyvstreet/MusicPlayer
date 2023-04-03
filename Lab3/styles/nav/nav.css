@@ -1,0 +1,7 @@
+@import url(./__elems/nav__elems.css);
+@import url(./__elem/nav__elem.css);
+@import url(./__elem-image/nav__elem-image.css);
+
+.nav {
+    margin: auto;
+}

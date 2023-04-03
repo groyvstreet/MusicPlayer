@@ -1,0 +1,11 @@
+.nav__elem {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+.nav__elem:hover {
+    border-radius: 50%;
+    background-color: #1ED760;
+    cursor: pointer;
+}

@@ -1,0 +1,9 @@
+@import url(./__card/cards__card.css);
+@import url(./__a/cards__a.css);
+
+.cards {
+    width: 80%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

@@ -1,0 +1,13 @@
+@import url(./__cover-image-button/card__cover-image-button.css);
+@import url(./__description/card__description.css);
+@import url(./__buttons/card__buttons.css);
+
+.card {
+    width: 100%;
+    height: 60px;
+    background: #333333;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}

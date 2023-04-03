@@ -1,0 +1,17 @@
+@import url(./_size/icon-button_size_small.css);
+@import url(./_size/icon-button_size_medium.css);
+@import url(./_size/icon-button_size_big.css);
+
+.icon-button {
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.icon-button > .icon-button__image {
+    filter: brightness(90%);
+}
+
+.icon-button > .icon-button__image:hover{
+    filter: brightness(110%);
+}

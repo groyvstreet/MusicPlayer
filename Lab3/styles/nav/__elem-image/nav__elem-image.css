@@ -1,0 +1,9 @@
+.nav__elem-image {
+    width: 30px;
+    height: 30px;
+}
+
+.nav__elem:hover .nav__elem-image {
+    border-radius: 50%;
+    filter: invert(100%)
+}

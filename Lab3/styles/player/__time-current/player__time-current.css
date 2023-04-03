@@ -1,0 +1,7 @@
+.player__time-current {
+    margin-top: -16px;
+    color: #AAAAAA;
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}

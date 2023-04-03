@@ -1,0 +1,9 @@
+.info-button {
+    max-width: 100%;
+    text-decoration: none;
+}
+
+.info-button:hover > .info {
+    color: white;
+    text-decoration: underline;
+}

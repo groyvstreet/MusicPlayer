@@ -1,0 +1,14 @@
+@import url(./__image/preview__image.css);
+@import url(./__description/preview__description.css);
+@import url(./__h1/preview__h1.css);
+@import url(./__h2/preview__h2.css);
+@import url(./__h3/preview__h3.css);
+@import url(./__buttons/preview__buttons.css);
+@import url(./__edit-block/preview__edit-block.css);
+
+.preview {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

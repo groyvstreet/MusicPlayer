@@ -1,0 +1,8 @@
+.preview__h1 {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    font-size: 36px;
+}
