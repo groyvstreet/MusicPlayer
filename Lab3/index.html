@@ -43,7 +43,7 @@
     </header>
     <main class="content">
         <input class="input" type="search" placeholder="Поиск...">
-        <ul class="cards">
+        <ul class="cards" id="cards">
             <li class="cards__card">
                 <section class="card">
                     <a class="cover-image" href="album.html">
@@ -59,7 +59,7 @@
                         <button class="icon-button icon-button_size_small">
                             <img class="icon-button__image" src="img/heart.svg">
                         </button>
-                        <button class="icon-button icon-button_size_small">
+                        <button class="icon-button icon-button_size_small" id="track-button-play" name="id" value="1">
                             <img class="icon-button__image" src="img/forward.svg">
                         </button>
                     </div>
@@ -193,7 +193,7 @@
             </li>
         </ul>
     </main>
-    <section class="player">
+    <section class="player" id="player">
         <a class="player__cover-image cover-image" href="album.html">
             <img class="cover-image" src="img/track.png" id="player-cover-image">
         </a>
@@ -211,7 +211,7 @@
                 <button class="icon-button icon-button_size_small" id="player-forward-button">
                     <img class="icon-button__image" src="img/forward.svg">
                 </button>
-                <button class="icon-button icon-button_size_small">
+                <button class="icon-button icon-button_size_small" id="player-button-favorite">
                     <img class="icon-button__image" src="img/heart.svg">
                 </button>
             </div>
@@ -230,5 +230,6 @@
     </section>
 
     <script src="js/player.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
