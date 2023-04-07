@@ -43,7 +43,7 @@ function getPlaylists(playlists) {
     document.getElementById("cards").innerHTML = playlists.map(function (playlist) {
         return `
             <li class="cards__card">
-                <a class="cards__a" href="playlist.html">
+                <a class="cards__a" href="playlist.html#${playlist.id}">
                     <section class="card">
                         <img class="cover-image" src="${playlist.image}">
                         <div class="card__description">
