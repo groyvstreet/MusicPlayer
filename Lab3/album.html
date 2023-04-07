@@ -44,15 +44,15 @@
     </header>
     <main class="content">
         <section class="preview">
-            <img class="preview__image" src="img/avatar.jpg">
+            <img class="preview__image" src="img/avatar.jpg" id="preview-image">
             <div class="preview__description">
-                <h1 class="preview__h1">Название</h1>
-                <p class="preview__h2">Треки: 5</p>
-                <p class="preview__h3">Альбом</p>
+                <h1 class="preview__h1" id="preview-h1">Название</h1>
+                <p class="preview__h2" id="preview-h2">Треки: 5</p>
+                <p class="preview__h3" id="preview-h3">Альбом</p>
             </div>
         </section>
         <input class="input" type="search" placeholder="Поиск...">
-        <ul class="cards">
+        <ul class="cards" id="cards">
             <li class="cards__card">
                 <section class="card">
                     <a class="cover-image" href="album.html">
@@ -158,42 +158,47 @@
                     </div>
                 </section>
             </li>
+            <script src="js/tracks.js"></script>
+            <script src="js/favorites.js"></script>
+            <script src="js/album.js"></script>
         </ul>
     </main>
-    <section class="player">
+    <section class="player" id="player">
         <a class="player__cover-image cover-image" href="album.html">
-            <img class="cover-image" src="img/track.png">
+            <img class="cover-image" src="img/track.png" id="player-cover-image">
         </a>
         <div class="player__controls">
             <div class="player__buttons">
-                <button class="icon-button icon-button_size_small">
-                    <img class="icon-button__image" src="img/repeat.svg">
+                <button class="icon-button icon-button_size_small" id="player-button-repeat">
+                    <img class="icon-button__image" src="img/repeat.svg" id="player-img-repeat">
                 </button>
-                <button class="icon-button icon-button_size_small">
+                <button class="icon-button icon-button_size_small" id="player-back-button">
                     <img class="icon-button__image" src="img/back.svg">
                 </button>
-                <button class="icon-button icon-button_size_medium">
-                    <img class="icon-button__image" src="img/play.svg">
+                <button class="icon-button icon-button_size_medium" id="player-button-play">
+                    <img class="icon-button__image" src="img/play.svg" id="player-img-play">
                 </button>
-                <button class="icon-button icon-button_size_small">
+                <button class="icon-button icon-button_size_small" id="player-forward-button">
                     <img class="icon-button__image" src="img/forward.svg">
                 </button>
-                <button class="icon-button icon-button_size_small">
+                <button class="icon-button icon-button_size_small" id="player-button-favorite">
                     <img class="icon-button__image" src="img/heart.svg">
                 </button>
             </div>
-            <div class="player__bar">
-                <span class="player__time-current">0:00</span>
-                <div class="player__bar-current"></div>
-                <span class="player__time">2:43</span>
+            <div class="player__bar" id="player-bar">
+                <span class="player__time-current" id="player-time-current">0:00</span>
+                <div class="player__bar-current" id="player-bar-current"></div>
+                <span class="player__time" id="player-time">0:00</span>
             </div>
         </div>
         <div class="player__track">
-            <p class="title">Трек</p>
+            <p class="title" id="player-title">Трек</p>
             <a class="info-button" href="artist.html">
                 <p class="info">Исполнитель</p>
             </a>
         </div>
     </section>
+
+    <script src="js/player.js"></script>
 </body>
 </html>

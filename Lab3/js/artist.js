@@ -58,38 +58,10 @@ let testTracks = [
     },
 ];
 
-function playArtist(id) {
-    let artistTracks = testTracks.filter(track => track.artists.some(artist => artist.id == id));
-    currentTracks = artistTracks;
-    trackIndex = 0;
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
-}
+let id = window.location.href.split("#")[1];
 
-function getArtists(artists) {
-    document.getElementById("cards").innerHTML = artists.map(function (artist) {
-        return `
-            <li class="cards__card">
-                <a class="cards__a" href="artist.html#${artist.id}">
-                    <section class="card">
-                        <img class="cover-image" src="${artist.image}">
-                        <div class="card__description">
-                            <p class="title">${artist.nickname}</p>
-                            <p class="info">Треки: ${artist.tracks_amount}</p>
-                        </div>
-                        <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playArtist(${artist.id}); return false">
-                                <img class="icon-button__image" src="img/forward.svg">
-                            </button>
-                        </div>
-                    </section>
-                </a>
-            </li>
-        `;
-    }).join('');
-}
+let artist = artists.filter(artist => artist.id == id)[0];
 
-getArtists(artists);
+document.getElementById("preview-image").src = artist.image;
+document.getElementById("preview-h1").innerHTML = artist.nickname;
+document.getElementById("preview-h2").innerHTML = `Треки: ${artist.tracks_amount}`;
