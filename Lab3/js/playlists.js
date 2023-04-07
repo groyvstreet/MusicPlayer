@@ -63,3 +63,8 @@ function getPlaylists(playlists) {
 }
 
 getPlaylists(playlists);
+
+document.getElementById("search").addEventListener("change", (event) => {
+    let searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(event.target.value.toLowerCase()));
+    getPlaylists(searchedPlaylists);
+});

@@ -48,7 +48,7 @@ function getTracks(tracks) {
                         <button class="icon-button icon-button_size_small" onclick="updateTrack(${track.id})">
                             <img class="icon-button__image" src="${getImage(track.id)}">
                         </button>
-                        <button class="icon-button icon-button_size_small" onclick="playTrack(${track.id})">
+                        <button class="icon-button icon-button_size_small" onclick="return playTrack(${track.id})">
                             <img class="icon-button__image" src="img/forward.svg">
                         </button>
                     </div>

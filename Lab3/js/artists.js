@@ -93,3 +93,8 @@ function getArtists(artists) {
 }
 
 getArtists(artists);
+
+document.getElementById("search").addEventListener("change", (event) => {
+    let searchedArtists = artists.filter(artist => artist.nickname.toLowerCase().includes(event.target.value.toLowerCase()));
+    getArtists(searchedArtists);
+});

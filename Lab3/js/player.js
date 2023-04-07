@@ -3,8 +3,8 @@ let currentTracks = [];
 let trackIndex = 0;
 let isTrackPlaying = false;
 let toRepeat = false;
-let audio = new Audio("");
-
+let audio = new Audio();
+audio.autoplay = false;
 let nodes = document.getElementById("player").getElementsByTagName("*");
 for (let i = 0; i < nodes.length; i++) {
     nodes[i].disabled = true;
