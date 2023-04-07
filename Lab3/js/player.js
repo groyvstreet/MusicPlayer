@@ -1,20 +1,24 @@
 let currentTracks = [];
-
 let trackIndex = 0;
 let isTrackPlaying = false;
 let toRepeat = false;
 let audio = new Audio();
-audio.autoplay = false;
+// audio.autoplay = false;
+
 let nodes = document.getElementById("player").getElementsByTagName("*");
 for (let i = 0; i < nodes.length; i++) {
     nodes[i].disabled = true;
 }
 
 function updatePlayerTrack(track) {
-    var image = document.getElementById("player-cover-image");
+    let button = document.getElementById("player-button-cover-image");
+    //
+    button.href = `album.html#${track.id}`;
+
+    let image = document.getElementById("player-cover-image");
     image.src = track.image;
 
-    var title = document.getElementById("player-title");
+    let title = document.getElementById("player-title");
     title.innerHTML = track.title;
 }
 
@@ -125,4 +129,8 @@ document.getElementById("player-forward-button").addEventListener("click", selec
 document.getElementById("player-button-repeat").addEventListener("click", function() {
     updatePlayerImageRepeat();
     toRepeat = !toRepeat;
+});
+
+document.getElementById("player-button-favorite").addEventListener("click", function() {
+    //
 });
