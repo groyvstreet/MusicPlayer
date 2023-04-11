@@ -10,7 +10,7 @@ function playTrack(id) {
 }
 
 function getImage(id) {
-    if (favoritesTracks.filter(track => track.id == id).length == 0) {
+    if (user.favorite_tracks.filter(track => track.id == id).length == 0) {
         return "img/heart.svg";
     } else {
         return "img/fill-heart-active.svg";
@@ -21,11 +21,11 @@ function updateTrack(id) {
     let button = document.querySelector(`[onclick="updateTrack(${id})"]`);
     let img = button.getElementsByTagName("img")[0];
 
-    if (favoritesTracks.filter(track => track.id == id).length == 0) {
-        favoritesTracks.push({id: id});
+    if (user.favorite_tracks.filter(track => track.id == id).length == 0) {
+        user.favorite_tracks.push({id: id});
         img.src = "img/fill-heart-active.svg";
     } else {
-        favoritesTracks = favoritesTracks.filter(track => track.id != id);
+        user.favorite_tracks = user.favorite_tracks.filter(track => track.id != id);
         img.src = "img/heart.svg";
     }
 }

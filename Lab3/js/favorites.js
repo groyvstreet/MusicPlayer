@@ -13,8 +13,11 @@ let favoritesTracks = [
     },
 ];
 
-tracks = favoritesTracks;
-getTracks(favoritesTracks);
+user.then((u) => {
+    user = u;
+    tracks = u.favorite_tracks;
+    getTracks(u.favorite_tracks);
+});
 
 document.getElementById("search").addEventListener("change", (event) => {
     tracks = favoritesTracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
