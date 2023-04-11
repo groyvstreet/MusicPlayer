@@ -85,8 +85,7 @@
                         </button>
                     </div>
                 </section>
-            </li>
-            <li class="cards__card">
+            </li><li class="cards__card">
                 <section class="card">
                     <a class="cover-image" href="album.html">
                         <img class="cover-image" src="img/track.png">
@@ -229,8 +228,39 @@
         </div>
     </section>
 
-    <script src="js/player.js"></script>
-    <script src="js/tracks.js"></script>
-    <script src="js/index.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAMUPkqFeqdJiMG2j2awctJbBoKUpNmKc0",
+          authDomain: "krakensound-ee3a2.firebaseapp.com",
+          projectId: "krakensound-ee3a2",
+          storageBucket: "krakensound-ee3a2.appspot.com",
+          messagingSenderId: "383353070589",
+          appId: "1:383353070589:web:fb0cd035182441acdfaf94"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+      <script src="js/player.js"></script>
+      <script src="js/tracks.js"></script>
+      <script src="js/index.js"></script>
+      <script>
+        function gotData(data) {
+            console.log(data);
+            data.map(function (album) {
+                allTracks = allTracks.concat(album.tracks);
+                console.log(album.tracks);
+            });
+            tracks = allTracks;
+            getTracks(allTracks);
+        }
+      </script>
+      <script src="https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json?callback=gotData"></script>
 </body>
 </html>

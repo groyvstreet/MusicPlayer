@@ -124,8 +124,8 @@ document.getElementById("player-bar").addEventListener("click", function (event)
     audio.currentTime = audio.duration * event.offsetX / playerBar.offsetWidth;
 });
 
-document.getElementById("player-back-button").addEventListener("click", selectPreviousTrack);
-document.getElementById("player-forward-button").addEventListener("click", selectNextTrack);
+document.getElementById("player-button-back").addEventListener("click", selectPreviousTrack);
+document.getElementById("player-button-forward").addEventListener("click", selectNextTrack);
 document.getElementById("player-button-repeat").addEventListener("click", function() {
     updatePlayerImageRepeat();
     toRepeat = !toRepeat;

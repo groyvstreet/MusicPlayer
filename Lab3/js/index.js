@@ -34,7 +34,7 @@ let favoritesTracks = [
     },
 ];
 
-tracks = allTracks
+tracks = allTracks;
 getTracks(allTracks);
 
 document.getElementById("search").addEventListener("change", (event) => {
