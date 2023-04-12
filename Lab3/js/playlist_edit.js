@@ -12,10 +12,12 @@ user.then((u) => {
         playlist.description = document.getElementById("playlist-description").value;
         
         let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem("user_id")}/playlists/${id}.json`, {
-            method: "patch",
+            method: "put",
             body: JSON.stringify(playlist)
         });
 
-        console.log(response);
+        if (response.ok) {
+            window.location.href = `playlist.html#${id}`;
+        }
     });
 });

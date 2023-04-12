@@ -23,7 +23,7 @@ function getPlaylists(playlists) {
                             <p class="info">${playlist.tracks_amount} треки</p>
                         </div>
                         <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playPlaylist(${playlist.id}); return false">
+                            <button class="icon-button icon-button_size_small" onclick="playPlaylist('${playlist.id}'); return false">
                                 <img class="icon-button__image" src="img/forward.svg">
                             </button>
                         </div>
@@ -42,4 +42,22 @@ user.then((u) => {
 document.getElementById("search").addEventListener("change", (event) => {
     let searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(event.target.value.toLowerCase()));
     getPlaylists(searchedPlaylists);
+});
+
+document.getElementById("playlist-button-create").addEventListener("click", async () => {
+    let newPlaylistId = crypto.randomUUID();
+    let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem("user_id")}/playlists/${newPlaylistId}.json`, {
+        method: "put",
+        body: JSON.stringify({
+            id: newPlaylistId,
+            title: "Плейлист",
+            description: "",
+            image: "img/cover-image.jpg",
+            tracks_amount: 0
+        })
+    });
+
+    if (response.ok) {
+        window.location.href = `playlist.html#${newPlaylistId}`;
+    }
 });

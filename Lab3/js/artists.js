@@ -35,7 +35,7 @@ function getArtists(artists) {
                             <p class="info">Треки: ${artist.tracks_amount}</p>
                         </div>
                         <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playArtist(${artist.id}); return false">
+                            <button class="icon-button icon-button_size_small" onclick="playArtist('${artist.id}'); return false">
                                 <img class="icon-button__image" src="img/forward.svg">
                             </button>
                         </div>

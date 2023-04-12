@@ -2,6 +2,11 @@ let id = window.location.href.split("#")[1];
 
 user.then((u) => {
     let playlist = u.playlists[id];
+
+    if (playlist.tracks == undefined) {
+        playlist.tracks = [];
+    }
+
     document.getElementById("preview-image").src = playlist.image;
     document.getElementById("preview-h1").innerHTML = playlist.title;
     document.getElementById("preview-h2").innerHTML = `Треки: ${playlist.tracks_amount}`;
