@@ -1,9 +1,8 @@
-localStorage.setItem("user_id", "1");
+localStorage.setItem("user_id", "ebac5a1a-d920-11ed-afa1-0242ac120002");
 
 async function loadUser() {
-    let response = await fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/users.json");
-    let users = await response.json();
-    let user =  users.filter((user) => user.id == localStorage.getItem("user_id"))[0];
+    let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem("user_id")}.json`);
+    let user = await response.json();
 
     if (user.favorite_tracks == undefined) {
         user.favorite_tracks = [];

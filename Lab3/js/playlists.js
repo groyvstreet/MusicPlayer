@@ -35,7 +35,7 @@ function getPlaylists(playlists) {
 }
 
 user.then((u) => {
-    playlists = playlists.concat(u.playlists);
+    playlists = playlists.concat(Object.values(u.playlists));
     getPlaylists(playlists);
 });
 

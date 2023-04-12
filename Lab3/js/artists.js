@@ -4,7 +4,7 @@ let artistTracks = [];
 
 async function playArtist(id) {
     let response = await fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json");
-    let albums = await response.json();
+    let albums = Object.values(await response.json());
     let artistAlbums = albums.filter((album) => album.artist.id == id);
 
     if (artistAlbums == 0) {
@@ -50,7 +50,7 @@ function loadArtists() {
     fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists.json")
         .then((response) => response.json())
         .then((a) => {
-            artists = a;
+            artists = Object.values(a);
             getArtists(artists);
         });
 }

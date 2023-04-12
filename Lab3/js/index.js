@@ -6,7 +6,8 @@ function loadTracks() {
     fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json")
         .then((response) => response.json())
         .then((albums) => {
-            albums.map((album) => {
+            let a = Object.values(albums);
+            a.map((album) => {
                 allTracks = allTracks.concat(album.tracks);
             });
             tracks = allTracks;
