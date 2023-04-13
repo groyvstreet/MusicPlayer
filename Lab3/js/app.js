@@ -1,25 +1,34 @@
-//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-// import { getAuth } from "firebase/auth";
-// import firebase from "firebase/app";
-// import "firebase/auth";
+function isAuthenticated() {
+    if (document.cookie.includes('user=')) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAMUPkqFeqdJiMG2j2awctJbBoKUpNmKc0",
-    authDomain: "krakensound-ee3a2.firebaseapp.com",
-    projectId: "krakensound-ee3a2",
-    storageBucket: "krakensound-ee3a2.appspot.com",
-    messagingSenderId: "383353070589",
-    appId: "1:383353070589:web:fb0cd035182441acdfaf94"
-};
+function updateUserId() {
+    if (document.cookie.includes('user=')) {
+        localStorage.setItem('user_id', document.cookie.split('=')[1]);
+    } else {
+        localStorage.setItem('user_id', 'null');
+    }
+}
 
-//const app = initializeApp(firebaseConfig);
-//const auth = getAuth(app);
-//firebase.initializeApp(firebaseConfig);
-//const auth = firebase.auth();
+// document.cookie = 'user=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+// alert(document.cookie)
 
-localStorage.setItem('user_id', 'ebac5a1a-d920-11ed-afa1-0242ac120002');
+//localStorage.setItem('user_id', 'ebac5a1a-d920-11ed-afa1-0242ac120002');
 
 async function loadUser() {
+    updateUserId();
+
+    if (localStorage.getItem('user_id') == 'null') {
+        return {
+            favoriteTracks: [],
+            playlists: []
+        };
+    }
+
     let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}.json`);
     let user = await response.json();
 
@@ -37,3 +46,5 @@ async function loadUser() {
 }
 
 let user = loadUser();
+
+export { isAuthenticated, user }

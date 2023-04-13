@@ -1,7 +1,9 @@
+import { user } from './app.js';
+import { getTracks } from './tracks.js';
+
 const id = window.location.href.split('#')[1];
 
 user.then((u) => {
-    user = u;
     let playlist = u.playlists[id];
 
     if (playlist.tracks == undefined) {
@@ -14,11 +16,11 @@ user.then((u) => {
     document.getElementById('preview-h3').innerHTML = playlist.description;
     document.getElementById('preview-button-edit').href = `playlist_edit.html#${playlist.id}`;
 
-    getTracks(playlist.tracks);
+    getTracks(u, playlist.tracks);
 
     document.getElementById('search').addEventListener('change', (event) => {
         let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
-        getTracks(searchedTracks);
+        getTracks(u, searchedTracks);
     });
 
     document.getElementById('preview-button-delete').addEventListener('click', async () => {

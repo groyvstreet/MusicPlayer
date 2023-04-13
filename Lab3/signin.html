@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/sign/sign.css">
     <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
+    <script type="module" src="js/signin.js"></script>
     <title>Авторизация</title>
 </head>
 <body>
@@ -46,13 +47,13 @@
             <h1 class="sign__h1">Авторизация</h1>
             <form method="post">
                 <div class="sign__elem">
-                    <input class="input" name="email" type="email" placeholder="Email">
+                    <input class="input" name="email" type="email" placeholder="Email" id="signin-input-email">
                 </div>
                 <div class="sign__elem">
-                    <input class="input" name="password" type="password" placeholder="Пароль">
+                    <input class="input" name="password" type="password" placeholder="Пароль" id="signin-input-password">
                 </div>
                 <div class="sign__elem">
-                    <button class="button button_type_primary">
+                    <button class="button button_type_primary" id="signin-button">
                         Войти
                     </button>
                 </div>
@@ -99,7 +100,5 @@
             </a>
         </div>
     </section>
-
-    <script src="js/signin.js"></script>
 </body>
 </html>

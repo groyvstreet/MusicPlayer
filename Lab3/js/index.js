@@ -1,3 +1,6 @@
+import { user } from './app.js';
+import { getTracks } from './tracks.js';
+
 let allTracks = [];
 
 function loadTracks() {
@@ -10,8 +13,7 @@ function loadTracks() {
             });
 
             user.then((u) => {
-                user = u;
-                getTracks(allTracks);
+                getTracks(u, allTracks);
             });
         });
 }
@@ -19,6 +21,6 @@ function loadTracks() {
 loadTracks();
 
 document.getElementById('search').addEventListener('change', (event) => {
-    let searchedTracks = allTracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
+    let searchedTracks = allTracks.filter((track) => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
     getTracks(searchedTracks);
 });

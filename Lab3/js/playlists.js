@@ -1,3 +1,5 @@
+import { user } from './app.js';
+
 let playlists = [];
 
 function playPlaylist(id) {

@@ -1,3 +1,6 @@
+import { user } from './app.js';
+import { getTracks } from './tracks.js';
+
 const id = window.location.href.split('#')[1];
 
 function loadAlbum() {
@@ -9,11 +12,8 @@ function loadAlbum() {
             document.getElementById('preview-h2').innerHTML = `Треки: ${album.tracksAmount}`;
             document.getElementById('preview-h3').innerHTML = album.type;
 
-            tracks = album.tracks;
-
             user.then((u) => {
-                user = u;
-                getTracks(album.tracks);
+                getTracks(u, album.tracks);
             });
         });
 }

@@ -9,7 +9,7 @@
 //     audio.play();
 // }
 
-function getImage(id) {
+function getImage(user, id) {
     if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
         return 'img/heart.svg';
     } else {
@@ -38,7 +38,7 @@ function getImage(id) {
 //     }
 // }
 
-function getTracks(tracks) {
+function getTracks(user, tracks) {
     const cards = document.getElementById('cards');
     cards.innerHTML = tracks.map(function (track) {
         return `
@@ -55,7 +55,7 @@ function getTracks(tracks) {
                     </div>
                     <div class="card__buttons">
                         <button class="icon-button icon-button_size_small" id="card-button-like-${track.id}">
-                            <img class="icon-button__image" src="${getImage(track.id)}" id="card-img-like-${track.id}">
+                            <img class="icon-button__image" src="${getImage(user, track.id)}" id="card-img-like-${track.id}">
                         </button>
                         <button class="icon-button icon-button_size_small" id="card-button-play-${track.id}">
                             <img class="icon-button__image" src="img/forward.svg">
@@ -100,3 +100,5 @@ function getTracks(tracks) {
         });
     });
 }
+
+export { getTracks }

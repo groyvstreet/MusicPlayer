@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/sign/sign.css">
     <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
+    <script type="module" src="js/signup.js"></script>
     <title>Регистрация</title>
 </head>
 <body>
@@ -46,22 +47,22 @@
             <h1 class="sign__h1">Регистрация</h1>
             <form method="post">
                 <div class="sign__elem">
-                    <input class="input" name="email" type="email" placeholder="Email">
+                    <input class="input" name="email" type="email" placeholder="Email" id="signup-input-email">
                 </div>
                 <div class="sign__elem">
-                    <input class="input" name="username" type="text" placeholder="Никнейм">
+                    <input class="input" name="username" type="text" placeholder="Никнейм" id="signup-input-username">
                 </div>
                 <div class="sign__elem">
-                    <input class="input" name="birthday" type="date">
+                    <input class="input" name="birthday" type="date" id="signup-input-birthday">
                 </div>
                 <div class="sign__elem">
-                    <input class="input" name="password" type="password" placeholder="Пароль">
+                    <input class="input" name="password" type="password" placeholder="Пароль" id="signup-input-password">
                 </div>
                 <div class="sign__elem">
-                    <input class="input" name="confirmation" type="password" placeholder="Подтверждение">
+                    <input class="input" name="confirmation" type="password" placeholder="Подтверждение" id="signup-input-password-confirmation">
                 </div>
                 <div class="sign__elem">
-                    <button class="button button_type_primary">
+                    <button class="button button_type_primary" id="signup-button-create">
                         Создать
                     </button>
                 </div>

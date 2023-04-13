@@ -1,6 +1,8 @@
+import { user } from './app.js';
+import { getTracks } from './tracks.js';
+
 user.then((u) => {
-    user = u;
-    getTracks(u.favoriteTracks);
+    getTracks(u, u.favoriteTracks);
 });
 
 document.getElementById('search').addEventListener('change', (event) => {
