@@ -1,4 +1,4 @@
-let id = window.location.href.split('#')[1];
+const id = window.location.href.split('#')[1];
 
 function loadAlbum() {
     fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums/${id}.json`)
@@ -21,6 +21,6 @@ function loadAlbum() {
 loadAlbum();
 
 document.getElementById('search').addEventListener('change', (event) => {
-    tracks = album.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
-    getTracks(tracks);
+    let searchedTracks = album.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
+    getTracks(searchedTracks);
 });

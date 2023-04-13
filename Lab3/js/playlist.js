@@ -1,4 +1,4 @@
-let id = window.location.href.split('#')[1];
+const id = window.location.href.split('#')[1];
 
 user.then((u) => {
     user = u;
@@ -13,13 +13,12 @@ user.then((u) => {
     document.getElementById('preview-h2').innerHTML = `Треки: ${playlist.tracksAmount}`;
     document.getElementById('preview-h3').innerHTML = playlist.description;
     document.getElementById('preview-button-edit').href = `playlist_edit.html#${playlist.id}`;
-    
-    tracks = playlist.tracks;
+
     getTracks(playlist.tracks);
 
     document.getElementById('search').addEventListener('change', (event) => {
-        tracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
-        getTracks(tracks);
+        let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
+        getTracks(searchedTracks);
     });
 
     document.getElementById('preview-button-delete').addEventListener('click', async () => {
