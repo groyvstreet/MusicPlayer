@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/profile/profile.css">
     <link rel="stylesheet" href="styles/input/input.css">
     <link rel="stylesheet" href="styles/button/button.css">
+    <script src="js/app.js"></script>
     <title>Профиль</title>
 </head>
 <body>
@@ -45,22 +46,22 @@
         <section class="profile">
             <form class="profile">
                 <div>
-                    <img class="profile__image" src="img/avatar.jpg">
+                    <img class="profile__image" src="img/avatar.jpg" id="profile-image">
                 </div>
                 <div>
-                    <button class="button button_type_primary">
+                    <button class="button button_type_primary" id="profile-button-save">
                         Сохранить
                     </button>
                 </div>
                 <div>
-                    <input class="input" type="email" value="kraken@gmail.com" placeholder="Email">
-                    <input class="input" type="text" value="kraken" placeholder="Никнейм">
-                    <input class="input" type="date">
+                    <input class="input" type="email" value="kraken@gmail.com" placeholder="Email" id="profile-input-email">
+                    <input class="input" type="text" value="kraken" placeholder="Никнейм" id="profile-input-username">
+                    <input class="input" type="date" id="profile-input-birthday">
                 </div>
             </form>
             <div class="profile__info">
-                <span>Любимые треки: 99</span>
-                <span>Плейлисты: 3</span>
+                <span id="profile-span-tracks">Любимые треки: 99</span>
+                <span id="profile-span-playlists">Плейлисты: 3</span>
             </div>
         </section>
     </main>
@@ -99,5 +100,7 @@
             </a>
         </div>
     </section>
+
+    <script src="js/profile.js"></script>
 </body>
 </html>
