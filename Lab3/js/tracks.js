@@ -10,28 +10,36 @@ function playTrack(id) {
 }
 
 function getImage(id) {
-    if (user.favorite_tracks.filter(track => track.id == id).length == 0) {
-        return "img/heart.svg";
+    if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
+        return 'img/heart.svg';
     } else {
-        return "img/fill-heart-active.svg";
+        return 'img/fill-heart-active.svg';
     }
 }
 
 function updateTrack(id) {
-    let button = document.querySelector(`[onclick="updateTrack(${id})"]`);
-    let img = button.getElementsByTagName("img")[0];
+    let button = document.querySelector(`[onclick="updateTrack('${id}')"]`);
+    let img = button.getElementsByTagName('img')[0];
 
-    if (user.favorite_tracks.filter(track => track.id == id).length == 0) {
-        user.favorite_tracks.push({id: id});
-        img.src = "img/fill-heart-active.svg";
+    if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
+        fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${id}.json`, {
+            method: 'put',
+            body: JSON.stringify(tracks.filter(track => track.id == id)[0])
+        });
+
+        img.src = 'img/fill-heart-active.svg';
     } else {
-        user.favorite_tracks = user.favorite_tracks.filter(track => track.id != id);
-        img.src = "img/heart.svg";
+        fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${id}.json`, {
+            method: 'delete',
+            body: JSON.stringify(tracks.filter(track => track.id == id)[0])
+        });
+        
+        img.src = 'img/heart.svg';
     }
 }
 
 function getTracks(tracks) {
-    document.getElementById("cards").innerHTML = tracks.map(function (track) {
+    document.getElementById('cards').innerHTML = tracks.map(function (track) {
         return `
             <li class="cards__card">
                 <section class="card">
@@ -45,10 +53,10 @@ function getTracks(tracks) {
                         </a>
                     </div>
                     <div class="card__buttons">
-                        <button class="icon-button icon-button_size_small" onclick="updateTrack(${track.id})">
+                        <button class="icon-button icon-button_size_small" onclick="updateTrack('${track.id}')">
                             <img class="icon-button__image" src="${getImage(track.id)}">
                         </button>
-                        <button class="icon-button icon-button_size_small" onclick="return playTrack(${track.id})">
+                        <button class="icon-button icon-button_size_small" onclick="return playTrack('${track.id}')">
                             <img class="icon-button__image" src="img/forward.svg">
                         </button>
                     </div>

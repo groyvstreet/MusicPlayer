@@ -12,7 +12,7 @@ function playAlbum(id) {
 }
 
 function getAlbums(albums) {
-    document.getElementById("cards").innerHTML = albums.map(function (album) {
+    document.getElementById('cards').innerHTML = albums.map(function (album) {
         return `
             <li class="cards__card">
                 <a class="cards__a" href="album.html#${album.id}">
@@ -34,15 +34,15 @@ function getAlbums(albums) {
     }).join('');
 }
 
-let id = window.location.href.split("#")[1];
+let id = window.location.href.split('#')[1];
 
 function loadArtist() {
     fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${id}.json`)
         .then((response) => response.json())
         .then((artist) => {
-            document.getElementById("preview-image").src = artist.image;
-            document.getElementById("preview-h1").innerHTML = artist.nickname;
-            document.getElementById("preview-h2").innerHTML = `Треки: ${artist.tracks_amount}`;
+            document.getElementById('preview-image').src = artist.image;
+            document.getElementById('preview-h1').innerHTML = artist.nickname;
+            document.getElementById('preview-h2').innerHTML = `Треки: ${artist.tracksAmount}`;
 
             fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json?orderBy="artist/id"&equalTo="${artist.id}"`)
                 .then((response) => response.json())
@@ -55,7 +55,7 @@ function loadArtist() {
 
 loadArtist();
 
-document.getElementById("search").addEventListener("change", (event) => {
+document.getElementById('search').addEventListener('change', (event) => {
     let searchedAlbums = artistAlbums.filter(album => album.title.toLowerCase().includes(event.target.value.toLowerCase()));
     getAlbums(searchedAlbums);
 });

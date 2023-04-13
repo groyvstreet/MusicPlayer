@@ -3,7 +3,7 @@ let artists = [];
 let artistTracks = [];
 
 async function playArtist(id) {
-    let response = await fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json");
+    let response = await fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json');
     let albums = Object.values(await response.json());
     let artistAlbums = albums.filter((album) => album.artist.id == id);
 
@@ -24,7 +24,7 @@ async function playArtist(id) {
 }
 
 function getArtists(artists) {
-    document.getElementById("cards").innerHTML = artists.map(function (artist) {
+    document.getElementById('cards').innerHTML = artists.map(function (artist) {
         return `
             <li class="cards__card">
                 <a class="cards__a" href="artist.html#${artist.id}">
@@ -32,7 +32,7 @@ function getArtists(artists) {
                         <img class="cover-image" src="${artist.image}">
                         <div class="card__description">
                             <p class="title">${artist.nickname}</p>
-                            <p class="info">Треки: ${artist.tracks_amount}</p>
+                            <p class="info">Треки: ${artist.tracksAmount}</p>
                         </div>
                         <div class="card__buttons">
                             <button class="icon-button icon-button_size_small" onclick="playArtist('${artist.id}'); return false">
@@ -47,7 +47,7 @@ function getArtists(artists) {
 }
 
 function loadArtists() {
-    fetch("https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists.json")
+    fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists.json')
         .then((response) => response.json())
         .then((a) => {
             artists = Object.values(a);
@@ -57,7 +57,7 @@ function loadArtists() {
 
 loadArtists();
 
-document.getElementById("search").addEventListener("change", (event) => {
+document.getElementById('search').addEventListener('change', (event) => {
     let searchedArtists = artists.filter(artist => artist.nickname.toLowerCase().includes(event.target.value.toLowerCase()));
     getArtists(searchedArtists);
 });
