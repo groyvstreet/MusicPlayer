@@ -1,6 +1,7 @@
 let id = window.location.href.split('#')[1];
 
 user.then((u) => {
+    user = u;
     let playlist = u.playlists[id];
 
     if (playlist.tracks == undefined) {

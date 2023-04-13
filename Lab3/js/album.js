@@ -10,7 +10,11 @@ function loadAlbum() {
             document.getElementById('preview-h3').innerHTML = album.type;
 
             tracks = album.tracks;
-            getTracks(album.tracks);
+
+            user.then((u) => {
+                user = u;
+                getTracks(album.tracks);
+            });
         });
 }
 

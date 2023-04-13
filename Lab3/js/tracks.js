@@ -33,7 +33,7 @@ function updateTrack(id) {
             method: 'delete',
             body: JSON.stringify(tracks.filter(track => track.id == id)[0])
         });
-        
+
         img.src = 'img/heart.svg';
     }
 }
