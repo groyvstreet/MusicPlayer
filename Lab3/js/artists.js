@@ -31,7 +31,7 @@ function getArtists(artists) {
                         <img class="cover-image" src="${artist.image}">
                         <div class="card__description">
                             <p class="title">${artist.nickname}</p>
-                            <p class="info">Треки: ${artist.tracksAmount}</p>
+                            <p class="info-p">Треки: ${artist.tracksAmount}</p>
                         </div>
                         <div class="card__buttons">
                             <button class="icon-button icon-button_size_small" id="artist-button-play-${artist.id}">

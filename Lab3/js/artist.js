@@ -22,7 +22,7 @@ function getAlbums(albums) {
                         <img class="cover-image" src="${album.image}">
                         <div class="card__description">
                             <p class="title">${album.title}</p>
-                            <p class="info">${album.type}</p>
+                            <p class="info-p">${album.type}</p>
                         </div>
                         <div class="card__buttons">
                             <button class="icon-button icon-button_size_small" id="album-button-play-${album.id}">

@@ -31,7 +31,7 @@ function getPlaylists(playlists) {
                         <img class="cover-image" src="${playlist.image}">
                         <div class="card__description">
                             <p class="title">${playlist.title}</p>
-                            <p class="info">${playlist.tracksAmount} треки</p>
+                            <p class="info-p">${playlist.tracksAmount} треки</p>
                         </div>
                         <div class="card__buttons">
                             <button class="icon-button icon-button_size_small" id="playlist-button-play-${playlist.id}">

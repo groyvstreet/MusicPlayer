@@ -141,6 +141,26 @@ function updatePlayerTrack(track) {
             img.src = 'img/fill-heart-active.svg';
         }
     });
+
+    document.getElementById('player-artists').innerHTML = track.artists.map((artist) => {
+        return `
+            <a class="info__button" href="artist.html#${artist.id}">
+                <p class="info-p">${artist.nickname}</p>
+            </a>
+        `;
+    }).join('&');
+
+    if (document.getElementById('player-artists').scrollWidth > document.getElementById('player-artists').offsetWidth) {
+        let keyframes = [
+            { transform: `translateX(${document.getElementById('player-artists').scrollWidth}px)` },
+            { transform: `translateX(${0 - document.getElementById('player-artists').scrollWidth}px)` }
+        ];
+        
+        document.getElementById('player-artists').animate(keyframes, {
+            duration: track.artists.length * 3000,
+            iterations: Infinity
+        });
+    }
 }
 
 audio.addEventListener('timeupdate', function() {

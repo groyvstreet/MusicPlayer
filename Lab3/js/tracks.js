@@ -1,17 +1,6 @@
 import { isAuthenticated } from "./app.js";
 import { updatePlayerTracks } from "./player.js";
 
-// function playTrack(tracks, id) {
-//     let track = tracks.filter(track => track.id == id)[0];
-//     trackIndex = tracks.indexOf(track);
-//     currentTracks = tracks;
-//     audio.src = currentTracks[trackIndex].src;
-//     isTrackPlaying = false;
-//     updatePlayerImagePlay();
-//     isTrackPlaying = true;
-//     audio.play();
-// }
-
 function getImage(user, id) {
     if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
         return 'img/heart.svg';
@@ -19,27 +8,6 @@ function getImage(user, id) {
         return 'img/fill-heart-active.svg';
     }
 }
-
-// function updateTrack(id) {
-//     let button = document.querySelector(`[onclick="updateTrack('${id}')"]`);
-//     let img = button.getElementsByTagName('img')[0];
-
-//     if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
-//         fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${id}.json`, {
-//             method: 'put',
-//             body: JSON.stringify(tracks.filter(track => track.id == id)[0])
-//         });
-
-//         img.src = 'img/fill-heart-active.svg';
-//     } else {
-//         fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${id}.json`, {
-//             method: 'delete',
-//             body: JSON.stringify(tracks.filter(track => track.id == id)[0])
-//         });
-
-//         img.src = 'img/heart.svg';
-//     }
-// }
 
 function getTracks(user, tracks) {
     const cards = document.getElementById('cards');
@@ -52,12 +20,12 @@ function getTracks(user, tracks) {
                     </a>
                     <div class="card__description">
                         <p class="title">${track.title}</p>
-                        <div style="overflow: hidden">
-                            <div style="display: flex; color: #AAAAAA;" id="anim-${track.id}">
+                        <div class="info">
+                            <div class="info__list" id="anim-${track.id}">
                                 ${track.artists.map((artist) => {
                                     return `
-                                        <a class="info-button" href="artist.html#${artist.id}">
-                                            <p class="info">${artist.nickname}</p>
+                                        <a class="info__button" href="artist.html#${artist.id}">
+                                            <p class="info-p">${artist.nickname}</p>
                                         </a>
                                     `;
                                 }).join('&')}
