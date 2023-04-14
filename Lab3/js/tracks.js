@@ -52,9 +52,17 @@ function getTracks(user, tracks) {
                     </a>
                     <div class="card__description">
                         <p class="title">${track.title}</p>
-                        <a class="info-button" href="artist.html">
-                            <p class="info">Исполнитель</p>
-                        </a>
+                        <div style="overflow: hidden">
+                            <div style="display: flex; color: #AAAAAA;" id="anim-${track.id}">
+                                ${track.artists.map((artist) => {
+                                    return `
+                                        <a class="info-button" href="artist.html#${artist.id}">
+                                            <p class="info">${artist.nickname}</p>
+                                        </a>
+                                    `;
+                                }).join('&')}
+                            </div>
+                        </div>
                     </div>
                     <div class="card__buttons">
                         <button class="icon-button icon-button_size_small" id="card-button-like-${track.id}">
@@ -92,11 +100,22 @@ function getTracks(user, tracks) {
                 window.location.href = 'signin.html';
             }
         });
+
+        if (document.getElementById(`anim-${track.id}`).scrollWidth > document.getElementById(`anim-${track.id}`).offsetWidth) {
+            let keyframes = [
+                { transform: `translateX(${document.getElementById(`anim-${track.id}`).scrollWidth}px)` },
+                { transform: `translateX(${0 - document.getElementById(`anim-${track.id}`).scrollWidth}px)` }
+            ];
+            
+            document.getElementById(`anim-${track.id}`).animate(keyframes, {
+                duration: track.artists.length * 3000,
+                iterations: Infinity
+            });
+        }
     });
 
     tracks.forEach((track) => {
         document.getElementById(`card-button-play-${track.id}`).addEventListener('click', () => {
-            //let track = tracks.filter(track => track.id == id)[0];
             updatePlayerTracks(tracks, track);
         });
     });
