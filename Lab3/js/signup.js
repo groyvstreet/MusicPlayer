@@ -1,5 +1,10 @@
+import { isAuthenticated } from "./app.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
+if (isAuthenticated()) {
+    window.location.href = "index.html";
+}
 
 const firebaseConfig = {
     apiKey: "AIzaSyAMUPkqFeqdJiMG2j2awctJbBoKUpNmKc0",
@@ -39,7 +44,7 @@ document.getElementById('signup-input-password-confirmation').addEventListener('
     passwordConfirmation = event.target.value;
 });
 
-document.getElementById('signup-button-create').addEventListener('click', (event) => {
+document.getElementById('signup-button').addEventListener('click', (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {

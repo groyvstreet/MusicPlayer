@@ -1,58 +1,62 @@
-import { user } from "./app.js"
+import { isAuthenticated, user } from "./app.js"
 
-let currentTracks = [];
+let tracks = [];
 let trackIndex = 0;
 let isTrackPlaying = false;
 let toRepeat = false;
 let audio = new Audio();
-// audio.autoplay = false;
 
 let nodes = document.getElementById('player').getElementsByTagName('*');
 for (let i = 0; i < nodes.length; i++) {
     nodes[i].disabled = true;
 }
 
-function updatePlayerTrack(track) {
-    let button = document.getElementById('player-button-cover-image');
-    //
-    button.href = `album.html#${track.id}`;
+function updateReplayButtonImage() {
+    let image = document.getElementById('player-img-repeat');
 
-    let image = document.getElementById('player-cover-image');
-    image.src = track.image;
-
-    let title = document.getElementById('player-title');
-    title.innerHTML = track.title;
-}
-
-function selectPreviousTrack() {
-    trackIndex -= 1;
-
-    if (trackIndex < 0) {
-        trackIndex = currentTracks.length - 1;
+    if (toRepeat) {
+        image.src = 'img/repeat.svg';
     }
-
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
-}
-
-function selectNextTrack() {
-    trackIndex += 1;
-
-    if (trackIndex > currentTracks.length - 1) {
-        trackIndex = 0;
+    else {
+        image.src = 'img/repeat-active.svg';
     }
-
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
 }
 
-function updatePlayerImagePlay() {
+function switchReplayButton() {
+    updateReplayButtonImage();
+    toRepeat = !toRepeat;
+}
+
+function addTrackToFavorite(track) {
+    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
+        method: 'put',
+        body: JSON.stringify(track)
+    });
+}
+
+function removeTrackFromFavorite(track) {
+    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
+        method: 'delete'
+    });
+}
+
+function switchFavoriteButton() {
+    if (isAuthenticated()) {
+        const track = tracks[trackIndex];
+
+        user.then((u) => {
+            if (u.favoriteTracks.filter((t) => t.id == track.id).length == 0) {
+                addTrackToFavorite(track);
+                u.favoriteTracks.push({ id: track.id});
+            } else {
+                removeTrackFromFavorite(track);
+                u.favoriteTracks = u.favoriteTracks.filter((t) => t.id != track.id);
+            }
+        });
+    }
+}
+
+function updatePlayButtonImage() {
     var image = document.getElementById('player-img-play');
 
     if (isTrackPlaying) {
@@ -63,15 +67,74 @@ function updatePlayerImagePlay() {
     }
 }
 
-function updatePlayerImageRepeat() {
-    var image = document.getElementById('player-img-repeat');
+function switchPlayButton() {
+    updatePlayButtonImage();
 
-    if (toRepeat) {
-        image.src = 'img/repeat.svg';
+    if (isTrackPlaying) {
+        isTrackPlaying = false;
+        audio.pause();
     }
     else {
-        image.src = 'img/repeat-active.svg';
+        isTrackPlaying = true;
+        audio.play();
     }
+}
+
+function playTrack() {
+    audio.src = tracks[trackIndex].src;
+    isTrackPlaying = false;
+    updatePlayButtonImage();
+    isTrackPlaying = true;
+    audio.play();
+}
+
+function selectPreviousTrack() {
+    trackIndex -= 1;
+
+    if (trackIndex < 0) {
+        trackIndex = tracks.length - 1;
+    }
+
+    playTrack();
+}
+
+function selectNextTrack() {
+    trackIndex += 1;
+
+    if (trackIndex > tracks.length - 1) {
+        trackIndex = 0;
+    }
+
+    playTrack();
+}
+
+function updatePlayerTracks(newTracks, track) {
+    tracks = newTracks;
+    trackIndex = tracks.indexOf(track);
+    playTrack();
+}
+
+function updatePlayerTrack(track) {
+    const button = document.getElementById('player-button-cover-image');
+    // album id
+    button.href = `album.html#`;
+
+    const image = document.getElementById('player-cover-image');
+    image.src = track.image;
+
+    const title = document.getElementById('player-title');
+    title.innerHTML = track.title;
+
+    const img = document.getElementById('player-img-favorite');
+
+    user.then((u) => {
+        if (u.favoriteTracks.filter((t) => t.id == track.id).length == 0) {
+            img.src = 'img/heart.svg';
+        } else {
+            removeTrackFromFavorite(track);
+            img.src = 'img/fill-heart-active.svg';
+        }
+    });
 }
 
 audio.addEventListener('timeupdate', function() {
@@ -91,7 +154,7 @@ audio.addEventListener('timeupdate', function() {
         document.getElementById('player-time').innerHTML = durationSeconds < 10 ? `${durationMinutes}:0${durationSeconds}` : `${durationMinutes}:${durationSeconds}`;
     }
 
-    updatePlayerTrack(currentTracks[trackIndex]);
+    updatePlayerTrack(tracks[trackIndex]);
 
     if (currentTime == duration) {
         if (toRepeat) {
@@ -108,31 +171,19 @@ audio.addEventListener('timeupdate', function() {
     }
 });
 
-document.getElementById('player-button-play').addEventListener('click', function() {
-    updatePlayerImagePlay();
+document.getElementById('player-button-repeat').addEventListener('click', switchReplayButton);
 
-    if (isTrackPlaying) {
-        isTrackPlaying = false;
-        audio.pause();
-    }
-    else {
-        isTrackPlaying = true;
-        audio.play();
-    }
-});
+document.getElementById('player-button-favorite').addEventListener('click', switchFavoriteButton);
+
+document.getElementById('player-button-play').addEventListener('click', switchPlayButton);
+
+document.getElementById('player-button-back').addEventListener('click', selectPreviousTrack);
+
+document.getElementById('player-button-forward').addEventListener('click', selectNextTrack);
 
 document.getElementById('player-bar').addEventListener('click', function (event) {
-    playerBar = document.getElementById('player-bar');
+    const playerBar = document.getElementById('player-bar');
     audio.currentTime = audio.duration * event.offsetX / playerBar.offsetWidth;
 });
 
-document.getElementById('player-button-back').addEventListener('click', selectPreviousTrack);
-document.getElementById('player-button-forward').addEventListener('click', selectNextTrack);
-document.getElementById('player-button-repeat').addEventListener('click', function() {
-    updatePlayerImageRepeat();
-    toRepeat = !toRepeat;
-});
-
-document.getElementById('player-button-favorite').addEventListener('click', function() {
-    //
-});
+export { updatePlayerTracks }

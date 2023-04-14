@@ -1,16 +1,21 @@
 import { user } from './app.js';
+import { updatePlayerTracks } from './player.js';
 
 let playlists = [];
 
 function playPlaylist(id) {
     let playlist = playlists.filter(playlist => playlist.id == id)[0];
-    currentTracks = playlist.tracks;
-    trackIndex = 0;
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
+
+    if (playlist.tracks.length != 0) {
+        updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
+    }
+    // currentTracks = playlist.tracks;
+    // trackIndex = 0;
+    // audio.src = currentTracks[trackIndex].src;
+    // isTrackPlaying = false;
+    // updatePlayerImagePlay();
+    // isTrackPlaying = true;
+    // audio.play();
 }
 
 function getPlaylists(playlists) {

@@ -14,9 +14,6 @@ function updateUserId() {
     }
 }
 
-// document.cookie = 'user=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-// alert(document.cookie)
-
 //localStorage.setItem('user_id', 'ebac5a1a-d920-11ed-afa1-0242ac120002');
 
 async function loadUser() {

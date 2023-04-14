@@ -1,3 +1,5 @@
+import { updatePlayerTracks } from "./player.js";
+
 // function playTrack(tracks, id) {
 //     let track = tracks.filter(track => track.id == id)[0];
 //     trackIndex = tracks.indexOf(track);
@@ -90,13 +92,7 @@ function getTracks(user, tracks) {
     tracks.forEach((track) => {
         document.getElementById(`card-button-play-${track.id}`).addEventListener('click', () => {
             //let track = tracks.filter(track => track.id == id)[0];
-            trackIndex = tracks.indexOf(track);
-            currentTracks = tracks;
-            audio.src = currentTracks[trackIndex].src;
-            isTrackPlaying = false;
-            updatePlayerImagePlay();
-            isTrackPlaying = true;
-            audio.play();
+            updatePlayerTracks(tracks, track);
         });
     });
 }
