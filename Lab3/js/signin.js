@@ -18,15 +18,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-let email;
-let password;
+const borderColor = document.getElementById('signin-input-email').style.borderColor;
+let email = '';
+let password = '';
 
-document.getElementById('signin-input-email').addEventListener('change', (event) => {
+function isValid() {
+    return email.length != 0 && password.length != 0;
+}
+
+function updateInputs() {
+    if (email.length == 0) {
+        document.getElementById('signin-input-email').style.borderColor = 'red';
+    } else {
+        document.getElementById('signin-input-email').style.borderColor = borderColor;
+    }
+
+    if (password.length == 0) {
+        document.getElementById('signin-input-password').style.borderColor = 'red';
+    } else {
+        document.getElementById('signin-input-password').style.borderColor = borderColor;
+    }
+}
+
+document.getElementById('signin-input-email').addEventListener('input', (event) => {
     email = event.target.value;
+    updateInputs();
+    document.getElementById('signin-button').disabled = !isValid();
 });
 
-document.getElementById('signin-input-password').addEventListener('change', (event) => {
+document.getElementById('signin-input-password').addEventListener('input', (event) => {
     password = event.target.value;
+    updateInputs();
+    document.getElementById('signin-button').disabled = !isValid();
 });
 
 document.getElementById('signin-button').addEventListener('click', (event) => {
@@ -38,6 +61,9 @@ document.getElementById('signin-button').addEventListener('click', (event) => {
             window.location.href = 'index.html';
         })
         .catch((error) => {
+            document.getElementById('signin-input-email').style.borderColor = 'red';
+            document.getElementById('signin-input-password').style.borderColor = 'red';
+
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorMessage);

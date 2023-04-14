@@ -18,8 +18,9 @@ user.then((u) => {
 
     getTracks(u, playlist.tracks);
 
-    document.getElementById('search').addEventListener('change', (event) => {
-        let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
+    document.getElementById('search').addEventListener('input', (event) => {
+        const input = event.target.value.toLowerCase().trim();
+        let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(input));
         getTracks(u, searchedTracks);
     });
 

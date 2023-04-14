@@ -53,6 +53,8 @@ function switchFavoriteButton() {
                 u.favoriteTracks = u.favoriteTracks.filter((t) => t.id != track.id);
             }
         });
+    } else {
+        window.location.href = 'signin.html';
     }
 }
 

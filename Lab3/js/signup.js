@@ -18,30 +18,103 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-let email;
-let username;
-let birthday;
-let password;
-let passwordConfirmation;
+const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+const USERNAME_REGEXP = /^[a-zA-Zа-яА-Я0-9+]+$/ui;
 
-document.getElementById('signup-input-email').addEventListener('change', (event) => {
+const borderColor = document.getElementById('signup-input-email').style.borderColor;
+const placeholder = document.getElementById('signup-input-password').placeholder;
+let email = '';
+let username = '';
+let birthday = '';
+let password = '';
+let passwordConfirmation = '';
+
+function isEmailValid() {
+    return EMAIL_REGEXP.test(email);
+}
+
+function isUsernameValid() {
+    return USERNAME_REGEXP.test(username);
+}
+
+function isBirthdayValid() {
+    return birthday.length != 0;
+}
+
+function isPasswordValid() {
+    return password.length >= 6 && password.length <= 50;
+}
+
+function isPasswordConfirmationValid() {
+    return passwordConfirmation == password && password.length != 0;
+}
+
+function isValid() {
+    return isEmailValid() && isUsernameValid() && isPasswordValid() && isPasswordConfirmationValid();
+}
+
+function updateInputs() {
+    if (isEmailValid()) {
+        document.getElementById('signup-input-email').style.borderColor = borderColor;
+    } else {
+        document.getElementById('signup-input-email').style.borderColor = 'red';
+    }
+
+    if (isUsernameValid()) {
+        document.getElementById('signup-input-username').style.borderColor = borderColor;
+    } else {
+        document.getElementById('signup-input-username').style.borderColor = 'red';
+    }
+
+    if (isBirthdayValid()) {
+        document.getElementById('signup-input-birthday').style.borderColor = borderColor;
+    } else {
+        document.getElementById('signup-input-birthday').style.borderColor = 'red';
+    }
+
+    if (isPasswordValid()) {
+        document.getElementById('signup-input-password').style.borderColor = borderColor;
+        document.getElementById('signup-input-password').placeholder = placeholder;
+    } else {
+        document.getElementById('signup-input-password').style.borderColor = 'red';
+        document.getElementById('signup-input-password').placeholder = placeholder + ' (6-50)';
+    }
+
+    if (isPasswordConfirmationValid()) {
+        document.getElementById('signup-input-password-confirmation').style.borderColor = borderColor;
+    } else {
+        document.getElementById('signup-input-password-confirmation').style.borderColor = 'red';
+    }
+}
+
+document.getElementById('signup-input-email').addEventListener('input', (event) => {
     email = event.target.value;
+    updateInputs();
+    document.getElementById('signup-button').disabled = !isValid();
 });
 
-document.getElementById('signup-input-username').addEventListener('change', (event) => {
+document.getElementById('signup-input-username').addEventListener('input', (event) => {
     username = event.target.value;
+    updateInputs();
+    document.getElementById('signup-button').disabled = !isValid();
 });
 
-document.getElementById('signup-input-birthday').addEventListener('change', (event) => {
+document.getElementById('signup-input-birthday').addEventListener('input', (event) => {
     birthday = event.target.value;
+    updateInputs();
+    document.getElementById('signup-button').disabled = !isValid();
 });
 
-document.getElementById('signup-input-password').addEventListener('change', (event) => {
+document.getElementById('signup-input-password').addEventListener('input', (event) => {
     password = event.target.value;
+    updateInputs();
+    document.getElementById('signup-button').disabled = !isValid();
 });
 
-document.getElementById('signup-input-password-confirmation').addEventListener('change', (event) => {
+document.getElementById('signup-input-password-confirmation').addEventListener('input', (event) => {
     passwordConfirmation = event.target.value;
+    updateInputs();
+    document.getElementById('signup-button').disabled = !isValid();
 });
 
 document.getElementById('signup-button').addEventListener('click', (event) => {
@@ -69,6 +142,8 @@ document.getElementById('signup-button').addEventListener('click', (event) => {
             });
         })
         .catch((error) => {
+            document.getElementById('signup-input-email').style.borderColor = 'red';
+
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorMessage);

@@ -67,7 +67,8 @@ function loadArtist() {
 
 loadArtist();
 
-document.getElementById('search').addEventListener('change', (event) => {
-    let searchedAlbums = artistAlbums.filter(album => album.title.toLowerCase().includes(event.target.value.toLowerCase()));
+document.getElementById('search').addEventListener('input', (event) => {
+    const input = event.target.value.toLowerCase().trim();
+    let searchedAlbums = artistAlbums.filter(album => album.title.toLowerCase().includes(input));
     getAlbums(searchedAlbums);
 });

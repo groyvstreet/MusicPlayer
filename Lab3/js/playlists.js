@@ -1,6 +1,10 @@
 import { isAuthenticated, user } from './app.js';
 import { updatePlayerTracks } from './player.js';
 
+if (!isAuthenticated()) {
+    window.location.href = 'signin.html';
+}
+
 let playlists = [];
 
 // function playPlaylist(id) {
@@ -56,13 +60,14 @@ user.then((u) => {
     getPlaylists(playlists);
 });
 
-document.getElementById('search').addEventListener('change', (event) => {
-    let searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(event.target.value.toLowerCase()));
+document.getElementById('search').addEventListener('input', (event) => {
+    const input = event.target.value.toLowerCase().trim();
+    let searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(input));
     getPlaylists(searchedPlaylists);
 });
 
 document.getElementById('playlist-button-create').addEventListener('click', async () => {
-    if (isAuthenticated) {
+    if (isAuthenticated()) {
         let newPlaylistId = crypto.randomUUID();
         let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/playlists/${newPlaylistId}.json`, {
             method: 'put',

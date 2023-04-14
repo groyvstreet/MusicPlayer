@@ -14,13 +14,14 @@ function loadTracks() {
 
             user.then((u) => {
                 getTracks(u, allTracks);
+
+                document.getElementById('search').addEventListener('input', (event) => {
+                    const input = event.target.value.toLowerCase().trim();
+                    let searchedTracks = allTracks.filter((track) => track.title.toLowerCase().includes(input));
+                    getTracks(u, searchedTracks);
+                });
             });
         });
 }
 
 loadTracks();
-
-document.getElementById('search').addEventListener('change', (event) => {
-    let searchedTracks = allTracks.filter((track) => track.title.toLowerCase().includes(event.target.value.toLowerCase()));
-    getTracks(searchedTracks);
-});

@@ -1,3 +1,4 @@
+import { isAuthenticated } from "./app.js";
 import { updatePlayerTracks } from "./player.js";
 
 // function playTrack(tracks, id) {
@@ -70,21 +71,25 @@ function getTracks(user, tracks) {
 
     tracks.forEach((track) => {
         document.getElementById(`card-button-like-${track.id}`).addEventListener('click', () => {
-            let img = document.getElementById(`card-img-like-${track.id}`);
+            if (isAuthenticated()) {
+                let img = document.getElementById(`card-img-like-${track.id}`);
 
-            if (user.favoriteTracks.filter(t => t.id == track.id).length == 0) {
-                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-                    method: 'put',
-                    body: JSON.stringify(track)
-                });
+                if (user.favoriteTracks.filter(t => t.id == track.id).length == 0) {
+                    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
+                        method: 'put',
+                        body: JSON.stringify(track)
+                    });
 
-                img.src = 'img/fill-heart-active.svg';
+                    img.src = 'img/fill-heart-active.svg';
+                } else {
+                    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
+                        method: 'delete'
+                    });
+
+                    img.src = 'img/heart.svg';
+                }
             } else {
-                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-                    method: 'delete'
-                });
-
-                img.src = 'img/heart.svg';
+                window.location.href = 'signin.html';
             }
         });
     });
