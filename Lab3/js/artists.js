@@ -1,3 +1,5 @@
+import { updatePlayerTracks } from "./player.js";
+
 let artists = [];
 
 let artistTracks = [];
@@ -14,13 +16,10 @@ async function playArtist(id) {
     artistAlbums.map((album) => {
         artistTracks = artistTracks.concat(album.tracks);
     });
-    currentTracks = artistTracks;
-    trackIndex = 0;
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
+
+    if (artistTracks.length != 0) {
+        updatePlayerTracks(artistTracks, artistTracks[0]);
+    }
 }
 
 function getArtists(artists) {
@@ -35,7 +34,7 @@ function getArtists(artists) {
                             <p class="info">Треки: ${artist.tracksAmount}</p>
                         </div>
                         <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playArtist('${artist.id}'); return false">
+                            <button class="icon-button icon-button_size_small" id="artist-button-play-${artist.id}">
                                 <img class="icon-button__image" src="img/forward.svg">
                             </button>
                         </div>
@@ -44,6 +43,13 @@ function getArtists(artists) {
             </li>
         `;
     }).join('');
+
+    artists.forEach((artist) => {
+        document.getElementById(`artist-button-play-${artist.id}`).addEventListener('click', (event) => {
+            event.preventDefault();
+            playArtist(artist.id);
+        });
+    });
 }
 
 function loadArtists() {

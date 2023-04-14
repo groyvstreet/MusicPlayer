@@ -1,22 +1,22 @@
-import { user } from './app.js';
+import { isAuthenticated, user } from './app.js';
 import { updatePlayerTracks } from './player.js';
 
 let playlists = [];
 
-function playPlaylist(id) {
-    let playlist = playlists.filter(playlist => playlist.id == id)[0];
+// function playPlaylist(id) {
+//     let playlist = playlists.filter(playlist => playlist.id == id)[0];
 
-    if (playlist.tracks.length != 0) {
-        updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
-    }
-    // currentTracks = playlist.tracks;
-    // trackIndex = 0;
-    // audio.src = currentTracks[trackIndex].src;
-    // isTrackPlaying = false;
-    // updatePlayerImagePlay();
-    // isTrackPlaying = true;
-    // audio.play();
-}
+//     if (playlist.tracks.length != 0) {
+//         updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
+//     }
+//     // currentTracks = playlist.tracks;
+//     // trackIndex = 0;
+//     // audio.src = currentTracks[trackIndex].src;
+//     // isTrackPlaying = false;
+//     // updatePlayerImagePlay();
+//     // isTrackPlaying = true;
+//     // audio.play();
+// }
 
 function getPlaylists(playlists) {
     document.getElementById('cards').innerHTML = playlists.map(function (playlist) {
@@ -30,7 +30,7 @@ function getPlaylists(playlists) {
                             <p class="info">${playlist.tracksAmount} треки</p>
                         </div>
                         <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playPlaylist('${playlist.id}'); return false">
+                            <button class="icon-button icon-button_size_small" id="playlist-button-play-${playlist.id}">
                                 <img class="icon-button__image" src="img/forward.svg">
                             </button>
                         </div>
@@ -39,6 +39,16 @@ function getPlaylists(playlists) {
             </li>
         `;
     }).join('');
+
+    playlists.forEach((playlist) => {
+        document.getElementById(`playlist-button-play-${playlist.id}`).addEventListener('click', (event) => {
+            //let track = tracks.filter(track => track.id == id)[0];
+            event.preventDefault();
+            if (playlist.tracks != undefined) {
+                updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
+            }
+        });
+    });
 }
 
 user.then((u) => {
@@ -52,19 +62,23 @@ document.getElementById('search').addEventListener('change', (event) => {
 });
 
 document.getElementById('playlist-button-create').addEventListener('click', async () => {
-    let newPlaylistId = crypto.randomUUID();
-    let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/playlists/${newPlaylistId}.json`, {
-        method: 'put',
-        body: JSON.stringify({
-            id: newPlaylistId,
-            title: 'Плейлист',
-            description: '',
-            image: 'img/cover-image.jpg',
-            tracksAmount: 0
-        })
-    });
+    if (isAuthenticated) {
+        let newPlaylistId = crypto.randomUUID();
+        let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/playlists/${newPlaylistId}.json`, {
+            method: 'put',
+            body: JSON.stringify({
+                id: newPlaylistId,
+                title: 'Плейлист',
+                description: '',
+                image: 'img/cover-image.jpg',
+                tracksAmount: 0
+            })
+        });
 
-    if (response.ok) {
-        window.location.href = `playlist.html#${newPlaylistId}`;
+        if (response.ok) {
+            window.location.href = `playlist.html#${newPlaylistId}`;
+        }
+    } else {
+        window.location.href = 'signin.html';
     }
 });

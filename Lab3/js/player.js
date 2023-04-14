@@ -115,9 +115,14 @@ function updatePlayerTracks(newTracks, track) {
 }
 
 function updatePlayerTrack(track) {
-    const button = document.getElementById('player-button-cover-image');
-    // album id
-    button.href = `album.html#`;
+    fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json')
+        .then((response) => response.json())
+        .then((data) => {
+            const albums = Object.values(data);
+            const album = albums.filter((album) => album.tracks.filter((t) => t.id == track.id).length != 0)[0];
+            const button = document.getElementById('player-button-cover-image');
+            button.href = `album.html#${album.id}`;
+        });
 
     const image = document.getElementById('player-cover-image');
     image.src = track.image;
@@ -125,13 +130,12 @@ function updatePlayerTrack(track) {
     const title = document.getElementById('player-title');
     title.innerHTML = track.title;
 
-    const img = document.getElementById('player-img-favorite');
-
     user.then((u) => {
+        const img = document.getElementById('player-img-favorite');
+        
         if (u.favoriteTracks.filter((t) => t.id == track.id).length == 0) {
             img.src = 'img/heart.svg';
         } else {
-            removeTrackFromFavorite(track);
             img.src = 'img/fill-heart-active.svg';
         }
     });

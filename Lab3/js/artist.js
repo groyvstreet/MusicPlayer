@@ -1,15 +1,17 @@
+import { updatePlayerTracks } from "./player.js";
+
 let artistAlbums = [];
 
-function playAlbum(id) {
-    let album = artistAlbums.filter(album => album.id == id)[0];
-    trackIndex = 0;
-    currentTracks = album.tracks;
-    audio.src = currentTracks[trackIndex].src;
-    isTrackPlaying = false;
-    updatePlayerImagePlay();
-    isTrackPlaying = true;
-    audio.play();
-}
+// function playAlbum(id) {
+//     let album = artistAlbums.filter(album => album.id == id)[0];
+//     trackIndex = 0;
+//     currentTracks = album.tracks;
+//     audio.src = currentTracks[trackIndex].src;
+//     isTrackPlaying = false;
+//     updatePlayerImagePlay();
+//     isTrackPlaying = true;
+//     audio.play();
+// }
 
 function getAlbums(albums) {
     document.getElementById('cards').innerHTML = albums.map(function (album) {
@@ -23,7 +25,7 @@ function getAlbums(albums) {
                             <p class="info">${album.type}</p>
                         </div>
                         <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" onclick="playAlbum('${album.id}'); return false">
+                            <button class="icon-button icon-button_size_small" id="album-button-play-${album.id}">
                                 <img class="icon-button__image" src="img/forward.svg">
                             </button>
                         </div>
@@ -32,6 +34,16 @@ function getAlbums(albums) {
             </li>
         `;
     }).join('');
+
+    albums.forEach((album) => {
+        document.getElementById(`album-button-play-${album.id}`).addEventListener('click', (event) => {
+            event.preventDefault();
+
+            if (album.tracks != undefined && album.tracks.length != 0) {
+                updatePlayerTracks(album.tracks, album.tracks[0]);
+            }
+        });
+    });
 }
 
 let id = window.location.href.split('#')[1];
