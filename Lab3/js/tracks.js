@@ -71,13 +71,15 @@ function getTracks(user, tracks) {
 
         if (document.getElementById(`anim-${track.id}`).scrollWidth > document.getElementById(`anim-${track.id}`).offsetWidth) {
             let keyframes = [
-                { transform: `translateX(${document.getElementById(`anim-${track.id}`).scrollWidth}px)` },
-                { transform: `translateX(${0 - document.getElementById(`anim-${track.id}`).scrollWidth}px)` }
+                { transform: 'translateX(0)' },
+                { transform: `translateX(${0 - document.getElementById(`anim-${track.id}`).scrollWidth + document.getElementById(`anim-${track.id}`).offsetWidth}px)` },
+                { transform: 'translateX(0)' }
             ];
             
             document.getElementById(`anim-${track.id}`).animate(keyframes, {
-                duration: track.artists.length * 3000,
-                iterations: Infinity
+                duration: track.artists.length * 2000,
+                iterations: Infinity,
+                timingFunction: 'linear'
             });
         }
     });

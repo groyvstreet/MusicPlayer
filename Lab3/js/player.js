@@ -182,13 +182,15 @@ function updatePlayerTrack(track) {
 
     if (document.getElementById('player-artists').scrollWidth > document.getElementById('player-artists').offsetWidth) {
         let keyframes = [
-            { transform: `translateX(${document.getElementById('player-artists').scrollWidth}px)` },
-            { transform: `translateX(${0 - document.getElementById('player-artists').scrollWidth}px)` }
+            { transform: 'translateX(0)' },
+            { transform: `translateX(${0 - document.getElementById('player-artists').scrollWidth + document.getElementById('player-artists').offsetWidth}px)` },
+            { transform: 'translateX(0)' }
         ];
         
         document.getElementById('player-artists').animate(keyframes, {
             duration: track.artists.length * 3000,
-            iterations: Infinity
+            iterations: Infinity,
+            timingFunction: 'linear'
         });
     }
 }
