@@ -7,21 +7,6 @@ if (!isAuthenticated()) {
 
 let playlists = [];
 
-// function playPlaylist(id) {
-//     let playlist = playlists.filter(playlist => playlist.id == id)[0];
-
-//     if (playlist.tracks.length != 0) {
-//         updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
-//     }
-//     // currentTracks = playlist.tracks;
-//     // trackIndex = 0;
-//     // audio.src = currentTracks[trackIndex].src;
-//     // isTrackPlaying = false;
-//     // updatePlayerImagePlay();
-//     // isTrackPlaying = true;
-//     // audio.play();
-// }
-
 function getPlaylists(playlists) {
     document.getElementById('cards').innerHTML = playlists.map(function (playlist) {
         return `
@@ -46,7 +31,6 @@ function getPlaylists(playlists) {
 
     playlists.forEach((playlist) => {
         document.getElementById(`playlist-button-play-${playlist.id}`).addEventListener('click', (event) => {
-            //let track = tracks.filter(track => track.id == id)[0];
             event.preventDefault();
             if (playlist.tracks != undefined) {
                 updatePlayerTracks(playlist.tracks, playlist.tracks[0]);

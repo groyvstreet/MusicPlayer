@@ -2,8 +2,10 @@ import { isAuthenticated, user } from "./app.js"
 
 let tracks = [];
 let trackIndex = 0;
+let isPlayerHidden = true;
 let isTrackPlaying = false;
 let toRepeat = false;
+let isNewTrack = true;
 let audio = new Audio();
 
 let nodes = document.getElementById('player').getElementsByTagName('*');
@@ -40,15 +42,28 @@ function removeTrackFromFavorite(track) {
     });
 }
 
+function updateFavoriteButtonImage(isFilled) {
+    let image = document.getElementById('player-img-favorite');
+
+    if (isFilled) {
+        image.src = 'img/heart.svg';
+    }
+    else {
+        image.src = 'img/fill-heart-active.svg';
+    }
+}
+
 function switchFavoriteButton() {
     if (isAuthenticated()) {
         const track = tracks[trackIndex];
 
         user.then((u) => {
             if (u.favoriteTracks.filter((t) => t.id == track.id).length == 0) {
+                updateFavoriteButtonImage(false);
                 addTrackToFavorite(track);
                 u.favoriteTracks.push({ id: track.id});
             } else {
+                updateFavoriteButtonImage(true);
                 removeTrackFromFavorite(track);
                 u.favoriteTracks = u.favoriteTracks.filter((t) => t.id != track.id);
             }
@@ -87,6 +102,7 @@ function playTrack() {
     isTrackPlaying = false;
     updatePlayButtonImage();
     isTrackPlaying = true;
+    isNewTrack = true;
     audio.play();
 }
 
@@ -111,6 +127,20 @@ function selectNextTrack() {
 }
 
 function updatePlayerTracks(newTracks, track) {
+    if (isPlayerHidden) {
+        isPlayerHidden = false;
+
+        let keyframes = [
+            { transform: 'translateY(-100px)' }
+        ];
+
+        document.getElementById('player').animate(keyframes, {
+            duration: 200,
+            fill: 'forwards',
+            timingFunction: 'ease-in'
+        });
+    }
+
     tracks = newTracks;
     trackIndex = tracks.indexOf(track);
     playTrack();
@@ -180,7 +210,10 @@ audio.addEventListener('timeupdate', function() {
         document.getElementById('player-time').innerHTML = durationSeconds < 10 ? `${durationMinutes}:0${durationSeconds}` : `${durationMinutes}:${durationSeconds}`;
     }
 
-    updatePlayerTrack(tracks[trackIndex]);
+    if (isNewTrack) {
+        isNewTrack = false;
+        updatePlayerTrack(tracks[trackIndex]);
+    }
 
     if (currentTime == duration) {
         if (toRepeat) {

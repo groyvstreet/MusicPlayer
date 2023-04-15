@@ -2,8 +2,6 @@ import { updatePlayerTracks } from "./player.js";
 
 let artists = [];
 
-let artistTracks = [];
-
 async function playArtist(id) {
     let response = await fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json');
     let albums = Object.values(await response.json());
@@ -12,6 +10,8 @@ async function playArtist(id) {
     if (artistAlbums == 0) {
         return;
     }
+
+    let artistTracks = [];
 
     artistAlbums.map((album) => {
         artistTracks = artistTracks.concat(album.tracks);
