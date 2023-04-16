@@ -57,8 +57,20 @@ document.getElementById('signin-button').addEventListener('click', (event) => {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            document.cookie = `user=${user.uid}`;
-            window.location.href = 'index.html';
+
+            fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`)
+                .then((response) => response.json())
+                .then((data) => {
+                    document.cookie = `user=${user.uid}`;
+
+                    if (data.artistId == undefined) {
+                        document.cookie = 'role=default';
+                    } else {
+                        document.cookie = 'role=artist';
+                    }
+                    
+                    window.location.href = 'index.html';
+                });
         })
         .catch((error) => {
             document.getElementById('signin-input-email').style.borderColor = 'red';

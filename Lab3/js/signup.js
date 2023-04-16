@@ -119,33 +119,82 @@ document.getElementById('signup-input-password-confirmation').addEventListener('
 
 document.getElementById('signup-button').addEventListener('click', (event) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            
-            fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`, {
-                method: 'put',
-                body: JSON.stringify({
-                    id: user.uid,
-                    avatar: 'img/blank-profile-picture.svg',
-                    email: email,
-                    username: username,
-                    birthday: birthday,
-                    favoriteTracksAmount: 0,
-                    playlistsAmount: 0
-                })
-            }).then((response) => {
-                if (response.ok) {
-                    document.cookie = `user=${user.uid}`;
-                    window.location.href = 'index.html';
-                }
-            });
-        })
-        .catch((error) => {
-            document.getElementById('signup-input-email').style.borderColor = 'red';
+    if (document.getElementById('signup-input-is-artist').value) {
+        const artistId = crypto.randomUUID();
 
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorMessage);
-        });
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                
+                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`, {
+                    method: 'put',
+                    body: JSON.stringify({
+                        id: user.uid,
+                        avatar: 'img/blank-profile-picture.svg',
+                        email: email,
+                        username: username,
+                        birthday: birthday,
+                        favoriteTracksAmount: 0,
+                        playlistsAmount: 0,
+                        artistId: artistId
+                    })
+                }).then((response) => {
+                    if (response.ok) {
+                        fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${artistId}.json`, {
+                            method: 'put',
+                            body: JSON.stringify({
+                                id: artistId,
+                                image: 'img/blank-profile-picture.svg',
+                                nickname: username,
+                                tracksAmount: 0
+                            })
+                        }).then((response) => {
+                            if (response.ok) {
+                                document.cookie = `user=${user.uid}`;
+                                document.cookie = 'role=artist';
+                                window.location.href = 'index.html';
+                            }
+                        });
+                    }
+                });
+            })
+            .catch((error) => {
+                document.getElementById('signup-input-email').style.borderColor = 'red';
+
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    } else {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                
+                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`, {
+                    method: 'put',
+                    body: JSON.stringify({
+                        id: user.uid,
+                        avatar: 'img/blank-profile-picture.svg',
+                        email: email,
+                        username: username,
+                        birthday: birthday,
+                        favoriteTracksAmount: 0,
+                        playlistsAmount: 0
+                    })
+                }).then((response) => {
+                    if (response.ok) {
+                        document.cookie = `user=${user.uid}`;
+                        document.cookie = 'role=default';
+                        window.location.href = 'index.html';
+                    }
+                });
+            })
+            .catch((error) => {
+                document.getElementById('signup-input-email').style.borderColor = 'red';
+
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    }
 });
