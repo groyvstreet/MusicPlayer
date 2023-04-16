@@ -58,7 +58,7 @@ if (localStorage.getItem('user_role') == 'artist') {
     const child = document.getElementById('nav-elems').appendChild(li);
     child.classList.add('nav__elem');
     child.innerHTML = `
-        <a class="" href="index.html">
+        <a class="" href="album_add.html">
             <img class="nav__elem-image" src="img/plus.svg">
         </a>
     `;
