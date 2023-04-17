@@ -9,7 +9,7 @@ function getImage(user, id) {
     }
 }
 
-function getTracks(user, tracks) {
+function renderTracks(user, tracks) {
     const cards = document.getElementById('cards');
     cards.innerHTML = tracks.map(function (track) {
         return `
@@ -91,4 +91,4 @@ function getTracks(user, tracks) {
     });
 }
 
-export { getTracks }
+export { renderTracks }

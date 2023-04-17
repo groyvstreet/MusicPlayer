@@ -1,19 +1,8 @@
 import { updatePlayerTracks } from "./player.js";
+import { getArtist } from "./api/artists.js";
+import { getAlbums } from "./api/albums.js";
 
-let artistAlbums = [];
-
-// function playAlbum(id) {
-//     let album = artistAlbums.filter(album => album.id == id)[0];
-//     trackIndex = 0;
-//     currentTracks = album.tracks;
-//     audio.src = currentTracks[trackIndex].src;
-//     isTrackPlaying = false;
-//     updatePlayerImagePlay();
-//     isTrackPlaying = true;
-//     audio.play();
-// }
-
-function getAlbums(albums) {
+function renderAlbums(albums) {
     document.getElementById('cards').innerHTML = albums.map(function (album) {
         return `
             <li class="cards__card">
@@ -36,39 +25,36 @@ function getAlbums(albums) {
     }).join('');
 
     albums.forEach((album) => {
-        document.getElementById(`album-button-play-${album.id}`).addEventListener('click', (event) => {
+        function playAlbum(event) {
             event.preventDefault();
 
             if (album.tracks != undefined && album.tracks.length != 0) {
                 updatePlayerTracks(album.tracks, album.tracks[0]);
             }
-        });
+        }
+
+        document.getElementById(`album-button-play-${album.id}`).addEventListener('click', playAlbum);
     });
 }
 
-let id = window.location.href.split('#')[1];
+async function loadArtist(id) {
+    const artist = await getArtist(id);
+    document.getElementById('preview-image').src = artist.image;
+    document.getElementById('preview-h1').innerHTML = artist.nickname;
+    document.getElementById('preview-h2').innerHTML = `Треки: ${artist.tracksAmount}`;
 
-function loadArtist() {
-    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${id}.json`)
-        .then((response) => response.json())
-        .then((artist) => {
-            document.getElementById('preview-image').src = artist.image;
-            document.getElementById('preview-h1').innerHTML = artist.nickname;
-            document.getElementById('preview-h2').innerHTML = `Треки: ${artist.tracksAmount}`;
+    let artistAlbums = await getAlbums(artist.id);
+    artistAlbums = Object.values(artistAlbums);
+    renderAlbums(artistAlbums);
 
-            fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json?orderBy="artist/id"&equalTo="${artist.id}"`)
-                .then((response) => response.json())
-                .then((albums) => {
-                    artistAlbums = Object.values(albums);
-                    getAlbums(artistAlbums);
-                })
-        });
+    function searchAlbums(event) {
+        const input = event.target.value.toLowerCase().trim();
+        let searchedAlbums = artistAlbums.filter(album => album.title.toLowerCase().includes(input));
+        renderAlbums(searchedAlbums);
+    }
+
+    document.getElementById('search').addEventListener('input', searchAlbums);
 }
 
-loadArtist();
-
-document.getElementById('search').addEventListener('input', (event) => {
-    const input = event.target.value.toLowerCase().trim();
-    let searchedAlbums = artistAlbums.filter(album => album.title.toLowerCase().includes(input));
-    getAlbums(searchedAlbums);
-});
+const id = window.location.href.split('#')[1];
+loadArtist(id);

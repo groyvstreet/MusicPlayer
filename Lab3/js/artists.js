@@ -1,13 +1,12 @@
 import { updatePlayerTracks } from "./player.js";
-
-let artists = [];
+import { getArtists } from "./api/artists.js";
+import { getAlbumsByArtist } from "./api/albums.js";
 
 async function playArtist(id) {
-    let response = await fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json');
-    let albums = Object.values(await response.json());
-    let artistAlbums = albums.filter((album) => album.artist.id == id);
+    let artistAlbums = await getAlbumsByArtist(id);
+    artistAlbums = Object.values(artistAlbums);
 
-    if (artistAlbums == 0) {
+    if (artistAlbums.length == 0) {
         return;
     }
 
@@ -22,7 +21,7 @@ async function playArtist(id) {
     }
 }
 
-function getArtists(artists) {
+function renderArtists(artists) {
     document.getElementById('cards').innerHTML = artists.map(function (artist) {
         return `
             <li class="cards__card">
@@ -47,24 +46,22 @@ function getArtists(artists) {
     artists.forEach((artist) => {
         document.getElementById(`artist-button-play-${artist.id}`).addEventListener('click', (event) => {
             event.preventDefault();
+            
             playArtist(artist.id);
         });
     });
 }
 
-function loadArtists() {
-    fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists.json')
-        .then((response) => response.json())
-        .then((a) => {
-            artists = Object.values(a);
-            getArtists(artists);
-        });
+async function loadArtists() {
+    let artists = await getArtists();
+    artists = Object.values(artists);
+    renderArtists(artists);
+
+    document.getElementById('search').addEventListener('input', (event) => {
+        const input = event.target.value.toLowerCase().trim();
+        let searchedArtists = artists.filter(artist => artist.nickname.toLowerCase().includes(input));
+        renderArtists(searchedArtists);
+    });
 }
 
 loadArtists();
-
-document.getElementById('search').addEventListener('input', (event) => {
-    const input = event.target.value.toLowerCase().trim();
-    let searchedArtists = artists.filter(artist => artist.nickname.toLowerCase().includes(input));
-    getArtists(searchedArtists);
-});

@@ -1,4 +1,6 @@
 import { isAuthenticated, user } from "./app.js"
+import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js";
+import { getAlbums } from "./api/albums.js";
 
 let tracks = [];
 let trackIndex = 0;
@@ -7,11 +9,6 @@ let isTrackPlaying = false;
 let toRepeat = false;
 let isNewTrack = true;
 let audio = new Audio();
-
-let nodes = document.getElementById('player').getElementsByTagName('*');
-for (let i = 0; i < nodes.length; i++) {
-    nodes[i].disabled = true;
-}
 
 function updateReplayButtonImage() {
     let image = document.getElementById('player-img-repeat');
@@ -27,19 +24,6 @@ function updateReplayButtonImage() {
 function switchReplayButton() {
     updateReplayButtonImage();
     toRepeat = !toRepeat;
-}
-
-function addTrackToFavorite(track) {
-    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-        method: 'put',
-        body: JSON.stringify(track)
-    });
-}
-
-function removeTrackFromFavorite(track) {
-    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-        method: 'delete'
-    });
 }
 
 function updateFavoriteButtonImage(isFilled) {
@@ -60,11 +44,11 @@ function switchFavoriteButton() {
         user.then((u) => {
             if (u.favoriteTracks.filter((t) => t.id == track.id).length == 0) {
                 updateFavoriteButtonImage(false);
-                addTrackToFavorite(track);
+                addTrackToFavorite(u.id, track);
                 u.favoriteTracks.push({ id: track.id});
             } else {
                 updateFavoriteButtonImage(true);
-                removeTrackFromFavorite(track);
+                removeTrackFromFavorite(u.id, track);
                 u.favoriteTracks = u.favoriteTracks.filter((t) => t.id != track.id);
             }
         });
@@ -146,15 +130,30 @@ function updatePlayerTracks(newTracks, track) {
     playTrack();
 }
 
-function updatePlayerTrack(track) {
-    fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json')
-        .then((response) => response.json())
-        .then((data) => {
-            const albums = Object.values(data);
-            const album = albums.filter((album) => album.tracks.filter((t) => t.id == track.id).length != 0)[0];
-            const button = document.getElementById('player-button-cover-image');
-            button.href = `album.html#${album.id}`;
-        });
+function disablePlayer() {
+    const nodes = document.getElementById('player').getElementsByTagName('*');
+
+    for (let i = 0; i < nodes.length; i++) {
+        nodes[i].disabled = true;
+    }
+}
+
+function enablePlayer() {
+    const nodes = document.getElementById('player').getElementsByTagName('*');
+    
+    for (let i = 0; i < nodes.length; i++) {
+        nodes[i].disabled = false;
+    }
+}
+
+async function updatePlayerTrack(track) {
+    disablePlayer();
+
+    let albums = await getAlbums();
+    albums = Object.values(albums);
+    const album = albums.filter((album) => album.tracks.filter((t) => t.id == track.id).length != 0)[0];
+    const button = document.getElementById('player-button-cover-image');
+    button.href = `album.html#${album.id}`;
 
     const image = document.getElementById('player-cover-image');
     image.src = track.image;
@@ -193,9 +192,11 @@ function updatePlayerTrack(track) {
             timingFunction: 'linear'
         });
     }
+
+    enablePlayer();
 }
 
-audio.addEventListener('timeupdate', function() {
+function updatePlayer() {
     let currentTime = Math.trunc(audio.currentTime);
     let duration = Math.trunc(audio.duration);
 
@@ -225,12 +226,9 @@ audio.addEventListener('timeupdate', function() {
             selectNextTrack();
         }
     }
+}
 
-    let nodes = document.getElementById('player').getElementsByTagName('*');
-    for (let i = 0; i < nodes.length; i++) {
-        nodes[i].disabled = false;
-    }
-});
+audio.addEventListener('timeupdate', updatePlayer);
 
 document.getElementById('player-button-repeat').addEventListener('click', switchReplayButton);
 
@@ -242,7 +240,7 @@ document.getElementById('player-button-back').addEventListener('click', selectPr
 
 document.getElementById('player-button-forward').addEventListener('click', selectNextTrack);
 
-document.getElementById('player-bar').addEventListener('click', function (event) {
+document.getElementById('player-bar').addEventListener('click', (event) => {
     const playerBar = document.getElementById('player-bar');
     audio.currentTime = audio.duration * event.offsetX / playerBar.offsetWidth;
 });

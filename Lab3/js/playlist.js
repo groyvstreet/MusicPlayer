@@ -1,10 +1,11 @@
 import { user } from './app.js';
-import { getTracks } from './tracks.js';
+import { renderTracks } from './tracks.js';
+import { deletePlaylist } from './api/playlists.js';
 
 const id = window.location.href.split('#')[1];
 
 user.then((u) => {
-    let playlist = u.playlists[id];
+    const playlist = u.playlists[id];
 
     if (playlist.tracks == undefined) {
         playlist.tracks = [];
@@ -16,19 +17,23 @@ user.then((u) => {
     document.getElementById('preview-h3').innerHTML = playlist.description;
     document.getElementById('preview-button-edit').href = `playlist_edit.html#${playlist.id}`;
 
-    getTracks(u, playlist.tracks);
+    renderTracks(u, playlist.tracks);
 
-    document.getElementById('search').addEventListener('input', (event) => {
+    function searchTracks(event) {
         const input = event.target.value.toLowerCase().trim();
         let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(input));
-        getTracks(u, searchedTracks);
-    });
+        renderTracks(u, searchedTracks);
+    }
 
-    document.getElementById('preview-button-delete').addEventListener('click', async () => {
-        let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/playlists/${id}.json`, {method: 'delete'});
+    document.getElementById('search').addEventListener('input', searchTracks);
+
+    async function deleteButtonOnClick() {
+        const response = await deletePlaylist(u.id, playlist.id)
         
         if (response.ok) {
             window.location.href = 'playlists.html';
         }
-    });
+    }
+
+    document.getElementById('preview-button-delete').addEventListener('click', deleteButtonOnClick);
 });

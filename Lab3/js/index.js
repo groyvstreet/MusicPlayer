@@ -1,27 +1,28 @@
 import { user } from './app.js';
-import { getTracks } from './tracks.js';
+import { renderTracks } from './tracks.js';
+import { getAlbums } from './api/albums.js';
 
-let allTracks = [];
+async function loadTracks() {
+    let albums = await getAlbums();
+    albums = Object.values(albums);
 
-function loadTracks() {
-    fetch('https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums.json')
-        .then((response) => response.json())
-        .then((data) => {
-            let albums = Object.values(data);
-            albums.map((album) => {
-                allTracks = allTracks.concat(album.tracks);
-            });
+    let allTracks = [];
 
-            user.then((u) => {
-                getTracks(u, allTracks);
+    albums.map((album) => {
+        allTracks = allTracks.concat(album.tracks);
+    });
 
-                document.getElementById('search').addEventListener('input', (event) => {
-                    const input = event.target.value.toLowerCase().trim();
-                    let searchedTracks = allTracks.filter((track) => track.title.toLowerCase().includes(input));
-                    getTracks(u, searchedTracks);
-                });
-            });
-        });
+    user.then((u) => {
+        renderTracks(u, allTracks);
+
+        function searchTracks(event) {
+            const input = event.target.value.toLowerCase().trim();
+            const searchedTracks = allTracks.filter((track) => track.title.toLowerCase().includes(input));
+            renderTracks(u, searchedTracks);
+        }
+
+        document.getElementById('search').addEventListener('input', searchTracks);
+    });
 }
 
 loadTracks();
