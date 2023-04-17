@@ -1,13 +1,18 @@
 import { isAuthenticated, user } from './app.js';
 import { updatePlayerTracks } from './player.js';
+import { addPlaylist } from './api/playlists.js';
 
 if (!isAuthenticated()) {
     window.location.href = 'signin.html';
 }
 
-let playlists = [];
+function renderPlaylists(playlists) {
+    function playPlaylist(playlist) {
+        if (playlist.tracks != undefined) {
+            updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
+        }
+    }
 
-function getPlaylists(playlists) {
     document.getElementById('cards').innerHTML = playlists.map(function (playlist) {
         return `
             <li class="cards__card">
@@ -32,42 +37,36 @@ function getPlaylists(playlists) {
     playlists.forEach((playlist) => {
         document.getElementById(`playlist-button-play-${playlist.id}`).addEventListener('click', (event) => {
             event.preventDefault();
-            if (playlist.tracks != undefined) {
-                updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
-            }
+            
+            playPlaylist(playlist);
         });
     });
 }
 
 user.then((u) => {
-    playlists = playlists.concat(Object.values(u.playlists));
-    getPlaylists(playlists);
-});
+    const playlists = Object.values(u.playlists);
+    renderPlaylists(playlists);
 
-document.getElementById('search').addEventListener('input', (event) => {
-    const input = event.target.value.toLowerCase().trim();
-    let searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(input));
-    getPlaylists(searchedPlaylists);
-});
-
-document.getElementById('playlist-button-create').addEventListener('click', async () => {
-    if (isAuthenticated()) {
-        let newPlaylistId = crypto.randomUUID();
-        let response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/playlists/${newPlaylistId}.json`, {
-            method: 'put',
-            body: JSON.stringify({
-                id: newPlaylistId,
-                title: 'Плейлист',
-                description: '',
-                image: 'img/cover-image.jpg',
-                tracksAmount: 0
-            })
-        });
-
-        if (response.ok) {
-            window.location.href = `playlist.html#${newPlaylistId}`;
-        }
-    } else {
-        window.location.href = 'signin.html';
+    function searchPlaylists(event) {
+        const input = event.target.value.toLowerCase().trim();
+        const searchedPlaylists = playlists.filter(playlist => playlist.title.toLowerCase().includes(input));
+        renderPlaylists(searchedPlaylists);
     }
+
+    document.getElementById('search').addEventListener('input', searchPlaylists);
+
+    async function createButtonOnClick() {
+        if (isAuthenticated()) {
+            const response = await addPlaylist(u.id);
+    
+            if (response.ok) {
+                const id = response.url.split('/').pop().split('.')[0]
+                window.location.href = `playlist.html#${id}`;
+            }
+        } else {
+            window.location.href = 'signin.html';
+        }
+    }
+    
+    document.getElementById('playlist-button-create').addEventListener('click', createButtonOnClick);
 });
