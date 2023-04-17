@@ -1,22 +1,9 @@
 import { isAuthenticated } from "./app.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+import { signUp } from "./api/users.js";
 
 if (isAuthenticated()) {
     window.location.href = "index.html";
 }
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAMUPkqFeqdJiMG2j2awctJbBoKUpNmKc0",
-    authDomain: "krakensound-ee3a2.firebaseapp.com",
-    projectId: "krakensound-ee3a2",
-    storageBucket: "krakensound-ee3a2.appspot.com",
-    messagingSenderId: "383353070589",
-    appId: "1:383353070589:web:fb0cd035182441acdfaf94"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 const USERNAME_REGEXP = /^[a-zA-Zа-яА-Я0-9+]+$/ui;
@@ -87,114 +74,60 @@ function updateInputs() {
     }
 }
 
-document.getElementById('signup-input-email').addEventListener('input', (event) => {
+function emailInput(event) {
     email = event.target.value;
     updateInputs();
     document.getElementById('signup-button').disabled = !isValid();
-});
+}
 
-document.getElementById('signup-input-username').addEventListener('input', (event) => {
+function usernameInput(event) {
     username = event.target.value;
     updateInputs();
     document.getElementById('signup-button').disabled = !isValid();
-});
+}
 
-document.getElementById('signup-input-birthday').addEventListener('input', (event) => {
+function birthdayInput(event) {
     birthday = event.target.value;
     updateInputs();
     document.getElementById('signup-button').disabled = !isValid();
-});
+}
 
-document.getElementById('signup-input-password').addEventListener('input', (event) => {
+function passwordInput(event) {
     password = event.target.value;
     updateInputs();
     document.getElementById('signup-button').disabled = !isValid();
-});
+}
 
-document.getElementById('signup-input-password-confirmation').addEventListener('input', (event) => {
+function passwordConfirmationInput(event) {
     passwordConfirmation = event.target.value;
     updateInputs();
     document.getElementById('signup-button').disabled = !isValid();
-});
+}
 
-document.getElementById('signup-button').addEventListener('click', (event) => {
+async function signupButtonOnClick(event) {
     event.preventDefault();
-    if (document.getElementById('signup-input-is-artist').value) {
-        const artistId = crypto.randomUUID();
+    const isArtist = document.getElementById('signup-input-is-artist').checked;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                
-                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`, {
-                    method: 'put',
-                    body: JSON.stringify({
-                        id: user.uid,
-                        avatar: 'img/blank-profile-picture.svg',
-                        email: email,
-                        username: username,
-                        birthday: birthday,
-                        favoriteTracksAmount: 0,
-                        playlistsAmount: 0,
-                        artistId: artistId
-                    })
-                }).then((response) => {
-                    if (response.ok) {
-                        fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${artistId}.json`, {
-                            method: 'put',
-                            body: JSON.stringify({
-                                id: artistId,
-                                image: 'img/blank-profile-picture.svg',
-                                nickname: username,
-                                tracksAmount: 0
-                            })
-                        }).then((response) => {
-                            if (response.ok) {
-                                document.cookie = `user=${user.uid}`;
-                                document.cookie = 'role=artist';
-                                window.location.href = 'index.html';
-                            }
-                        });
-                    }
-                });
-            })
-            .catch((error) => {
-                document.getElementById('signup-input-email').style.borderColor = 'red';
-
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+    const uid = await signUp(email, password, username, birthday, isArtist);
+    
+    if (uid == null) {
+        document.getElementById('signup-input-email').style.borderColor = 'red';
     } else {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                
-                fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.uid}.json`, {
-                    method: 'put',
-                    body: JSON.stringify({
-                        id: user.uid,
-                        avatar: 'img/blank-profile-picture.svg',
-                        email: email,
-                        username: username,
-                        birthday: birthday,
-                        favoriteTracksAmount: 0,
-                        playlistsAmount: 0
-                    })
-                }).then((response) => {
-                    if (response.ok) {
-                        document.cookie = `user=${user.uid}`;
-                        document.cookie = 'role=default';
-                        window.location.href = 'index.html';
-                    }
-                });
-            })
-            .catch((error) => {
-                document.getElementById('signup-input-email').style.borderColor = 'red';
+        document.cookie = `user=${uid}`;
+        
+        if (isArtist) {
+            document.cookie = 'role=artist';
+        } else {
+            document.cookie = 'role=default';
+        }
 
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+        window.location.href = 'index.html';
     }
-});
+}
+
+document.getElementById('signup-input-email').addEventListener('input', emailInput);
+document.getElementById('signup-input-username').addEventListener('input', usernameInput);
+document.getElementById('signup-input-birthday').addEventListener('input', birthdayInput);
+document.getElementById('signup-input-password').addEventListener('input', passwordInput);
+document.getElementById('signup-input-password-confirmation').addEventListener('input', passwordConfirmationInput);
+document.getElementById('signup-button').addEventListener('click', signupButtonOnClick);

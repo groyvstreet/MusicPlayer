@@ -8,4 +8,17 @@ async function getArtists() {
     return response.json();
 }
 
-export { getArtist, getArtists }
+async function addArtist(id, username) {
+    const artist = {
+        id: id,
+        image: 'img/cover-image.jpg',
+        nickname: username,
+        tracksAmount: 0
+    };
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${id}.json`, {
+        method: 'put',
+        body: JSON.stringify(artist)
+    });
+}
+
+export { getArtist, getArtists, addArtist }

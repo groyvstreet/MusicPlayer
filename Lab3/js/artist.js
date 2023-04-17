@@ -1,6 +1,6 @@
 import { updatePlayerTracks } from "./player.js";
 import { getArtist } from "./api/artists.js";
-import { getAlbums } from "./api/albums.js";
+import { getAlbumsByArtist } from "./api/albums.js";
 
 function renderAlbums(albums) {
     document.getElementById('cards').innerHTML = albums.map(function (album) {
@@ -43,7 +43,7 @@ async function loadArtist(id) {
     document.getElementById('preview-h1').innerHTML = artist.nickname;
     document.getElementById('preview-h2').innerHTML = `Треки: ${artist.tracksAmount}`;
 
-    let artistAlbums = await getAlbums(artist.id);
+    let artistAlbums = await getAlbumsByArtist(artist.id);
     artistAlbums = Object.values(artistAlbums);
     renderAlbums(artistAlbums);
 
