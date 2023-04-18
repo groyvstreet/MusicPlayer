@@ -1,6 +1,7 @@
 import { isAuthenticated, user } from './app.js';
 import { putUser } from './api/users.js';
 import { addProfileImage } from './api/files.js';
+import { updateArtist, getArtist } from './api/artists.js';
 
 function logout() {
     document.cookie = 'user=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
@@ -38,7 +39,18 @@ if (!isAuthenticated()) {
                 u.avatar = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/img%2Fprofiles%2F${u.id}?alt=media`;
             }
 
-            const response = await putUser(u);
+            let response = await putUser(u);
+
+            if (localStorage.getItem('user_role') == 'artist') {
+                const artist = await getArtist(u.artistId);
+                artist.nickname = u.username;
+
+                if (file != undefined) {
+                    artist.image = u.avatar;
+                }
+
+                response = await updateArtist(artist);
+            }
 
             if (response.ok) {
                 alert('Изменения сохранены');

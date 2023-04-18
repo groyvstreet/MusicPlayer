@@ -10,6 +10,14 @@ let toRepeat = false;
 let isNewTrack = true;
 let audio = new Audio();
 
+function getCurrentTrack() {
+    if (tracks.length == 0) {
+        return null;
+    } else {
+        return tracks[trackIndex];
+    }
+}
+
 function updateReplayButtonImage() {
     let image = document.getElementById('player-img-repeat');
 
@@ -171,6 +179,13 @@ async function updatePlayerTrack(track) {
         }
     });
 
+    const parentElement = document.getElementById('player-artists').parentElement;
+    document.getElementById('player-artists').remove();
+    const playerArtistsElement = document.createElement('div');
+    playerArtistsElement.classList.add('info__list');
+    playerArtistsElement.id = 'player-artists';
+    parentElement.appendChild(playerArtistsElement);
+
     document.getElementById('player-artists').innerHTML = track.artists.map((artist) => {
         return `
             <a class="info__button" href="artist.html#${artist.id}">
@@ -242,4 +257,4 @@ document.getElementById('player-button-back').addEventListener('click', selectPr
 document.getElementById('player-button-forward').addEventListener('click', selectNextTrack);
 document.getElementById('player-bar').addEventListener('click', updateTrackTime);
 
-export { updatePlayerTracks }
+export { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage }

@@ -1,5 +1,5 @@
 import { isAuthenticated } from "./app.js";
-import { updatePlayerTracks } from "./player.js";
+import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "./player.js";
 import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
 import { getAlbums } from "./api/albums.js";
 
@@ -30,6 +30,12 @@ function renderTracks(user, tracks) {
             }
 
             document.getElementById(`card-img-like-${track.id}`).src = getLikeImage(track.id);
+
+            const currentPlayerTrack = getCurrentTrack();
+
+            if (currentPlayerTrack != null && currentPlayerTrack.id == track.id) {
+                updateFavoriteButtonImage(user.favoriteTracks.filter(t => t.id == currentPlayerTrack.id).length == 0);
+            }
         } else {
             window.location.href = 'signin.html';
         }

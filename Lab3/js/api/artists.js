@@ -21,4 +21,11 @@ async function addArtist(id, username) {
     });
 }
 
-export { getArtist, getArtists, addArtist }
+async function updateArtist(artist) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/artists/${artist.id}.json`, {
+        method: 'put',
+        body: JSON.stringify(artist)
+    });
+}
+
+export { getArtist, getArtists, addArtist, updateArtist }

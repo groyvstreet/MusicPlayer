@@ -64,4 +64,10 @@ if (localStorage.getItem('user_role') == 'artist') {
     `;
 }
 
+if (!isAuthenticated()) {
+    document.getElementById('nav-favorites').href = 'signin.html';
+    document.getElementById('nav-playlists').href = 'signin.html';
+    document.getElementById('nav-profile').href = 'signin.html';
+}
+
 export { isAuthenticated, user }
