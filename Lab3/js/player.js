@@ -27,13 +27,13 @@ function switchReplayButton() {
 }
 
 function updateFavoriteButtonImage(isFilled) {
-    let image = document.getElementById('player-img-favorite');
+    const img = document.getElementById('player-img-favorite');
 
     if (isFilled) {
-        image.src = 'img/heart.svg';
+        img.src = 'img/heart.svg';
     }
     else {
-        image.src = 'img/fill-heart-active.svg';
+        img.src = 'img/fill-heart-active.svg';
     }
 }
 
@@ -228,21 +228,18 @@ function updatePlayer() {
     }
 }
 
+function updateTrackTime(event) {
+    const playerBar = document.getElementById('player-bar');
+    audio.currentTime = audio.duration * event.offsetX / playerBar.offsetWidth;
+}
+
 audio.addEventListener('timeupdate', updatePlayer);
 
 document.getElementById('player-button-repeat').addEventListener('click', switchReplayButton);
-
 document.getElementById('player-button-favorite').addEventListener('click', switchFavoriteButton);
-
 document.getElementById('player-button-play').addEventListener('click', switchPlayButton);
-
 document.getElementById('player-button-back').addEventListener('click', selectPreviousTrack);
-
 document.getElementById('player-button-forward').addEventListener('click', selectNextTrack);
-
-document.getElementById('player-bar').addEventListener('click', (event) => {
-    const playerBar = document.getElementById('player-bar');
-    audio.currentTime = audio.duration * event.offsetX / playerBar.offsetWidth;
-});
+document.getElementById('player-bar').addEventListener('click', updateTrackTime);
 
 export { updatePlayerTracks }

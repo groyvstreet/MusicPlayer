@@ -1,21 +1,45 @@
 import { isAuthenticated } from "./app.js";
 import { updatePlayerTracks } from "./player.js";
-
-function getImage(user, id) {
-    if (user.favoriteTracks.filter(track => track.id == id).length == 0) {
-        return 'img/heart.svg';
-    } else {
-        return 'img/fill-heart-active.svg';
-    }
-}
+import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
+import { getAlbums } from "./api/albums.js";
 
 function renderTracks(user, tracks) {
-    const cards = document.getElementById('cards');
-    cards.innerHTML = tracks.map(function (track) {
+    function getLikeImage(trackId) {
+        if (user.favoriteTracks.filter(track => track.id == trackId).length == 0) {
+            return 'img/heart.svg';
+        } else {
+            return 'img/fill-heart-active.svg';
+        }
+    }
+
+    async function setAlbumUrl(trackId) {
+        let albums = await getAlbums();
+        albums = Object.values(albums);
+        const album = albums.filter((album) => album.tracks.filter((t) => t.id == trackId).length != 0)[0];
+        document.getElementById(`album-url-${trackId}`).href = `album.html#${album.id}`;
+    }
+
+    function likeButtonOnClick(track) {
+        if (isAuthenticated()) {
+            if (user.favoriteTracks.filter(t => t.id == track.id).length == 0) {
+                addTrackToFavorite(user.id, track);
+                user.favoriteTracks.push({ id: track.id});
+            } else {
+                removeTrackFromFavorite(user.id, track);
+                user.favoriteTracks = user.favoriteTracks.filter((t) => t.id != track.id);
+            }
+
+            document.getElementById(`card-img-like-${track.id}`).src = getLikeImage(track.id);
+        } else {
+            window.location.href = 'signin.html';
+        }
+    }
+
+    document.getElementById('cards').innerHTML = tracks.map(function (track) {
         return `
             <li class="cards__card">
                 <section class="card">
-                    <a class="cover-image" href="album.html">
+                    <a class="cover-image" href="" id="album-url-${track.id}">
                         <img class="cover-image" src="${track.image}">
                     </a>
                     <div class="card__description">
@@ -34,7 +58,7 @@ function renderTracks(user, tracks) {
                     </div>
                     <div class="card__buttons">
                         <button class="icon-button icon-button_size_small" id="card-button-like-${track.id}">
-                            <img class="icon-button__image" src="${getImage(user, track.id)}" id="card-img-like-${track.id}">
+                            <img class="icon-button__image" src="${getLikeImage(track.id)}" id="card-img-like-${track.id}">
                         </button>
                         <button class="icon-button icon-button_size_small" id="card-button-play-${track.id}">
                             <img class="icon-button__image" src="img/forward.svg">
@@ -46,29 +70,6 @@ function renderTracks(user, tracks) {
     }).join('');
 
     tracks.forEach((track) => {
-        document.getElementById(`card-button-like-${track.id}`).addEventListener('click', () => {
-            if (isAuthenticated()) {
-                let img = document.getElementById(`card-img-like-${track.id}`);
-
-                if (user.favoriteTracks.filter(t => t.id == track.id).length == 0) {
-                    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-                        method: 'put',
-                        body: JSON.stringify(track)
-                    });
-
-                    img.src = 'img/fill-heart-active.svg';
-                } else {
-                    fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${localStorage.getItem('user_id')}/favoriteTracks/${track.id}.json`, {
-                        method: 'delete'
-                    });
-
-                    img.src = 'img/heart.svg';
-                }
-            } else {
-                window.location.href = 'signin.html';
-            }
-        });
-
         if (document.getElementById(`anim-${track.id}`).scrollWidth > document.getElementById(`anim-${track.id}`).offsetWidth) {
             let keyframes = [
                 { transform: 'translateX(0)' },
@@ -82,11 +83,19 @@ function renderTracks(user, tracks) {
                 timingFunction: 'linear'
             });
         }
-    });
 
-    tracks.forEach((track) => {
+        setAlbumUrl(track.id);
+
+        document.getElementById(`card-button-like-${track.id}`).addEventListener('click', () => {
+            likeButtonOnClick(track);
+        });
+
         document.getElementById(`card-button-play-${track.id}`).addEventListener('click', () => {
             updatePlayerTracks(tracks, track);
+        });
+
+        document.getElementById('player-img-favorite').addEventListener('load', () => {
+            document.getElementById(`card-img-like-${track.id}`).src = getLikeImage(track.id);
         });
     });
 }
