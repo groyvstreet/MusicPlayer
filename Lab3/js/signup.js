@@ -6,7 +6,7 @@ if (isAuthenticated()) {
 }
 
 const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-const USERNAME_REGEXP = /^[a-zA-Zа-яА-Я0-9+]+$/ui;
+const USERNAME_REGEXP = /^[a-zA-Zа-яА-Я0-9\s+]+$/ui;
 
 const borderColor = document.getElementById('signup-input-email').style.borderColor;
 const placeholder = document.getElementById('signup-input-password').placeholder;

@@ -29,8 +29,9 @@ user.then((u) => {
     document.getElementById('search').addEventListener('input', searchTracks);
 
     async function deleteButtonOnClick() {
-        const response = await deletePlaylist(u.id, playlist.id)
-        updateUserPlaylistsAmount(u);
+        const response = await deletePlaylist(u.id, playlist.id);
+        
+        await updateUserPlaylistsAmount(u.id, Object.values(u.playlists).length - 1);
         
         if (response.ok) {
             window.location.href = 'playlists.html';

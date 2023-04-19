@@ -33,10 +33,10 @@ async function updateUserFavoriteTracksAmount(user) {
     });
 }
 
-async function updateUserPlaylistsAmount(user) {
-    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.id}/playlistsAmount.json`, {
+async function updateUserPlaylistsAmount(userId, amount) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${userId}/playlistsAmount.json`, {
         method: 'put',
-        body: JSON.stringify(user.playlists.length)
+        body: JSON.stringify(amount)
     });
 }
 

@@ -60,7 +60,7 @@ user.then((u) => {
         if (isAuthenticated()) {
             const response = await addPlaylist(u.id);
 
-            updateUserPlaylistsAmount(u);
+            await updateUserPlaylistsAmount(u.id, Object.values(u.playlists).length + 1);
     
             if (response.ok) {
                 const id = response.url.split('/').pop().split('.')[0]

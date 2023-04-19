@@ -44,7 +44,7 @@ function renderTracks(user, tracks) {
         }
     }
 
-    document.getElementById('cards').innerHTML = tracks.map(function (track) {
+    document.getElementById('cards').innerHTML = tracks.map((track) => {
         return `
             <li class="cards__card">
                 <section class="card">

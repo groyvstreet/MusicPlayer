@@ -1,4 +1,5 @@
 import { getArtists } from "../api/artists.js";
+import { artistToAddToAlbum } from "./artistToAddToAlbum.js";
 
 async function artistsToAddToAlbum(track, toAdd) {
     let artists = [];
@@ -15,60 +16,26 @@ async function artistsToAddToAlbum(track, toAdd) {
     element.classList.add('content');
     element.innerHTML = `
         <input class="input" type="search" placeholder="Поиск..." id="search">
-        <ul class="cards" id="cards">
-            ${artists.map((artist) => {
-                return `
-                    <li class="cards__card" id="album-track-artist-${artist.id}">
-                        <a class="cards__a">
-                            <section class="card">
-                                <img class="cover-image" src="${artist.image}">
-                                <div class="card__description">
-                                    <p class="title">${artist.nickname}</p>
-                                    <p class="info-p">Треки: ${artist.tracksAmount}</p>
-                                </div>
-                                <div class="card__buttons">
-                                    <button class="icon-button icon-button_size_small" id="album-track-artist-add-${artist.id}">
-                                        <img class="icon-button__image" src="${toAdd ? 'img/simple-plus.svg' : 'img/cancel.svg'}">
-                                    </button>
-                                </div>
-                            </section>
-                        </a>
-                    </li>
-                `;
-            }).join('')}
-        </ul>
+        <ul class="cards" id="cards"></ul>
     `;
 
     artists.forEach((artist) => {
-        async function addToTrack() {
-            if (toAdd) {
-                track.artists.push(artist);
-            } else {
-                track.artists = track.artists.filter((trackArtist) => trackArtist.id != artist.id);
-            }
-
-            const cards = element.getElementsByClassName('cards__card');
-
-            for (let i = 0; i < cards.length; i++) {
-                if (cards.item(i).id == `album-track-artist-${artist.id}`) {
-                    cards.item(i).remove();
-                }
-            }
-
-            document.getElementById(`album-track-artists-${track.id}`).innerHTML = track.artists.map((artist) => {
-                return `
-                    <a class="info__button" href="artist.html#${artist.id}">
-                        <p class="info-p">${artist.nickname}</p>
-                    </a>
-                `;
-            }).join('&');
-
-            document.getElementById(`album-track-${track.id}`).style.border = 'none';
-        }
-
-        element.getElementsByClassName('icon-button').item(artists.indexOf(artist)).addEventListener('click', addToTrack);
+        element.getElementsByClassName('cards')[0].appendChild(artistToAddToAlbum(artist, toAdd, track));
     });
 
+    function searchArtists(event) {
+        const input = event.target.value.toLowerCase().trim();
+        const searchedArtists = artists.filter((artist) => artist.nickname.toLowerCase().includes(input));
+        
+        const artistsElement = element.getElementsByClassName('cards')[0];
+        artistsElement.replaceChildren();
+
+        searchedArtists.forEach((artist) => {
+            artistsElement.appendChild(artistToAddToAlbum(artist, toAdd, track));
+        });
+    }
+
+    element.getElementsByClassName('input')[0].addEventListener('input', searchArtists);
     return element;
 }
 
