@@ -1,4 +1,12 @@
-import { artistsToAddToAlbum } from "./components/artistsToAddToAlbum.js";
+import { user, isAuthenticated } from "./app.js";
+import { trackForAlbum } from "./components/trackForAlbum.js";
+import { addAlbum } from "./api/albums.js";
+import { addAlbumImage, addTrackFile } from "./api/files.js";
+import { getArtist, updateArtist } from "./api/artists.js";
+
+if (!isAuthenticated()) {
+    window.location.href = 'signin.html';
+}
 
 function updateAlbumImage() {
     const files = document.getElementById('album-input-image').files;
@@ -12,108 +20,126 @@ function updateAlbumImage() {
     }
 }
 
-let tracks = [];
+const album = {
+    id: crypto.randomUUID(),
+    title: '',
+    type: 'Альбом',
+    tracks: []
+};
+
+const borderColor = document.getElementById('album-input-title').style.borderColor;
 
 function addTrack(event) {
-    event.preventDefault();
+    if (event != null) {
+        event.preventDefault();
+    }
 
     const track = {
         id: crypto.randomUUID(),
         title: 'Название',
         artists: []
     };
-    tracks.push(track);
+    album.tracks.push(track);
 
-    const trackElement = document.createElement('li');
-    trackElement.classList.add('cards__card');
-    trackElement.id = track.id;
-    trackElement.innerHTML = `
-        <section class="card">
-            <label class="cover-image">
-                <img class="cover-image" src="img/upload.svg" id="album-track-image-${track.id}">
-                <input type="file" accept="audio/mp3" id="album-input-track-${track.id}" hidden>
-            </label>
-            <div class="card__description">
-                <p class="title" id="album-track-title-${track.id}">Название</p>
-                <div class="info">
-                    <div class="info__list" id="album-track-artists-${track.id}"></div>
-                </div>
-            </div>
-            <div class="card__buttons">
-                <button class="icon-button icon-button_size_small" id="album-track-add-artist-${track.id}">
-                    <img class="icon-button__image" src="img/add-artist.svg">
-                </button>
-                <button class="icon-button icon-button_size_small" id="album-track-delete-artist-${track.id}">
-                    <img class="icon-button__image" src="img/delete-artist.svg">
-                </button>
-                <button class="icon-button icon-button_size_small" id="album-track-delete-${track.id}">
-                    <img class="icon-button__image" src="img/delete.svg">
-                </button>
-            </div>
-        </section>
-    `;
-
-    document.getElementById('cards').appendChild(trackElement);
-
-    function updateAlbumTrackImage(event) {
-        event.preventDefault();
-
-        document.getElementById(`album-track-image-${track.id}`).src = 'img/file.svg';
-    }
-
-    document.getElementById(`album-input-track-${track.id}`).addEventListener('change', updateAlbumTrackImage)
-
-    function albumTrackTitleOnClick(event) {
-        event.preventDefault();
-
-        document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').innerHTML = `
-            <input class="input" placeholder="Название" value="${track.title}" id="album-track-title-input-${track.id}">
-        `;
-
-        function albumTrackTitleInput(event) {
-            track.title = event.target.value;
-            document.getElementById(`album-track-title-${track.id}`).innerHTML = track.title;
-        }
-
-        document.getElementById(`album-track-title-input-${track.id}`).addEventListener('input', albumTrackTitleInput);
-    }
-
-    document.getElementById(`album-track-title-${track.id}`).addEventListener('click', albumTrackTitleOnClick);
-    
-    async function albumTrackAddArtistOnClick(event) {
-        event.preventDefault();
-
-        document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, true)));
-    }
-
-    document.getElementById(`album-track-add-artist-${track.id}`).addEventListener('click', albumTrackAddArtistOnClick);
-    
-    async function albumTrackDeleteArtistOnClick(event) {
-        event.preventDefault();
-
-        document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, false)));
-    }
-    
-    document.getElementById(`album-track-delete-artist-${track.id}`).addEventListener('click', albumTrackDeleteArtistOnClick);
-
-    function deleteAlbumTrack(event) {
-        event.preventDefault();
-
-        tracks = tracks.filter((t) => t.id != track.id);
-        document.getElementById(track.id).remove();
-    }
-
-    document.getElementById(`album-track-delete-${track.id}`).addEventListener('click', deleteAlbumTrack);
+    document.getElementById('cards').appendChild(trackForAlbum(track, album.tracks, album.type == 'Сингл'));
 }
 
-document.getElementById('album-button-add-track').addEventListener('click', addTrack);
+function albumTitleInput(event) {
+    album.title = event.target.value;
+    document.getElementById('album-input-title').style.borderColor = borderColor;
+}
+
+function clearAlbumTracks() {
+    album.tracks = [];
+    const cards = document.getElementById('cards').querySelectorAll('*');
+
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].remove();
+    }
+}
+
+function albumTypeChange(event) {
+    clearAlbumTracks();
+
+    const type = event.target.value;
+
+    if (type == '1') {
+        album.type = 'Альбом';
+        document.getElementById('album-button-add-track').hidden = false;
+    }
+    if (type == '2') {
+        album.type = 'Мини-альбом';
+        document.getElementById('album-button-add-track').hidden = false;
+    }
+    if (type == '3') {
+        album.type = 'Сингл';
+        document.getElementById('album-button-add-track').hidden = true;
+        addTrack(null);
+    }
+}
+
+async function uploadAlbum(event) {
+    event.preventDefault();
+
+    if (album.title.trim().length == 0) {
+        document.getElementById('album-input-title').style.borderColor = 'red';
+        return;
+    }
+
+    if (document.getElementById('album-input-image').files.length == 0) {
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-content').innerHTML = 'Обложка альбома не выбрана.';
+        return;
+    }
+
+    if (album.tracks.length == 0) {
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-content').innerHTML = 'Не добавлено ни одного трека.';
+        return;
+    }
+
+    let isValid = true;
+    album.tracks.forEach((track) => {
+        if (document.getElementById(`album-input-track-${track.id}`).files.length == 0 ||
+            track.artists.length == 0) {
+            document.getElementById(`album-track-${track.id}`).style.border = '2px solid red';
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        return;
+    }
+
+    album.artist = await getArtist((await user).artistId);
+    album.tracksAmount = album.tracks.length;
+    album.artist.tracksAmount += album.tracksAmount;
+
+    await updateArtist(album.artist);
+
+    const albumImage = document.getElementById('album-input-image').files[0];
+    await addAlbumImage(album.id, albumImage);
+    album.image = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/img%2Falbums%2F${album.id}?alt=media`;
+
+    for (let i = 0; i < album.tracks.length; i++) {
+        album.tracks[i].image = album.image;
+        album.tracks[i].src = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/tracks%2F${album.tracks[i].id}?alt=media`;
+        const trackFile = document.getElementById(`album-input-track-${album.tracks[i].id}`).files[0];
+        await addTrackFile(album.tracks[i].id, trackFile);
+    }
+
+    const response = await addAlbum(album);
+
+    if (response.ok) {
+        window.location.href = `album.html#${album.id}`;
+    }
+}
+
 document.getElementById('album-input-image').addEventListener('change', updateAlbumImage);
-document.getElementById('album-input-type').addEventListener('change', (event) => {
-    console.log(event.target.value);
-});
+document.getElementById('album-input-title').addEventListener('input', albumTitleInput);
+document.getElementById('album-input-type').addEventListener('change', albumTypeChange);
+document.getElementById('album-button-upload').addEventListener('click', uploadAlbum);
+document.getElementById('album-button-add-track').addEventListener('click', addTrack);
 
 const modal = document.getElementById('modal');
 
@@ -121,7 +147,7 @@ window.onclick = (event) => {
     if (event.target == modal) {
         modal.style.display = 'none';
 
-        tracks.forEach((track) => {
+        album.tracks.forEach((track) => {
             if (track.title.trim().length == 0) {
                 track.title = 'Название';
                 document.getElementById(`album-track-title-${track.id}`).innerHTML = track.title;

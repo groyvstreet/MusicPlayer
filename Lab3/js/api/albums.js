@@ -13,4 +13,12 @@ async function getAlbums() {
     return response.json();
 }
 
-export { getAlbum, getAlbumsByArtist, getAlbums }
+async function addAlbum(album) {
+    const response = await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/albums/${album.id}.json`, {
+        method: 'put',
+        body: JSON.stringify(album)
+    });
+    return response;
+}
+
+export { getAlbum, getAlbumsByArtist, getAlbums, addAlbum }

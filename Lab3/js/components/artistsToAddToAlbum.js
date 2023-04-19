@@ -62,6 +62,8 @@ async function artistsToAddToAlbum(track, toAdd) {
                     </a>
                 `;
             }).join('&');
+
+            document.getElementById(`album-track-${track.id}`).style.border = 'none';
         }
 
         element.getElementsByClassName('icon-button').item(artists.indexOf(artist)).addEventListener('click', addToTrack);

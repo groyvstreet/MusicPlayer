@@ -30,4 +30,10 @@ async function addAlbumImage(albumId, file) {
     return await uploadBytes(storageRef, file);
 }
 
-export { addProfileImage, addPlaylistImage, addAlbumImage }
+async function addTrackFile(trackId, file) {
+    const storage = getStorage(app);
+    const storageRef = ref(storage, `tracks/${trackId}`);
+    return await uploadBytes(storageRef, file);
+}
+
+export { addProfileImage, addPlaylistImage, addAlbumImage, addTrackFile }
