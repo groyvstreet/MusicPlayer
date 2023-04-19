@@ -1,4 +1,4 @@
-import { artistsToAddToAlbum, artistsToAddToAlbumAddEventListeners } from "./components/artistsToAddToAlbum.js";
+import { artistsToAddToAlbum } from "./components/artistsToAddToAlbum.js";
 
 function updateAlbumImage() {
     const files = document.getElementById('album-input-image').files;
@@ -35,9 +35,9 @@ function addTrack(event) {
             </label>
             <div class="card__description">
                 <p class="title" id="album-track-title-${track.id}">Название</p>
-                <a class="info-button" href="">
-                    <p class="info"></p>
-                </a>
+                <div class="info">
+                    <div class="info__list" id="album-track-artists-${track.id}"></div>
+                </div>
             </div>
             <div class="card__buttons">
                 <button class="icon-button icon-button_size_small" id="album-track-add-artist-${track.id}">
@@ -85,8 +85,7 @@ function addTrack(event) {
         event.preventDefault();
 
         document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').innerHTML = await artistsToAddToAlbum(track, true);
-        artistsToAddToAlbumAddEventListeners(track, true);
+        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, true)));
     }
 
     document.getElementById(`album-track-add-artist-${track.id}`).addEventListener('click', albumTrackAddArtistOnClick);
@@ -95,8 +94,7 @@ function addTrack(event) {
         event.preventDefault();
 
         document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').innerHTML = await artistsToAddToAlbum(track, false);
-        artistsToAddToAlbumAddEventListeners(track, false);
+        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, false)));
     }
     
     document.getElementById(`album-track-delete-artist-${track.id}`).addEventListener('click', albumTrackDeleteArtistOnClick);

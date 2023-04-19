@@ -1,7 +1,7 @@
 import { getArtists } from "../api/artists.js";
 
 async function artistsToAddToAlbum(track, toAdd) {
-    let artists;
+    let artists = [];
     
     if (toAdd) {
         artists = await getArtists();
@@ -11,7 +11,9 @@ async function artistsToAddToAlbum(track, toAdd) {
         artists = track.artists;
     }
 
-    return `
+    const element = document.createElement('div');
+    element.classList.add('content');
+    element.innerHTML = `
         <input class="input" type="search" placeholder="Поиск..." id="search">
         <ul class="cards" id="cards">
             ${artists.map((artist) => {
@@ -36,18 +38,6 @@ async function artistsToAddToAlbum(track, toAdd) {
             }).join('')}
         </ul>
     `;
-}
-
-async function artistsToAddToAlbumAddEventListeners(track, toAdd) {
-    let artists;
-    
-    if (toAdd) {
-        artists = await getArtists();
-        artists = Object.values(artists);
-        artists = artists.filter((artist) => track.artists.filter((trackArtist) => trackArtist.id == artist.id).length == 0);
-    } else {
-        artists = track.artists;
-    }
 
     artists.forEach((artist) => {
         async function addToTrack() {
@@ -57,11 +47,27 @@ async function artistsToAddToAlbumAddEventListeners(track, toAdd) {
                 track.artists = track.artists.filter((trackArtist) => trackArtist.id != artist.id);
             }
 
-            document.getElementById(`album-track-artist-${artist.id}`).remove()
+            const cards = element.getElementsByClassName('cards__card');
+
+            for (let i = 0; i < cards.length; i++) {
+                if (cards.item(i).id == `album-track-artist-${artist.id}`) {
+                    cards.item(i).remove();
+                }
+            }
+
+            document.getElementById(`album-track-artists-${track.id}`).innerHTML = track.artists.map((artist) => {
+                return `
+                    <a class="info__button" href="artist.html#${artist.id}">
+                        <p class="info-p">${artist.nickname}</p>
+                    </a>
+                `;
+            }).join('&');
         }
 
-        document.getElementById(`album-track-artist-add-${artist.id}`).addEventListener('click', addToTrack);
+        element.getElementsByClassName('icon-button').item(artists.indexOf(artist)).addEventListener('click', addToTrack);
     });
+
+    return element;
 }
 
-export { artistsToAddToAlbum, artistsToAddToAlbumAddEventListeners }
+export { artistsToAddToAlbum }
