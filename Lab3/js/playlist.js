@@ -1,6 +1,7 @@
 import { user } from './app.js';
 import { renderTracks } from './tracks.js';
 import { deletePlaylist } from './api/playlists.js';
+import { updateUserPlaylistsAmount } from './api/users.js';
 
 const id = window.location.href.split('#')[1];
 
@@ -29,6 +30,7 @@ user.then((u) => {
 
     async function deleteButtonOnClick() {
         const response = await deletePlaylist(u.id, playlist.id)
+        updateUserPlaylistsAmount(u);
         
         if (response.ok) {
             window.location.href = 'playlists.html';

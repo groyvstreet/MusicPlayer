@@ -1,6 +1,7 @@
 import { isAuthenticated, user } from './app.js';
 import { updatePlayerTracks } from './player.js';
 import { addPlaylist } from './api/playlists.js';
+import { updateUserPlaylistsAmount } from './api/users.js';
 
 if (!isAuthenticated()) {
     window.location.href = 'signin.html';
@@ -58,6 +59,8 @@ user.then((u) => {
     async function createButtonOnClick() {
         if (isAuthenticated()) {
             const response = await addPlaylist(u.id);
+
+            updateUserPlaylistsAmount(u);
     
             if (response.ok) {
                 const id = response.url.split('/').pop().split('.')[0]

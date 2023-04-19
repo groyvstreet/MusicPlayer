@@ -26,6 +26,20 @@ async function getUser(id) {
     return response.json();
 }
 
+async function updateUserFavoriteTracksAmount(user) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.id}/favoriteTracksAmount.json`, {
+        method: 'put',
+        body: JSON.stringify(user.favoriteTracks.length)
+    });
+}
+
+async function updateUserPlaylistsAmount(user) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${user.id}/playlistsAmount.json`, {
+        method: 'put',
+        body: JSON.stringify(user.playlists.length)
+    });
+}
+
 async function signIn(email, password) {
     const response = await signInWithEmailAndPassword(auth, email, password);
     const user = await getUser(response.user.uid);
@@ -67,4 +81,4 @@ async function signUp(email, password, username, birthday, isArtist) {
     }
 }
 
-export { putUser, getUser, addUser, signIn, signUp }
+export { putUser, getUser, addUser, signIn, signUp, updateUserFavoriteTracksAmount, updateUserPlaylistsAmount }

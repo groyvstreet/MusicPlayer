@@ -2,6 +2,7 @@ import { isAuthenticated } from "./app.js";
 import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "./player.js";
 import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
 import { getAlbums } from "./api/albums.js";
+import { updateUserFavoriteTracksAmount } from "./api/users.js";
 
 function renderTracks(user, tracks) {
     function getLikeImage(trackId) {
@@ -28,6 +29,8 @@ function renderTracks(user, tracks) {
                 removeTrackFromFavorite(user.id, track);
                 user.favoriteTracks = user.favoriteTracks.filter((t) => t.id != track.id);
             }
+
+            updateUserFavoriteTracksAmount(user);
 
             document.getElementById(`card-img-like-${track.id}`).src = getLikeImage(track.id);
 
