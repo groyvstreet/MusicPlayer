@@ -10,11 +10,12 @@ if (!isAuthenticated()) {
 function renderPlaylists(playlists) {
     function playPlaylist(playlist) {
         if (playlist.tracks != undefined) {
-            updatePlayerTracks(playlist.tracks, playlist.tracks[0]);
+            const tracks = Object.values(playlist.tracks);
+            updatePlayerTracks(tracks, tracks[0]);
         }
     }
 
-    document.getElementById('cards').innerHTML = playlists.map(function (playlist) {
+    document.getElementById('cards').innerHTML = playlists.map((playlist) => {
         return `
             <li class="cards__card">
                 <a class="cards__a" href="playlist.html#${playlist.id}">

@@ -109,7 +109,7 @@ function renderTracks(user, tracks) {
             playlists.forEach((playlist) => {
                 document.getElementById('modal-cards').appendChild(dropZonePlaylist(playlist));
             });
-            
+
             const keyframes = [
                 { transform: 'translateY(100%)' },
                 { transform: 'translateY(0)' }
@@ -121,7 +121,40 @@ function renderTracks(user, tracks) {
             });
         });
 
+        document.getElementById(`drag-item-${track.id}`).addEventListener('touchstart', (event) => {
+            //event.dataTransfer.setData('user_id', user.id);
+            //event.dataTransfer.setData('track', JSON.stringify(track));
+
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal-content').innerHTML = `
+                <ul class="cards" id="modal-cards"></ul>
+            `;
+
+            const playlists = Object.values(user.playlists);
+            playlists.forEach((playlist) => {
+                document.getElementById('modal-cards').appendChild(dropZonePlaylist(playlist));
+            });
+
+            const keyframes = [
+                { transform: 'translateY(100%)' },
+                { transform: 'translateY(0)' }
+            ];
+            document.getElementById('modal').animate(keyframes, {
+                duration: 1,
+                fill: 'forwards',
+                timingFunction: 'ease-in'
+            });
+        });
+
+        document.getElementById(`drag-item-${track.id}`).addEventListener('touchmove', (event) => {
+            
+        });
+
         document.getElementById(`drag-item-${track.id}`).addEventListener('dragend', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        document.getElementById(`drag-item-${track.id}`).addEventListener('touchend', () => {
             document.getElementById('modal').style.display = 'none';
         });
 
