@@ -9,9 +9,9 @@ user.then((u) => {
     const playlist = u.playlists[id];
 
     if (playlist.tracks == undefined) {
-        playlist.tracks = [];
+        playlist.tracks = {};
     } else {
-        playlist.tracks = Object.values(playlist.tracks);
+        //playlist.tracks = Object.values(playlist.tracks);
     }
 
     document.getElementById('preview-image').src = playlist.image;
@@ -20,7 +20,7 @@ user.then((u) => {
     document.getElementById('preview-h3').innerHTML = playlist.description;
     document.getElementById('preview-button-edit').href = `playlist_edit.html#${playlist.id}`;
 
-    renderTracks(u, playlist.tracks);
+    renderTracks(u, Object.values(playlist.tracks));
 
     function searchTracks(event) {
         const input = event.target.value.toLowerCase().trim();

@@ -1,6 +1,6 @@
 import { addTrackToPlaylist, updatePlaylistTracksAmount } from "../api/playlists.js";
 
-function dropZonePlaylist(playlist) {
+function dropZonePlaylist(playlist, track, userId) {
     const element = document.createElement('li');
     element.classList.add('cards__card');
     element.innerHTML = `
@@ -12,20 +12,17 @@ function dropZonePlaylist(playlist) {
                     <p class="info-p">${playlist.tracksAmount} треки</p>
                 </div>
                 <div class="card__buttons">
-                    <button class="icon-button icon-button_size_small" id="playlist-button-play-${playlist.id}">
-                        <img class="icon-button__image" src="img/forward.svg">
+                    <button class="icon-button icon-button_size_small" id="playlist-button-add-${playlist.id}">
+                        <img class="icon-button__image" src="img/simple-plus.svg">
                     </button>
                 </div>
             </section>
         </a>
     `;
-    element.addEventListener('dragover', (event) => {
+    
+    element.querySelector(`#playlist-button-add-${playlist.id}`).addEventListener('click', async (event) => {
         event.preventDefault();
-    });
-    element.addEventListener('drop', async (event) => {
-        const userId = event.dataTransfer.getData('user_id');
-        const track = JSON.parse(event.dataTransfer.getData('track'));
-
+        
         if (playlist.tracks == undefined) {
             playlist.tracks = {};
         }
@@ -33,6 +30,8 @@ function dropZonePlaylist(playlist) {
         playlist.tracks[track.id] = track;
         await addTrackToPlaylist(userId, playlist.id, track);
         await updatePlaylistTracksAmount(userId, playlist.id, Object.values(playlist.tracks).length);
+
+        element.remove();
     });
 
     return element;
