@@ -3,6 +3,7 @@ import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "
 import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
 import { getAlbums } from "./api/albums.js";
 import { updateUserFavoriteTracksAmount } from "./api/users.js";
+import { dropZonePlaylist } from "./components/dropZonePlaylist.js";
 
 function renderTracks(user, tracks) {
     function getLikeImage(trackId) {
@@ -46,7 +47,7 @@ function renderTracks(user, tracks) {
 
     document.getElementById('cards').innerHTML = tracks.map((track) => {
         return `
-            <li class="cards__card">
+            <li class="cards__card" draggable="true" id="drag-item-${track.id}">
                 <section class="card">
                     <a class="cover-image" href="" id="album-url-${track.id}">
                         <img class="cover-image" src="${track.image}">
@@ -94,6 +95,35 @@ function renderTracks(user, tracks) {
         }
 
         setAlbumUrl(track.id);
+
+        document.getElementById(`drag-item-${track.id}`).addEventListener('dragstart', (event) => {
+            event.dataTransfer.setData('user_id', user.id);
+            event.dataTransfer.setData('track', JSON.stringify(track));
+
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal-content').innerHTML = `
+                <ul class="cards" id="modal-cards"></ul>
+            `;
+
+            const playlists = Object.values(user.playlists);
+            playlists.forEach((playlist) => {
+                document.getElementById('modal-cards').appendChild(dropZonePlaylist(playlist));
+            });
+            
+            const keyframes = [
+                { transform: 'translateY(100%)' },
+                { transform: 'translateY(0)' }
+            ];
+            document.getElementById('modal').animate(keyframes, {
+                duration: 1,
+                fill: 'forwards',
+                timingFunction: 'ease-in'
+            });
+        });
+
+        document.getElementById(`drag-item-${track.id}`).addEventListener('dragend', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
 
         document.getElementById(`card-button-like-${track.id}`).addEventListener('click', () => {
             likeButtonOnClick(track);

@@ -10,6 +10,8 @@ user.then((u) => {
 
     if (playlist.tracks == undefined) {
         playlist.tracks = [];
+    } else {
+        playlist.tracks = Object.values(playlist.tracks);
     }
 
     document.getElementById('preview-image').src = playlist.image;

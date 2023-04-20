@@ -26,4 +26,18 @@ async function updatePlaylist(userId, playlist) {
     });
 }
 
-export { deletePlaylist, addPlaylist, updatePlaylist }
+async function addTrackToPlaylist(userId, playlistId, track) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${userId}/playlists/${playlistId}/tracks/${track.id}.json`, {
+        method: 'put',
+        body: JSON.stringify(track)
+    });
+}
+
+async function updatePlaylistTracksAmount(userId, playlistId, tracksAmount) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${userId}/playlists/${playlistId}/tracksAmount.json`, {
+        method: 'put',
+        body: JSON.stringify(tracksAmount)
+    });
+}
+
+export { deletePlaylist, addPlaylist, updatePlaylist, addTrackToPlaylist, updatePlaylistTracksAmount }
