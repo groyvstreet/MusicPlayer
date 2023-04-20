@@ -1,6 +1,6 @@
 import { addTrackToPlaylist, updatePlaylistTracksAmount } from "../api/playlists.js";
 
-function dropZonePlaylist(playlist, track, userId) {
+function playlistToAddTrack(playlist, track, userId) {
     const element = document.createElement('li');
     element.classList.add('cards__card');
     element.innerHTML = `
@@ -37,4 +37,4 @@ function dropZonePlaylist(playlist, track, userId) {
     return element;
 }
 
-export { dropZonePlaylist }
+export { playlistToAddTrack }

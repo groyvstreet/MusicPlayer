@@ -3,7 +3,8 @@ import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "
 import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
 import { getAlbums } from "./api/albums.js";
 import { updateUserFavoriteTracksAmount } from "./api/users.js";
-import { dropZonePlaylist } from "./components/dropZonePlaylist.js";
+import { playlistToAddTrack } from "./components/playlistToAddTrack.js";
+import { deleteTrackFromPlaylist, updatePlaylistTracksAmount } from "./api/playlists.js";
 
 function renderTracks(user, tracks) {
     function getLikeImage(trackId) {
@@ -47,7 +48,7 @@ function renderTracks(user, tracks) {
 
     document.getElementById('cards').innerHTML = tracks.map((track) => {
         return `
-            <li class="cards__card" draggable="true" id="drag-item-${track.id}">
+            <li class="cards__card" id="track-item-${track.id}">
                 <section class="card">
                     <a class="cover-image" href="" id="album-url-${track.id}">
                         <img class="cover-image" src="${track.image}">
@@ -66,7 +67,7 @@ function renderTracks(user, tracks) {
                             </div>
                         </div>
                     </div>
-                    <div class="card__buttons">
+                    <div class="card__buttons" id='track-buttons-${track.id}'>
                         <button class="icon-button icon-button_size_small" id="card-button-like-${track.id}">
                             <img class="icon-button__image" src="${getLikeImage(track.id)}" id="card-img-like-${track.id}">
                         </button>
@@ -96,31 +97,70 @@ function renderTracks(user, tracks) {
 
         setAlbumUrl(track.id);
 
-        document.getElementById(`drag-item-${track.id}`).addEventListener('click', () => {
+        document.getElementById(`track-item-${track.id}`).addEventListener('click', () => {
             if (isAuthenticated()) {
                 document.getElementById('modal').style.display = 'flex';
+
+                if (Object.values(user.playlists).length == 0) {
+                    document.getElementById('modal-content').innerHTML = `
+                        <p>У вас ещё нет плейлистов.</p>
+                    `;
+                    return;
+                }
+
                 document.getElementById('modal-content').innerHTML = `
                     <ul class="cards" id="modal-cards"></ul>
                 `;
 
-                const playlists = Object.values(user.playlists).filter((playlist) => !(track.id in playlist.tracks));
-                playlists.forEach((playlist) => {
-                    document.getElementById('modal-cards').appendChild(dropZonePlaylist(playlist, track, user.id));
-                });
+                const playlists = Object.values(user.playlists).filter((playlist) => {
+                    if (playlist.tracks == undefined) {
+                        return true;
+                    }
 
-                const keyframes = [
-                    { transform: 'translateY(100%)' },
-                    { transform: 'translateY(0)' }
-                ];
-                document.getElementById('modal').animate(keyframes, {
-                    duration: 1,
-                    fill: 'forwards',
-                    timingFunction: 'ease-in'
+                    return !(track.id in playlist.tracks);
                 });
+                
+                if (playlists.length == 0) {
+                    document.getElementById('modal-content').innerHTML = `
+                        <p>Этот трек уже находится в плейлистах, которые у вас есть.</p>
+                    `;
+                } else {
+                    playlists.forEach((playlist) => {
+                        document.getElementById('modal-cards').appendChild(playlistToAddTrack(playlist, track, user.id));
+                    });
+                }
             }
         });
 
-        document.getElementById(`card-button-like-${track.id}`).addEventListener('click', () => {
+        if (window.location.href.split('#')[0].split('/').pop() == 'playlist.html') {
+            const buttonElement = document.createElement('button');
+            buttonElement.classList.add('icon-button');
+            buttonElement.classList.add('icon-button_size_small');
+            buttonElement.id = `card-button-delete-${track.id}`;
+            buttonElement.innerHTML = `
+                <img class="icon-button__image" src="img/delete.svg">
+            `;
+
+            buttonElement.addEventListener('click', async (event) => {
+                event.stopPropagation();
+
+                await deleteTrackFromPlaylist(user.id, window.location.href.split('#')[1], track.id);
+                const index = tracks.indexOf(track);
+                tracks.splice(index, 1);
+                await updatePlaylistTracksAmount(user.id, window.location.href.split('#')[1], tracks.length);
+
+                document.getElementById(`track-item-${track.id}`).remove();
+            });
+            
+            document.getElementById(`track-buttons-${track.id}`).append(buttonElement);
+        }
+
+        document.getElementById(`album-url-${track.id}`).addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        document.getElementById(`card-button-like-${track.id}`).addEventListener('click', (event) => {
+            event.stopPropagation();
             likeButtonOnClick(track);
         });
 

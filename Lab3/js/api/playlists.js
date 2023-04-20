@@ -40,4 +40,10 @@ async function updatePlaylistTracksAmount(userId, playlistId, tracksAmount) {
     });
 }
 
-export { deletePlaylist, addPlaylist, updatePlaylist, addTrackToPlaylist, updatePlaylistTracksAmount }
+async function deleteTrackFromPlaylist(userId, playlistId, trackId) {
+    return await fetch(`https://krakensound-ee3a2-default-rtdb.firebaseio.com/users/${userId}/playlists/${playlistId}/tracks/${trackId}.json`, {
+        method: 'delete'
+    });
+}
+
+export { deletePlaylist, addPlaylist, updatePlaylist, addTrackToPlaylist, updatePlaylistTracksAmount, deleteTrackFromPlaylist }
