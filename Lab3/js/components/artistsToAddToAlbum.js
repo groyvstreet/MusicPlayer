@@ -20,7 +20,7 @@ async function artistsToAddToAlbum(track, toAdd) {
         <ul class="cards" id="cards"></ul>
     `;
 
-    virtualizationComponent(element.querySelector('#cards'), artists, artistToAddToAlbum, [toAdd, track]);
+    virtualizationComponent(element.querySelector('#cards'), artists, artistToAddToAlbum, [toAdd, track], document.getElementById('modal-content'));
 
     // artists.forEach((artist) => {
     //     element.getElementsByClassName('cards')[0].appendChild(artistToAddToAlbum(artist, toAdd, track));
@@ -33,9 +33,10 @@ async function artistsToAddToAlbum(track, toAdd) {
         const artistsElement = element.getElementsByClassName('cards')[0];
         artistsElement.replaceChildren();
 
-        searchedArtists.forEach((artist) => {
-            artistsElement.appendChild(artistToAddToAlbum(artist, toAdd, track));
-        });
+        virtualizationComponent(artistsElement, searchedArtists, artistToAddToAlbum, [toAdd, track], document.getElementById('modal-content'));
+        // searchedArtists.forEach((artist) => {
+        //     artistsElement.appendChild(artistToAddToAlbum(artist, toAdd, track));
+        // });
     }
 
     element.getElementsByClassName('input')[0].addEventListener('input', searchArtists);
