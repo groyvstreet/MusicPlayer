@@ -5,6 +5,7 @@ import { updateUserFavoriteTracksAmount } from "../api/users.js";
 import { getCurrentTrack, updatePlayerTracks, updateFavoriteButtonImage } from "../player.js";
 import { playlistToAddTrack } from "./playlistToAddTrack.js";
 import { deleteTrackFromPlaylist, updatePlaylistTracksAmount } from "../api/playlists.js";
+import { virtualizationComponent } from "./virtualizationComponent.js";
 
 function trackComponent(track, user, tracks) {
     const element = document.createElement('li');
@@ -93,9 +94,11 @@ function trackComponent(track, user, tracks) {
                     <p>Этот трек уже находится в плейлистах, которые у вас есть.</p>
                 `;
             } else {
-                playlists.forEach((playlist) => {
-                    document.getElementById('modal-cards').appendChild(playlistToAddTrack(playlist, track, user.id));
-                });
+                virtualizationComponent(document.getElementById('modal-cards'), playlists, playlistToAddTrack, [track, user.id]);
+
+                // playlists.forEach((playlist) => {
+                //     document.getElementById('modal-cards').appendChild(playlistToAddTrack(playlist, track, user.id));
+                // });
             }
         }
     }

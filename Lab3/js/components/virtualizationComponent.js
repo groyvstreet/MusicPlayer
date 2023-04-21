@@ -1,7 +1,8 @@
 function virtualizationComponent(parent, data, componentForData, args) {
-    let elementsAmount = window.innerHeight / 70;
+    const HEIGHT = 70;
 
-    //const parent = document.createDocumentFragment();
+    let elementsAmount = window.innerHeight / HEIGHT;
+
     let index = 0;
 
     for (; index < elementsAmount && index < data.length; index++) {
@@ -9,7 +10,7 @@ function virtualizationComponent(parent, data, componentForData, args) {
     }
 
     window.onscroll = () => {
-        elementsAmount += (window.innerHeight + window.scrollY) / 70;
+        elementsAmount += (window.innerHeight + window.scrollY - elementsAmount * HEIGHT) / HEIGHT;
 
         for (; index < elementsAmount && index < data.length; index++) {
             parent.appendChild(componentForData(data[index], ...args));

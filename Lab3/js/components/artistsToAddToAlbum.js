@@ -1,5 +1,6 @@
 import { getArtists } from "../api/artists.js";
 import { artistToAddToAlbum } from "./artistToAddToAlbum.js";
+import { virtualizationComponent } from "./virtualizationComponent.js";
 
 async function artistsToAddToAlbum(track, toAdd) {
     let artists = [];
@@ -19,9 +20,11 @@ async function artistsToAddToAlbum(track, toAdd) {
         <ul class="cards" id="cards"></ul>
     `;
 
-    artists.forEach((artist) => {
-        element.getElementsByClassName('cards')[0].appendChild(artistToAddToAlbum(artist, toAdd, track));
-    });
+    virtualizationComponent(element.querySelector('#cards'), artists, artistToAddToAlbum, [toAdd, track]);
+
+    // artists.forEach((artist) => {
+    //     element.getElementsByClassName('cards')[0].appendChild(artistToAddToAlbum(artist, toAdd, track));
+    // });
 
     function searchArtists(event) {
         const input = event.target.value.toLowerCase().trim();
