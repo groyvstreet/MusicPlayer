@@ -20,7 +20,7 @@ function trackForAlbum(track, tracks, isdeleteButtonHidden) {
         event.preventDefault();
 
         document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').innerHTML = `
+        document.getElementById('modal').innerHTML = `
             <input class="input" placeholder="Название" value="${track.title}" id="album-track-title-input-${track.id}">
         `;
 
@@ -34,6 +34,9 @@ function trackForAlbum(track, tracks, isdeleteButtonHidden) {
 
     async function addArtistToAlbumTrack() {
         document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal').innerHTML = `
+            <div class="modal__content content" id="modal-content"></div>
+        `;
         document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, true)));
     }
 
@@ -47,6 +50,9 @@ function trackForAlbum(track, tracks, isdeleteButtonHidden) {
         event.preventDefault();
 
         document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal').innerHTML = `
+            <div class="modal__content content" id="modal-content"></div>
+        `;
         document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, false)));
     }
 
