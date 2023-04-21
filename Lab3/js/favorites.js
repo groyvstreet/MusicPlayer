@@ -10,7 +10,7 @@ async function loadFavorites() {
     
         function searchTracks(event) {
             const input = event.target.value.toLowerCase().trim();
-            let searchedTracks = u.favoriteTracks.filter(track => track.title.toLowerCase().includes(input));
+            let searchedTracks = Object.values(currentUser.favoriteTracks).filter(track => track.title.toLowerCase().includes(input));
             renderTracks(currentUser, searchedTracks);
         }
 

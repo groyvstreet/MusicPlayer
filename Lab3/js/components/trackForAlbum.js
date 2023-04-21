@@ -1,7 +1,7 @@
 import { artistsToAddToAlbum } from "./artistsToAddToAlbum.js";
 import { loadingComponent } from "./loadingComponent.js";
 
-function trackForAlbum(track, tracks, isdeleteButtonHidden) {
+function trackForAlbum(track, album, isdeleteButtonHidden) {
     function updateAlbumTrackImage(event) {
         event.preventDefault();
 
@@ -59,7 +59,7 @@ function trackForAlbum(track, tracks, isdeleteButtonHidden) {
     function deleteAlbumTrack(event) {
         event.preventDefault();
 
-        tracks = tracks.filter((t) => t.id != track.id);
+        album.tracks = album.tracks.filter((t) => t.id != track.id);
         element.remove();
     }
 

@@ -42,7 +42,7 @@ function addTrack(event) {
     };
     album.tracks.push(track);
 
-    document.getElementById('cards').appendChild(trackForAlbum(track, album.tracks, album.type == 'Сингл'));
+    document.getElementById('cards').appendChild(trackForAlbum(track, album, album.type == 'Сингл'));
 }
 
 function albumTitleInput(event) {

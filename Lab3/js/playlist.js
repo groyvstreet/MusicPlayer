@@ -23,7 +23,7 @@ async function loadPlaylist(id) {
     
         function searchTracks(event) {
             const input = event.target.value.toLowerCase().trim();
-            let searchedTracks = playlist.tracks.filter(track => track.title.toLowerCase().includes(input));
+            let searchedTracks = Object.values(playlist.tracks).filter(track => track.title.toLowerCase().includes(input));
             renderTracks(currentUser, searchedTracks);
         }
     
