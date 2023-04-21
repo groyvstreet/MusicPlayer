@@ -1,48 +1,53 @@
 import { isAuthenticated, user } from './app.js';
-import { updatePlayerTracks } from './player.js';
+//import { updatePlayerTracks } from './player.js';
 import { addPlaylist } from './api/playlists.js';
 import { updateUserPlaylistsAmount } from './api/users.js';
+import { playlistComponent } from './components/playlistComponent.js';
+import { virtualizationComponent } from './components/virtualizationComponent.js';
 
 if (!isAuthenticated()) {
     window.location.href = 'signin.html';
 }
 
 function renderPlaylists(playlists) {
-    function playPlaylist(playlist) {
-        if (playlist.tracks != undefined) {
-            const tracks = Object.values(playlist.tracks);
-            updatePlayerTracks(tracks, tracks[0]);
-        }
-    }
+    // function playPlaylist(playlist) {
+    //     if (playlist.tracks != undefined) {
+    //         const tracks = Object.values(playlist.tracks);
+    //         updatePlayerTracks(tracks, tracks[0]);
+    //     }
+    // }
 
-    document.getElementById('cards').innerHTML = playlists.map((playlist) => {
-        return `
-            <li class="cards__card">
-                <a class="cards__a" href="playlist.html#${playlist.id}">
-                    <section class="card">
-                        <img class="cover-image" src="${playlist.image}">
-                        <div class="card__description">
-                            <p class="title">${playlist.title}</p>
-                            <p class="info-p">${playlist.tracksAmount} треки</p>
-                        </div>
-                        <div class="card__buttons">
-                            <button class="icon-button icon-button_size_small" id="playlist-button-play-${playlist.id}">
-                                <img class="icon-button__image" src="img/forward.svg">
-                            </button>
-                        </div>
-                    </section>
-                </a>
-            </li>
-        `;
-    }).join('');
+    // document.getElementById('cards').innerHTML = playlists.map((playlist) => {
+    //     return `
+    //         <li class="cards__card">
+    //             <a class="cards__a" href="playlist.html#${playlist.id}">
+    //                 <section class="card">
+    //                     <img class="cover-image" src="${playlist.image}">
+    //                     <div class="card__description">
+    //                         <p class="title">${playlist.title}</p>
+    //                         <p class="info-p">${playlist.tracksAmount} треки</p>
+    //                     </div>
+    //                     <div class="card__buttons">
+    //                         <button class="icon-button icon-button_size_small" id="playlist-button-play-${playlist.id}">
+    //                             <img class="icon-button__image" src="img/forward.svg">
+    //                         </button>
+    //                     </div>
+    //                 </section>
+    //             </a>
+    //         </li>
+    //     `;
+    // }).join('');
 
-    playlists.forEach((playlist) => {
-        document.getElementById(`playlist-button-play-${playlist.id}`).addEventListener('click', (event) => {
-            event.preventDefault();
+    // playlists.forEach((playlist) => {
+    //     document.getElementById(`playlist-button-play-${playlist.id}`).addEventListener('click', (event) => {
+    //         event.preventDefault();
             
-            playPlaylist(playlist);
-        });
-    });
+    //         playPlaylist(playlist);
+    //     });
+    // });
+
+    document.getElementById('cards').replaceChildren();
+    virtualizationComponent(document.getElementById('cards'), playlists, playlistComponent, []);
 }
 
 user.then((u) => {

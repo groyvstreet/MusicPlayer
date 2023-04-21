@@ -1,10 +1,10 @@
-import { isAuthenticated } from "./app.js";
-import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "./player.js";
-import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
-import { getAlbums } from "./api/albums.js";
-import { updateUserFavoriteTracksAmount } from "./api/users.js";
-import { playlistToAddTrack } from "./components/playlistToAddTrack.js";
-import { deleteTrackFromPlaylist, updatePlaylistTracksAmount } from "./api/playlists.js";
+// import { isAuthenticated } from "./app.js";
+// import { updatePlayerTracks, getCurrentTrack, updateFavoriteButtonImage } from "./player.js";
+// import { addTrackToFavorite, removeTrackFromFavorite } from "./api/tracks.js"
+// import { getAlbums } from "./api/albums.js";
+// import { updateUserFavoriteTracksAmount } from "./api/users.js";
+// import { playlistToAddTrack } from "./components/playlistToAddTrack.js";
+// import { deleteTrackFromPlaylist, updatePlaylistTracksAmount } from "./api/playlists.js";
 import { virtualizationComponent } from "./components/virtualizationComponent.js";
 import { trackComponent } from "./components/trackComponent.js";
 
