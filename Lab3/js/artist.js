@@ -1,4 +1,3 @@
-//import { updatePlayerTracks } from "./player.js";
 import { getArtist } from "./api/artists.js";
 import { getAlbumsByArtist } from "./api/albums.js";
 import { albumComponent } from "./components/albumComponent.js";
@@ -6,39 +5,6 @@ import { virtualizationComponent } from "./components/virtualizationComponent.js
 import { loadingComponent } from "./components/loadingComponent.js";
 
 function renderAlbums(albums) {
-    // document.getElementById('cards').innerHTML = albums.map(function (album) {
-    //     return `
-    //         <li class="cards__card">
-    //             <a class="cards__a" href="album.html#${album.id}">
-    //                 <section class="card">
-    //                     <img class="cover-image" src="${album.image}">
-    //                     <div class="card__description">
-    //                         <p class="title">${album.title}</p>
-    //                         <p class="info-p">${album.type}</p>
-    //                     </div>
-    //                     <div class="card__buttons">
-    //                         <button class="icon-button icon-button_size_small" id="album-button-play-${album.id}">
-    //                             <img class="icon-button__image" src="img/forward.svg">
-    //                         </button>
-    //                     </div>
-    //                 </section>
-    //             </a>
-    //         </li>
-    //     `;
-    // }).join('');
-
-    // albums.forEach((album) => {
-    //     function playAlbum(event) {
-    //         event.preventDefault();
-
-    //         if (album.tracks != undefined && album.tracks.length != 0) {
-    //             updatePlayerTracks(album.tracks, album.tracks[0]);
-    //         }
-    //     }
-
-    //     document.getElementById(`album-button-play-${album.id}`).addEventListener('click', playAlbum);
-    // });
-
     document.getElementById('cards').replaceChildren();
     virtualizationComponent(document.getElementById('cards'), albums, albumComponent, []);
 }
@@ -63,5 +29,4 @@ async function loadArtist(id) {
 }
 
 const id = window.location.href.split('#')[1];
-//loadArtist(id);
 loadingComponent(loadArtist, [id]);

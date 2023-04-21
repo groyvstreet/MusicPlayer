@@ -23,8 +23,6 @@ function updateUser() {
     }
 }
 
-//localStorage.setItem('user_id', 'ebac5a1a-d920-11ed-afa1-0242ac120002');
-
 async function loadUser() {
     updateUser();
 

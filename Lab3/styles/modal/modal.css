@@ -1,4 +1,5 @@
 @import url(./__content/modal__content.css);
+@import url(./__image/modal__image.css);
 
 .modal {
     width: 100%;

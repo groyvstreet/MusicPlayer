@@ -26,5 +26,4 @@ async function loadTracks() {
     });
 }
 
-//loadTracks();
 loadingComponent(loadTracks);

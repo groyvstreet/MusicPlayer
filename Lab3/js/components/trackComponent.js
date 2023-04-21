@@ -94,11 +94,7 @@ function trackComponent(track, user, tracks) {
                     <p>Этот трек уже находится в плейлистах, которые у вас есть.</p>
                 `;
             } else {
-                virtualizationComponent(document.getElementById('modal-cards'), playlists, playlistToAddTrack, [track, user.id]);
-
-                // playlists.forEach((playlist) => {
-                //     document.getElementById('modal-cards').appendChild(playlistToAddTrack(playlist, track, user.id));
-                // });
+                virtualizationComponent(document.getElementById('modal-cards'), playlists, playlistToAddTrack, [track, user.id], document.getElementById('modal-content'));
             }
         }
     }

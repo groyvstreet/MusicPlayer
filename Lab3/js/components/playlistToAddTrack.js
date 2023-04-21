@@ -1,4 +1,5 @@
 import { addTrackToPlaylist, updatePlaylistTracksAmount } from "../api/playlists.js";
+import { loadingComponent } from "./loadingComponent.js";
 
 function playlistToAddTrack(playlist, track, userId) {
     const element = document.createElement('li');
@@ -19,10 +20,8 @@ function playlistToAddTrack(playlist, track, userId) {
             </section>
         </a>
     `;
-    
-    element.querySelector(`#playlist-button-add-${playlist.id}`).addEventListener('click', async (event) => {
-        event.preventDefault();
-        
+
+    async function addTrack() {
         if (playlist.tracks == undefined) {
             playlist.tracks = {};
         }
@@ -32,7 +31,17 @@ function playlistToAddTrack(playlist, track, userId) {
         await updatePlaylistTracksAmount(userId, playlist.id, Object.values(playlist.tracks).length);
 
         element.remove();
-    });
+
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    function playlistAddButtonOnClick(event) {
+        event.preventDefault();
+
+        loadingComponent(addTrack);
+    }
+    
+    element.querySelector(`#playlist-button-add-${playlist.id}`).addEventListener('click', playlistAddButtonOnClick);
 
     return element;
 }

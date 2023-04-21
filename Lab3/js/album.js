@@ -26,5 +26,4 @@ async function loadAlbum() {
     });
 }
 
-//loadAlbum();
 loadingComponent(loadAlbum);

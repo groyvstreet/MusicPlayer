@@ -22,7 +22,7 @@ function isEmailValid() {
 }
 
 function isUsernameValid() {
-    return USERNAME_REGEXP.test(username);
+    return USERNAME_REGEXP.test(username) && username.trim().length != 0;
 }
 
 function isBirthdayValid() {

@@ -52,10 +52,6 @@ async function loadProfile() {
 
                 response = await updateArtist(artist);
             }
-
-            if (response.ok) {
-                alert('Изменения сохранены');
-            }
         }
 
         function profileSaveButtonOnClick(event) {
@@ -78,56 +74,3 @@ async function loadProfile() {
 }
 
 loadingComponent(loadProfile);
-
-// if (!isAuthenticated()) {
-//     window.location.href = 'signin.html';
-// } else {
-//     user.then((u) => {
-//         async function saveChanges() {
-//             u.username = document.getElementById('profile-input-username').value;
-//             u.birthday = document.getElementById('profile-input-birthday').value;
-
-//             const file = document.getElementById('profile-input-image').files[0];
-
-//             if (file != undefined) {
-//                 await addProfileImage(u.id, file);
-
-//                 u.avatar = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/img%2Fprofiles%2F${u.id}?alt=media`;
-//             }
-
-//             let response = await putUser(u);
-
-//             if (localStorage.getItem('user_role') == 'artist') {
-//                 const artist = await getArtist(u.artistId);
-//                 artist.nickname = u.username;
-
-//                 if (file != undefined) {
-//                     artist.image = u.avatar;
-//                 }
-
-//                 response = await updateArtist(artist);
-//             }
-
-//             if (response.ok) {
-//                 alert('Изменения сохранены');
-//             }
-//         }
-
-//         function profileSaveButtonOnClick(event) {
-//             event.preventDefault();
-
-//             loadingComponent(saveChanges);
-//         }
-
-//         document.getElementById('profile-image').src = u.avatar;
-//         document.getElementById('profile-input-email').value = u.email;
-//         document.getElementById('profile-input-username').value = u.username;
-//         document.getElementById('profile-input-birthday').value = u.birthday.substring(0, 10);
-//         document.getElementById('profile-span-tracks').innerHTML = 'Любимые треки: ' + u.favoriteTracksAmount;
-//         document.getElementById('profile-span-playlists').innerHTML = 'Плейлисты: ' + u.playlistsAmount;
-    
-//         document.getElementById('profile-button-save').addEventListener('click', profileSaveButtonOnClick);
-//         document.getElementById('profile-button-logout').addEventListener('click', logout);
-//         document.getElementById('profile-input-image').addEventListener('change', updateProfileImage);
-//     });
-// }

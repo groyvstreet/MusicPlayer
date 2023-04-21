@@ -7,7 +7,9 @@ async function loadingComponent(callback, args) {
     element.classList.add('modal');
     element.style.display = 'flex';
     element.id = 'loading-screen';
-    element.innerHTML = 'Loading...';
+    element.innerHTML = `
+        <img class="modal__image" src="img/persik.png">
+    `;
     document.body.appendChild(element);
 
     await callback(...args);
