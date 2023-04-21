@@ -12,7 +12,7 @@
     height: 100px;
     background: #333333;
     position: fixed;
-    bottom: 0px;
+    bottom: -100px;
     display: flex;
     align-items: center;
 }

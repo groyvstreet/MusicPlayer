@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/preview/preview.css">
+    <link rel="stylesheet" href="styles/input/input.css">
+    <link rel="stylesheet" href="styles/button/button.css">
+    <link rel="stylesheet" href="styles/cards/cards.css">
+    <link rel="stylesheet" href="styles/card/card.css">
+    <title>Новый альбом</title>
+</head>
+<body>
+    <header class="header">
+        <img class="header__logo" src="img/logo.svg">
+        <nav class="nav">
+            <ul class="nav__elems" id="nav-elems">
+                <li class="nav__elem">
+                    <a href="index.html">
+                        <img class="nav__elem-image" src="img/home.svg">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a href="favorites.html" id="nav-favorites">
+                        <img class="nav__elem-image" src="img/fill-heart.svg">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a href="playlists.html" id="nav-playlists">
+                        <img class="nav__elem-image" src="img/playlists.svg">
+                    </a>
+                </li>
+                <li class="nav__elem">
+                    <a href="artists.html">
+                        <img class="nav__elem-image" src="img/artists.svg">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <a class="header__profile" href="profile.html" id="nav-profile">
+            <img class="header__profile-image" src="img/blank-profile-picture.svg" id="nav-profile-image">
+        </a>
+    </header>
+    <main class="content">
+        <form class="preview" method="post">
+            <label id="album-image">
+                <img class="preview__image" src="img/cover-image.jpg" id="preview-image">
+                <input type="file" accept="image/png,image/jpeg,image/jpg,image/svg,image/gif" id="album-input-image" hidden>
+            </label>
+            <div class="preview__edit-block">
+                <div>
+                    <input class="input" type="text" placeholder="Название" id="album-input-title">
+                </div>
+                <div>
+                    <select class="input" id="album-input-type">
+                        <option value="1">Альбом</option>
+                        <option value="2">Мини-альбом</option>
+                        <option value="3">Сингл</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="button button_type_primary" id="album-button-upload">
+                        Загрузить
+                    </button>
+                </div>
+                <div>
+                    <button class="icon-button icon-button_size_big" id="album-button-add-track">
+                        <img class="icon-button__image" src="img/add.svg">
+                    </button>
+                </div>
+            </div>
+            <div class="content preview__tracks-edit-block" id="album-tracks">
+                <ul class="cards" id="cards"></ul>
+            </div>
+        </form>
+
+        <div class="modal" id="modal">
+            <div class="modal__content content" id="modal-content"></div>
+        </div>
+    </main>
+
+    <script type="module" src="js/album_add.js"></script>
+</body>
+</html>
