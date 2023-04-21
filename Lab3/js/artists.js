@@ -2,6 +2,7 @@
 import { getArtists } from "./api/artists.js";
 //import { getAlbumsByArtist } from "./api/albums.js";
 import { artistComponent } from "./components/artistComponent.js";
+import { loadingComponent } from "./components/loadingComponent.js";
 import { virtualizationComponent } from "./components/virtualizationComponent.js";
 
 // async function playArtist(id) {
@@ -69,4 +70,5 @@ async function loadArtists() {
     });
 }
 
-loadArtists();
+//loadArtists();
+loadingComponent(loadArtists);

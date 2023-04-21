@@ -1,5 +1,6 @@
 import { isAuthenticated } from "./app.js";
 import { signUp } from "./api/users.js";
+import { loadingComponent } from "./components/loadingComponent.js";
 
 if (isAuthenticated()) {
     window.location.href = "index.html";
@@ -104,8 +105,7 @@ function passwordConfirmationInput(event) {
     document.getElementById('signup-button').disabled = !isValid();
 }
 
-async function signupButtonOnClick(event) {
-    event.preventDefault();
+async function signUpUser() {
     const isArtist = document.getElementById('signup-input-is-artist').checked;
 
     const uid = await signUp(email, password, username, birthday, isArtist);
@@ -123,6 +123,12 @@ async function signupButtonOnClick(event) {
 
         window.location.href = 'index.html';
     }
+}
+
+async function signupButtonOnClick(event) {
+    event.preventDefault();
+    
+    loadingComponent(signUpUser);
 }
 
 document.getElementById('signup-input-email').addEventListener('input', emailInput);

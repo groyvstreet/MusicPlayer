@@ -3,6 +3,7 @@ import { getArtist } from "./api/artists.js";
 import { getAlbumsByArtist } from "./api/albums.js";
 import { albumComponent } from "./components/albumComponent.js";
 import { virtualizationComponent } from "./components/virtualizationComponent.js";
+import { loadingComponent } from "./components/loadingComponent.js";
 
 function renderAlbums(albums) {
     // document.getElementById('cards').innerHTML = albums.map(function (album) {
@@ -62,4 +63,5 @@ async function loadArtist(id) {
 }
 
 const id = window.location.href.split('#')[1];
-loadArtist(id);
+//loadArtist(id);
+loadingComponent(loadArtist, [id]);

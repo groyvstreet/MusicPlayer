@@ -1,5 +1,6 @@
 import { signIn } from "./api/users.js";
 import { isAuthenticated } from "./app.js";
+import { loadingComponent } from "./components/loadingComponent.js";
 
 if (isAuthenticated()) {
     window.location.href = "index.html";
@@ -39,9 +40,7 @@ function passwordInput(event) {
     document.getElementById('signin-button').disabled = !isValid();
 }
 
-async function signinButtonOnClick(event) {
-    event.preventDefault();
-
+async function signInByEmailAndPassword() {
     const user = await signIn(email, password);
     
     document.cookie = `user=${user.id}`;
@@ -53,6 +52,12 @@ async function signinButtonOnClick(event) {
     }
     
     window.location.href = 'index.html';
+}
+
+async function signinButtonOnClick(event) {
+    event.preventDefault();
+
+    loadingComponent(signInByEmailAndPassword);
 }
 
 document.getElementById('signin-input-email').addEventListener('input', emailInput);

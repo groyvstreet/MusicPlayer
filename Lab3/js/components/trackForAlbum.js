@@ -1,4 +1,5 @@
 import { artistsToAddToAlbum } from "./artistsToAddToAlbum.js";
+import { loadingComponent } from "./loadingComponent.js";
 
 function trackForAlbum(track, tracks, isdeleteButtonHidden) {
     function updateAlbumTrackImage(event) {
@@ -31,11 +32,15 @@ function trackForAlbum(track, tracks, isdeleteButtonHidden) {
         document.getElementById(`album-track-title-input-${track.id}`).addEventListener('input', albumTrackTitleInput);
     }
 
+    async function addArtistToAlbumTrack() {
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, true)));
+    }
+
     async function albumTrackAddArtistOnClick(event) {
         event.preventDefault();
 
-        document.getElementById('modal').style.display = 'flex';
-        document.getElementById('modal-content').replaceChildren((await artistsToAddToAlbum(track, true)));
+        loadingComponent(addArtistToAlbumTrack);
     }
 
     async function albumTrackDeleteArtistOnClick(event) {

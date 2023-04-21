@@ -1,6 +1,7 @@
 import { user } from './app.js';
 import { renderTracks } from './tracks.js';
 import { getAlbum } from './api/albums.js';
+import { loadingComponent } from './components/loadingComponent.js';
 
 const id = window.location.href.split('#')[1];
 
@@ -25,4 +26,5 @@ async function loadAlbum() {
     });
 }
 
-loadAlbum();
+//loadAlbum();
+loadingComponent(loadAlbum);

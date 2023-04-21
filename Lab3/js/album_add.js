@@ -3,6 +3,7 @@ import { trackForAlbum } from "./components/trackForAlbum.js";
 import { addAlbum } from "./api/albums.js";
 import { addAlbumImage, addTrackFile } from "./api/files.js";
 import { getArtist, updateArtist } from "./api/artists.js";
+import { loadingComponent } from "./components/loadingComponent.js";
 
 if (!isAuthenticated()) {
     window.location.href = 'signin.html';
@@ -78,7 +79,32 @@ function albumTypeChange(event) {
     }
 }
 
-async function uploadAlbum(event) {
+async function uploadAlbum() {
+    album.artist = await getArtist((await user).artistId);
+    album.tracksAmount = album.tracks.length;
+    album.artist.tracksAmount += album.tracksAmount;
+
+    await updateArtist(album.artist);
+
+    const albumImage = document.getElementById('album-input-image').files[0];
+    await addAlbumImage(album.id, albumImage);
+    album.image = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/img%2Falbums%2F${album.id}?alt=media`;
+
+    for (let i = 0; i < album.tracks.length; i++) {
+        album.tracks[i].image = album.image;
+        album.tracks[i].src = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/tracks%2F${album.tracks[i].id}?alt=media`;
+        const trackFile = document.getElementById(`album-input-track-${album.tracks[i].id}`).files[0];
+        await addTrackFile(album.tracks[i].id, trackFile);
+    }
+
+    const response = await addAlbum(album);
+
+    if (response.ok) {
+        window.location.href = `album.html#${album.id}`;
+    }
+}
+
+async function albumUploadButtonOnClick(event) {
     event.preventDefault();
 
     if (album.title.trim().length == 0) {
@@ -111,34 +137,13 @@ async function uploadAlbum(event) {
         return;
     }
 
-    album.artist = await getArtist((await user).artistId);
-    album.tracksAmount = album.tracks.length;
-    album.artist.tracksAmount += album.tracksAmount;
-
-    await updateArtist(album.artist);
-
-    const albumImage = document.getElementById('album-input-image').files[0];
-    await addAlbumImage(album.id, albumImage);
-    album.image = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/img%2Falbums%2F${album.id}?alt=media`;
-
-    for (let i = 0; i < album.tracks.length; i++) {
-        album.tracks[i].image = album.image;
-        album.tracks[i].src = `https://firebasestorage.googleapis.com/v0/b/krakensound-ee3a2.appspot.com/o/tracks%2F${album.tracks[i].id}?alt=media`;
-        const trackFile = document.getElementById(`album-input-track-${album.tracks[i].id}`).files[0];
-        await addTrackFile(album.tracks[i].id, trackFile);
-    }
-
-    const response = await addAlbum(album);
-
-    if (response.ok) {
-        window.location.href = `album.html#${album.id}`;
-    }
+    await loadingComponent(uploadAlbum);    
 }
 
 document.getElementById('album-input-image').addEventListener('change', updateAlbumImage);
 document.getElementById('album-input-title').addEventListener('input', albumTitleInput);
 document.getElementById('album-input-type').addEventListener('change', albumTypeChange);
-document.getElementById('album-button-upload').addEventListener('click', uploadAlbum);
+document.getElementById('album-button-upload').addEventListener('click', albumUploadButtonOnClick);
 document.getElementById('album-button-add-track').addEventListener('click', addTrack);
 
 const modal = document.getElementById('modal');

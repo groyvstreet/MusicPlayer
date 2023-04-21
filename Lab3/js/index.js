@@ -1,6 +1,7 @@
 import { user } from './app.js';
 import { renderTracks } from './tracks.js';
 import { getAlbums } from './api/albums.js';
+import { loadingComponent } from './components/loadingComponent.js';
 
 async function loadTracks() {
     let albums = await getAlbums();
@@ -25,4 +26,5 @@ async function loadTracks() {
     });
 }
 
-loadTracks();
+//loadTracks();
+loadingComponent(loadTracks);
